@@ -1,0 +1,37 @@
+{
+  "heroTag": "About Everplay",
+  "heroHeading": "Who We Are",
+  "heroBody": "Everplay is a game publishing company dedicated to bringing fun and diverse experiences to players. We offer a wide range of game genres, allowing you to jump from one adventure to another without the constant pressure of spending on gems and microtransactions.",
+  "heroImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL5NRYp0gBL3TLgqWpeSb6MTNUK9kilZySqbEQgZndnxUGRD0N6D9Vof4hntXKm7oVknqyVmJ4HmNEyuv6j90Lf839mz_ioJY2E7O43Okw6WnL2T-YdRYoXCnQnlTb--i1bJpBVQdzH_uQphRQisZSqrOUCndYnlPkYAx-84d1IFLYAx0cz-eNvm-1l96R2SI-6u-qFSri-LCx3C8eRyY3-6QkNX9dz0UypFCBYQPCmzw3H5GmnZFkcw",
+  "heroImageAlt": "A high-quality 3D hero game art composition set in a vibrant, futuristic neon city featuring a stylized character, a sports car, and an ogre boss.",
+  "teamHeading": "Meet the Team",
+  "teamSubtext": "The visionaries and builders behind Everplay's mission to redefine mobile gaming.",
+  "members": [
+    {
+      "name": "Alex Rivera",
+      "role": "Founder & CEO",
+      "bio": "Visionary leader with 15+ years in mobile tech and gaming ecosystems.",
+      "photo": "https://lh3.googleusercontent.com/aida-public/AB6AXuAvauuk3eZaAJpXWTQeKugI95KdFKuXP4yajtGhmsJGmOg389ZE7nP3DgEL6JICaKd9Nfn7IUtqg6Li3UEpWLSh-xbqv-9ojmYcI8PyDtKxOrajwDv40QZBQRMJVVMYK0VL7euSYlV-Quns65dQhyB0K9_Uj0fOfqe9AwqsRqdsiSR9ydxrnhHY_zwlt6hM8zfhmDfZOGH28VGhqxcgdiJP-BnMN6RLNMuAQ_zpoZpuk8Km7jMXA3csuA"
+    },
+    {
+      "name": "Sarah Chen",
+      "role": "Head of Product",
+      "bio": "Driving product excellence through data-driven user experiences.",
+      "photo": "https://lh3.googleusercontent.com/aida-public/AB6AXuCy-YhtjG6gtnJUwCWlthRoOm5wUHiMQjRzna92ySjsmHfJrEr4IdJUrSENrSFVrWws2ik0lA4xSOoDONE3nib10JlAWvYLVrNeR6GnhzdZj9_7oAa7sN65V3NcdKJ58mxKZac-93h5KFnlrPk7kJ_j_6CsvheFSB_VMkPXu5pOZgkXz3lzoEYHtPxJPZRswbvUDG_iMNRblTsekO5brGE36HeRCrNnPmpJwad9GRohwtC30Mx89caQkA"
+    },
+    {
+      "name": "Marcus Thorne",
+      "role": "Chief Technology Officer",
+      "bio": "Architecting scalable solutions for high-impact gaming partnerships.",
+      "photo": "https://lh3.googleusercontent.com/aida-public/AB6AXuAWXzOfev0BynznM4bHcagXUhqFyMA52Z6AnehXLrjJ9oNJRCP64wE3Tix7l0RCOVMdMYIdJJgcvE6XEeBSUx7LNOQz5AfB1WhxvVcAD7zFySRh1Moa8LapQYCW5lmTqXyIiJLNO6eH7Cap_HWUP6hAdqkUoaUz4sjppvUu8Lm6EF7QuDYfYZEBBTc-6EhL4TM39nCdAbCkLPv0SlJu4F7StsZa-dWPp0SMYEAQ5QNkxim6tUIBzqejsw"
+    },
+    {
+      "name": "Elena Rodriguez",
+      "role": "Head of Partnerships",
+      "bio": "Connecting visionary studios with strategic industry leaders.",
+      "photo": "https://lh3.googleusercontent.com/aida-public/AB6AXuDA43apWxfQV6t2XXa4LG_nGR3HqvPvQB7WDO0ewSf8U0KNC_rtxNm5k2hMzAo7P85qpy2fTYX2J35P6vOKQTrr5Bjt9U9R4He4Xv4hXjfU3GUkKVmVidPv0jvdk71wyt0_cySEEo1nayzZedoE2M41y8t6uzVQ4mj26mfCeQ6lgO6M777PsB9e_RaYXU7TjyAhAfAXcq_QmdRSdVkqlN5uye6It46Y5x1WlJw1swH5oRsnx8wVtBIUzg"
+    }
+  ],
+  "ctaHeading": "Stay Connected",
+  "ctaBody": "Join our community of innovators and receive the latest updates on the Everplay ecosystem directly in your inbox."
+}

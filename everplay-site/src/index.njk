@@ -1,0 +1,50 @@
+---
+layout: base.njk
+title: Everplay | Game Library
+activeNav: home
+permalink: /
+---
+<main class="pt-32 pb-section_padding">
+<div class="mx-auto px-gutter max-w-container_max_width">
+<div class="mb-12">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-3">{{ home.heading }}</h1>
+<p class="font-body-lg text-body-lg text-secondary max-w-2xl">{{ home.subtext }}</p>
+</div>
+<div class="game-grid">
+{% for game in games %}
+<div class="group flex flex-col gap-2">
+<div class="relative w-full aspect-[4/5] rounded-lg overflow-hidden bg-surface-container-high game-card-shadow transition-all duration-300">
+<div class="static-thumb w-full h-full bg-cover bg-center" style="background-image: url('{{ game.image }}');"></div>
+<div class="video-container absolute inset-0">
+<video class="w-full h-full object-cover" loop muted playsinline>
+<source src="{{ game.video }}" type="video/mp4">
+</video>
+</div>
+<div class="absolute bottom-2 left-2 w-6 h-6 rounded {{ game.accent | accentBadge }} flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined {{ game.accent | accentText }} text-[14px]">{{ game.icon }}</span>
+</div>
+</div>
+<div class="flex flex-col leading-tight">
+<h4 class="font-bold text-on-surface text-[13px] truncate">{{ game.title }}</h4>
+<p class="text-secondary text-[11px]">{{ game.genre }}</p>
+<p class="text-on-surface-variant font-medium text-[11px]">{{ game.price }}</p>
+</div>
+</div>
+{% endfor %}
+</div>
+</div>
+</main>
+<script>
+    document.querySelectorAll('.group').forEach(card => {
+        const video = card.querySelector('video');
+        if (video) {
+            card.addEventListener('mouseenter', () => {
+                video.currentTime = 0;
+                video.play();
+            });
+            card.addEventListener('mouseleave', () => {
+                video.pause();
+            });
+        }
+    });
+</script>

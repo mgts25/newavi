@@ -1,0 +1,54 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>{{ title }}</title>
+<link rel="stylesheet" href="/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden flex flex-col min-h-screen">
+<nav class="fixed top-0 w-full z-50 glass-nav bg-surface/80 shadow-sm">
+<div class="flex justify-between items-center h-20 px-gutter mx-auto max-w-container_max_width">
+<a href="/" class="font-display-lg font-extrabold text-primary tracking-tighter text-headline-md">EVERPLAY</a>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-label-md text-label-md {% if activeNav == 'home' %}text-primary border-b-2 border-primary pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors duration-200{% endif %}" href="/">Home</a>
+<a class="font-label-md text-label-md {% if activeNav == 'about' %}text-primary border-b-2 border-primary pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors duration-200{% endif %}" href="/about/">About</a>
+<a class="font-label-md text-label-md {% if activeNav == 'pricing' %}text-primary border-b-2 border-primary pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors duration-200{% endif %}" href="/pricing/">Pricing</a>
+</div>
+<div class="flex items-center gap-4">
+<a href="/login/" class="inline-block font-label-md text-label-md {% if activeNav == 'login' %}text-primary{% else %}text-on-surface-variant{% endif %} hover:text-primary transition-colors px-4 py-2">Login</a>
+<a href="/login/" class="inline-block bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-md text-label-md font-bold scale-95 active:scale-90 transition-all duration-200">Get Started</a>
+</div>
+</div>
+</nav>
+{{ content | safe }}
+<footer class="w-full py-section_padding bg-surface border-t border-outline-variant mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center gap-base_unit px-gutter max-w-container_max_width mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-primary mb-4 md:mb-0">
+                Everplay
+            </div>
+<div class="flex flex-col md:flex-row items-center gap-8">
+<nav class="flex gap-6">
+<a class="font-label-md text-label-md text-secondary hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary transition-colors" href="#">Contact</a>
+</nav>
+<p class="font-body-md text-body-md text-secondary opacity-80">
+                    © {{ currentYear }} Everplay. All rights reserved.
+                </p>
+</div>
+</div>
+</footer>
+<script>
+    // Lets teammate invite/confirmation/recovery emails (which link to the
+    // site root with a #token) open the Netlify Identity signup modal from
+    // any page, not just /admin/.
+    if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", function (user) {});
+        if (window.location.hash && window.location.hash.match(/invite_token|confirmation_token|recovery_token/)) {
+            window.netlifyIdentity.open();
+        }
+    }
+</script>
+</body></html>

@@ -1,0 +1,53 @@
+---
+layout: base.njk
+title: Everplay | Pricing - Choose Your Experience
+activeNav: pricing
+permalink: /pricing/
+---
+<main class="pt-32 pb-section_padding">
+<section class="mx-auto px-gutter max-w-container_max_width mb-12 text-center">
+<button class="webshop-btn px-10 py-4 rounded-xl text-white font-headline-md inline-flex items-center gap-3 shadow-2xl">
+<span class="carbon-texture absolute inset-0 opacity-20 pointer-events-none"></span>
+<span class="material-symbols-outlined text-inverse-primary" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+<span class="relative z-10 tracking-wide uppercase text-sm font-bold">Visit Webshop</span>
+</button>
+</section>
+<section class="mx-auto px-gutter max-w-container_max_width w-full">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+{% for tier in pricing.tiers %}
+<div class="bg-white rounded-xl p-8 flex flex-col {% if tier.featured %}border-2 border-primary relative shadow-md{% else %}border border-outline-variant/30{% endif %} pricing-card-hover transition-all duration-300">
+{% if tier.featured %}<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-on-primary px-4 py-1 rounded-full font-label-md text-[12px] uppercase font-bold tracking-widest">Most Popular</div>{% endif %}
+<div class="mb-6">
+<span class="px-3 py-1 {% if tier.featured %}bg-primary-container/20 text-primary{% else %}bg-secondary-container text-on-secondary-container{% endif %} rounded-full font-label-md text-[12px] tracking-wider uppercase">{{ tier.badge }}</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2 text-on-surface">{{ tier.name }}</h3>
+<div class="flex items-baseline gap-1 mb-6">
+{% if tier.priceLabel %}<span class="font-body-md text-secondary">{{ tier.priceLabel }}</span>{% endif %}
+<span class="font-display-lg text-headline-lg font-bold text-on-surface">{{ tier.price }}</span>
+{% if tier.priceSuffix %}<span class="font-body-md text-secondary">{{ tier.priceSuffix }}</span>{% endif %}
+</div>
+<ul class="space-y-4 mb-8 flex-grow">
+{% for feature in tier.features %}
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md {% if tier.featured %}text-on-surface font-medium{% else %}text-secondary{% endif %}">{{ feature }}</span>
+</li>
+{% endfor %}
+</ul>
+<button class="w-full py-3 rounded-lg {% if tier.featured %}bg-primary text-on-primary shadow-lg shadow-primary/20 hover:bg-primary-container{% else %}border border-outline text-on-surface hover:bg-surface-container-low{% endif %} font-label-md transition-colors">{{ tier.cta }}</button>
+</div>
+{% endfor %}
+</div>
+</section>
+<section class="mx-auto px-gutter max-w-container_max_width mt-section_padding">
+<div class="bg-surface-container-highest/30 rounded-2xl p-12 text-center">
+<h2 class="font-headline-lg text-headline-lg mb-4 text-on-surface">{{ pricing.faqHeading }}</h2>
+<p class="font-body-md text-body-md text-secondary mb-8">{{ pricing.faqSubtext }}</p>
+<div class="flex flex-wrap justify-center gap-8 opacity-60 grayscale hover:grayscale-0 transition-all">
+<div class="flex items-center gap-2 font-headline-md text-on-surface-variant select-none"><span class="material-symbols-outlined">security</span> SECURE-PAY</div>
+<div class="flex items-center gap-2 font-headline-md text-on-surface-variant select-none"><span class="material-symbols-outlined">verified</span> TRUSTED-PARTNER</div>
+<div class="flex items-center gap-2 font-headline-md text-on-surface-variant select-none"><span class="material-symbols-outlined">public</span> GLOBAL-CONNECT</div>
+</div>
+</div>
+</section>
+</main>

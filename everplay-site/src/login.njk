@@ -1,0 +1,65 @@
+---
+layout: base.njk
+title: Login | Everplay
+activeNav: login
+permalink: /login/
+---
+<main class="flex-grow flex items-center justify-center pt-20 pb-12 px-gutter auth-grid-bg">
+<div class="w-full max-w-md">
+<div class="bg-surface-container-lowest rounded-xl p-base_unit md:p-10 shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border border-outline-variant/30">
+<div class="text-center mb-10">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Welcome Back</h1>
+<p class="font-body-md text-secondary">The strategic gateway to your mobile gaming empire.</p>
+</div>
+<div class="space-y-4">
+<button class="w-full flex items-center justify-center gap-3 bg-primary text-on-primary font-label-md text-label-md py-4 rounded-lg shadow-sm hover:bg-primary-container hover:text-on-primary-container transition-all duration-300 transform active:scale-[0.98]">
+<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 12-4.53z"></path>
+</svg>
+Login with Google
+</button>
+<div class="relative flex items-center py-4">
+<div class="flex-grow border-t border-outline-variant"></div>
+<span class="flex-shrink mx-4 font-label-md text-label-md text-on-surface-variant/50">or continue with email</span>
+<div class="flex-grow border-t border-outline-variant"></div>
+</div>
+<div class="space-y-4">
+<div class="group">
+<label class="block font-label-md text-label-md text-secondary mb-2">Corporate Email</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-surface-bright transition-all outline-none font-body-md" placeholder="name@company.com" type="email">
+</div>
+<div class="group">
+<label class="block font-label-md text-label-md text-secondary mb-2">Password</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-surface-bright transition-all outline-none font-body-md" placeholder="••••••••" type="password">
+</div>
+<button class="w-full py-4 rounded-lg border border-outline text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors">
+                            Sign In
+                        </button>
+</div>
+</div>
+<div class="mt-8 text-center">
+<p class="font-body-md text-secondary">
+                        Don't have an account?
+                        <a class="text-primary font-bold hover:underline" href="#">Create Account</a>
+</p>
+</div>
+</div>
+<div class="mt-12 opacity-80 flex justify-center grayscale hover:grayscale-0 transition-all duration-500">
+<div class="w-24 h-1 bg-primary/20 rounded-full"></div>
+</div>
+</div>
+</main>
+<script>
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            input.parentElement.querySelector('label').classList.add('text-primary');
+        });
+        input.addEventListener('blur', () => {
+            input.parentElement.querySelector('label').classList.remove('text-primary');
+        });
+    });
+</script>

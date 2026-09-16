@@ -1,0 +1,36 @@
+{
+  "tiers": [
+    {
+      "badge": "Free Tier",
+      "name": "Integrated Ad Network",
+      "priceLabel": "",
+      "price": "Free",
+      "priceSuffix": "",
+      "features": ["High-Quality Gameplay", "Contextual Game Ads", "Basic Profile Socials"],
+      "cta": "Start Playing",
+      "featured": false
+    },
+    {
+      "badge": "Premium",
+      "name": "P2P Membership",
+      "priceLabel": "",
+      "price": "$5",
+      "priceSuffix": "/mo",
+      "features": ["Ad-Free Experience", "Exclusive Game Assets", "Early Access Titles", "Priority Matchmaking"],
+      "cta": "Join Membership",
+      "featured": true
+    },
+    {
+      "badge": "On-Demand",
+      "name": "Individual IAP",
+      "priceLabel": "From",
+      "price": "$0.99",
+      "priceSuffix": "",
+      "features": ["Single Game Unlock", "Permanent Asset Ownership", "Custom Item Packs"],
+      "cta": "Browse Store",
+      "featured": false
+    }
+  ],
+  "faqHeading": "Still have questions?",
+  "faqSubtext": "Our strategic partnerships ensure transparency in every transaction."
+}
