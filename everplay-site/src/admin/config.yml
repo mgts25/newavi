@@ -1,8 +1,32 @@
+bash
+
+cat /tmp/current_config.yml
+Output
+
+# Use DecapBridge classic auth (required)
 backend:
   name: git-gateway
+  repo: mgts25/newavi
   branch: main
+  identity_url: https://auth.decapbridge.com/sites/24f9e953-bb44-4b1d-bd9f-f4b7f6c53dd3
+  gateway_url: https://gateway.decapbridge.com
 
-# Editors sign in with Netlify Identity; every change they save here is
+  # See who did what (optional)
+  commit_messages:
+    create: Create {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    update: Update {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    delete: Delete {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    uploadMedia: Upload “{{path}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    deleteMedia: Delete “{{path}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}> via DecapBridge
+
+# Better Decap + Bridge logo (optional)
+logo_url: https://decapbridge.com/decapcms-with-bridge.svg
+
+# Add site links in Decap CMS (optional)
+site_url: https://cosmic-dragon-248062.netlify.app
+
+# Editors sign in via DecapBridge; every change they save here is
 # committed straight to the GitHub repo, which triggers a new Netlify build.
 media_folder: "src/images/uploads"
 public_folder: "/images/uploads"
@@ -36,7 +60,7 @@ collections:
           - { label: "Blue", value: "tertiary" }
           - { label: "Light Blue", value: "tertiary-container" }
           - { label: "Gray", value: "secondary" }
-      - { label: "Hover Preview Video (optional)", name: "video", widget: "string", required: false, hint: "Direct link to an .mp4 file, plays when a visitor hovers the tile" }
+      - { label: "Hover Preview Video (optional)", name: "video", widget: "file", required: false, hint: "Upload a short .mp4 (a few seconds, ideally under ~8MB) — it plays when a visitor hovers the tile" }
       - { label: "Sort Order", name: "order", widget: "number", default: 0, hint: "Lower numbers appear first in the grid" }
 
   - name: "pricing"
