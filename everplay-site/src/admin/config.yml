@@ -42,34 +42,35 @@ public_folder: "/images/uploads"
 collections:
   - name: "games"
     label: "Game Library"
-    folder: "everplay-site/src/_data/games"
-    create: true
-    delete: true
-    slug: "{{slug}}"
-    identifier_field: "title"
-    summary: "{{title}} — {{genre}}"
-    sortable_fields: ["order", "title", "genre"]
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Genre", name: "genre", widget: "string" }
-      - { label: "Price Label", name: "price", widget: "string", default: "Free", hint: "Shown under the game tile, e.g. Free, $2.99" }
-      - { label: "Cover Image", name: "image", widget: "image" }
-      - label: "Icon Badge"
-        name: "icon"
-        widget: "string"
-        hint: "A Material Symbols icon name, e.g. rocket_launch, swords, speed. Browse names at fonts.google.com/icons"
-      - label: "Accent Color"
-        name: "accent"
-        widget: "select"
-        default: "primary"
-        options:
-          - { label: "Green", value: "primary" }
-          - { label: "Light Green", value: "primary-container" }
-          - { label: "Blue", value: "tertiary" }
-          - { label: "Light Blue", value: "tertiary-container" }
-          - { label: "Gray", value: "secondary" }
-      - { label: "Hover Preview Video (optional)", name: "video", widget: "file", required: false, hint: "Upload a short .mp4 (a few seconds, ideally under ~8MB) — it plays when a visitor hovers the tile" }
-      - { label: "Sort Order", name: "order", widget: "number", default: 0, hint: "Lower numbers appear first in the grid" }
+    files:
+      - name: "games"
+        label: "Games"
+        file: "everplay-site/src/_data/gameLibrary.json"
+        fields:
+          - label: "Games"
+            name: "games"
+            widget: "list"
+            summary: "{{title}} — {{genre}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Genre", name: "genre", widget: "string" }
+              - { label: "Price Label", name: "price", widget: "string", default: "Free", hint: "Shown under the game tile, e.g. Free, $2.99" }
+              - { label: "Cover Image", name: "image", widget: "image" }
+              - label: "Icon Badge"
+                name: "icon"
+                widget: "string"
+                hint: "A Material Symbols icon name, e.g. rocket_launch, swords, speed. Browse names at fonts.google.com/icons"
+              - label: "Accent Color"
+                name: "accent"
+                widget: "select"
+                default: "primary"
+                options:
+                  - { label: "Green", value: "primary" }
+                  - { label: "Light Green", value: "primary-container" }
+                  - { label: "Blue", value: "tertiary" }
+                  - { label: "Light Blue", value: "tertiary-container" }
+                  - { label: "Gray", value: "secondary" }
+              - { label: "Hover Preview Video (optional)", name: "video", widget: "file", required: false, hint: "Upload a short .mp4 (a few seconds, ideally under ~8MB) — it plays when a visitor hovers the tile" }
 
   - name: "pricing"
     label: "Pricing Page"
