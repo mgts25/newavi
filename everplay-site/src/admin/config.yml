@@ -33,13 +33,16 @@ site_url: https://cosmic-dragon-248062.netlify.app
 
 # Editors sign in via DecapBridge (Google); every change they save here is
 # committed straight to the GitHub repo, which triggers a new Netlify build.
-media_folder: "src/images/uploads"
+# NOTE: paths below are prefixed with "everplay-site/" because that's where
+# the actual project lives inside the mgts25/newavi repo (repo root itself
+# is NOT the project root).
+media_folder: "everplay-site/src/images/uploads"
 public_folder: "/images/uploads"
 
 collections:
   - name: "games"
     label: "Game Library"
-    folder: "src/_data/games"
+    folder: "everplay-site/src/_data/games"
     create: true
     delete: true
     slug: "{{slug}}"
@@ -73,7 +76,7 @@ collections:
     files:
       - name: "pricing"
         label: "Pricing Tiers & FAQ"
-        file: "src/_data/pricing.json"
+        file: "everplay-site/src/_data/pricing.json"
         fields:
           - label: "Tiers"
             name: "tiers"
@@ -99,7 +102,7 @@ collections:
     files:
       - name: "team"
         label: "About Content & Team"
-        file: "src/_data/team.json"
+        file: "everplay-site/src/_data/team.json"
         fields:
           - { label: "Hero Tag", name: "heroTag", widget: "string" }
           - { label: "Hero Heading", name: "heroHeading", widget: "string" }
@@ -125,7 +128,7 @@ collections:
     files:
       - name: "home"
         label: "Homepage Settings"
-        file: "src/_data/home.json"
+        file: "everplay-site/src/_data/home.json"
         fields:
           - { label: "Heading", name: "heading", widget: "string" }
           - { label: "Subtext", name: "subtext", widget: "text" }
