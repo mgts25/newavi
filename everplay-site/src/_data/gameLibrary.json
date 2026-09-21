@@ -1,12 +1,12 @@
 {
   "games": [
     {
-      "title": "PIXDASH",
+      "title": "PIXEL DASH",
       "genre": "Battle Royale",
       "price": "Free",
       "icon": "rocket_launch",
-      "accent": "primary",
-      "image": "https://lh3.googleusercontent.com/aida/AP1WRLs90IJG6xlYuM-E1lguhjlTUH3Xomozfe2dgbbENrjKa8EyCRmObiM8tGai-q0Ljo5Ru82CQqStfN0hNYGB_hkcDjNwK5sTVRePyPOooqK0pfXneNfBuSNPI2ewv8uEKCVwNTWpbHKQeNIsx_rjinpnTUfdATZ62lxxLP0HBUHXXhwwUOyo-AcffuNqZqAuNdHFrsEzCN5xyw4-otOlASbgyoe-6TlUIED3QVZZsJ9cMXeghJkGQpMbUFsw",
+      "accent": "secondary",
+      "image": "/images/uploads/pixeldash_background.png",
       "video": "https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
     },
     {
