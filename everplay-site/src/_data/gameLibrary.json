@@ -1,0 +1,112 @@
+{
+  "games": [
+    {
+      "title": "PIXDASH",
+      "genre": "Battle Royale",
+      "price": "Free",
+      "icon": "rocket_launch",
+      "accent": "primary",
+      "image": "https://lh3.googleusercontent.com/aida/AP1WRLs90IJG6xlYuM-E1lguhjlTUH3Xomozfe2dgbbENrjKa8EyCRmObiM8tGai-q0Ljo5Ru82CQqStfN0hNYGB_hkcDjNwK5sTVRePyPOooqK0pfXneNfBuSNPI2ewv8uEKCVwNTWpbHKQeNIsx_rjinpnTUfdATZ62lxxLP0HBUHXXhwwUOyo-AcffuNqZqAuNdHFrsEzCN5xyw4-otOlASbgyoe-6TlUIED3QVZZsJ9cMXeghJkGQpMbUFsw",
+      "video": "https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+    },
+    {
+      "title": "NEON KNIGHTS",
+      "genre": "Action RPG",
+      "price": "Free",
+      "icon": "swords",
+      "accent": "tertiary",
+      "image": "https://lh3.googleusercontent.com/aida/AP1WRLvd-Zzu-Rlh9pgZ4dVQ0XGpazbDZ2GgUbFwwVuvYxSTKqxsX14H_Edmd8l31F8A-LqH9NxRSgsxuHRC39-PdYBai9jbj3SNRZgkFQEcgLg4WDPu0Iw3GndWDY9se-ajoK8uHit6eBVXrJE19hoySardsi8rsRVAojze9JVWxXHjco_9EwTmUsNsLnUSKLzZluZ_eZ-gIZWdrmwYtXmjWg6Gt_hCIxYYEZk4-QQ-EuFylzgBTSNh0xC1t2mM",
+      "video": "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+    },
+    {
+      "title": "WARFRONT",
+      "genre": "Tactical Shooter",
+      "price": "Free",
+      "icon": "military_tech",
+      "accent": "primary-container",
+      "image": "https://lh3.googleusercontent.com/aida/AP1WRLtMDax1aKulGwAd_hh10Hhkwp3L0JJqX9XAUC9oT9BAsB3hfKgvzu_ZPwMFNCdhITWGRtyyXg-giE43blcMJXkLkam6mug2b86MuGjCBKGJNph5tedXNV6ruFNnc3Bicn8XyYjGy3xGZtEm5ww-35ji889fQvTyX4WmzLV_RZAPftHiIm7KoqyKQe6wTmdNmxLTaqrLe6qYK6znxaNbMu6Z17WbewQy_omRPjlmtAR5ctwqXC1QL3PUrhep",
+      "video": "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4"
+    },
+    {
+      "title": "KILLBOX",
+      "genre": "First Person",
+      "price": "Free",
+      "icon": "target",
+      "accent": "secondary",
+      "image": "https://lh3.googleusercontent.com/aida/AP1WRLtJ9maC6icAa7NyetwNPCGvtN1Gf-QOqVGuMk0BYDMs1izdlMFq3D5Tn9UFytv9bEnbQbHAPUjB2B7FuV0L5gn7KAJAt5RaUmXLCg6QQBbQPFYyEiGxXNjygkxpDCYQypolB_ICmca8orKGaWRYESv-cmTHwkoQ81y2G0yirOHzHgetUdxIbSsjAb2EC4761-UsBmucENt3o6gRtL7BMlLIZW7qB_Kks0y2MMJNQOE-zKes4h-_AFZOXKiZ",
+      "video": "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
+    },
+    {
+      "title": "APEX ASCENT",
+      "genre": "Platformer",
+      "price": "Free",
+      "icon": "landscape",
+      "accent": "primary",
+      "image": "https://lh3.googleusercontent.com/aida/AP1WRLue9fq5_HZu-J84w73U6TOVGBCsllHXAoF3te0RzAihCWwuFeZ6DjHsP5VHZmhiKX902ME0mqKqDtxj9rxW8lSI0A72HvAmI2mYn9B8ARtakSKjNo8dbBqa0-uT7GAs3inO-wjLtvfY0dUlOQmPAndZ0P0Ps7y6TBNmDO57KKzfOCpLDQEllHT-aflJqXm-uAbqVlbKI_WBbj-lSX3_TMKPpV1pb_oioGuyU_DhVDBr4iCh0J0088H9YBM",
+      "video": "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+    },
+    {
+      "title": "STELLAR VOID",
+      "genre": "Space Exploration",
+      "price": "Free",
+      "icon": "public",
+      "accent": "tertiary-container",
+      "image": "https://lh3.googleusercontent.com/aida/AP1WRLsOzFn2Sx9xGL52Jt2Z5JYRXDXjrFOmFMxi5wrf7NQ_PVGu5NCnB3KsGJ92xjClFGF_-w5jfw2iCtpnbXjZeD9nGC_J2r8MVzdQBHMM3t2VSyIRoczg1uC7IehBZg7P00ZhAfOE9y_Rxa_p6ON8VzA0qEkhuGQbpqMCvigDijNbhoct2pijPVq-6oX2gbMNkDN-YpFz7Dj9duuIGtgWHMPO2VU5N6mEKIfWmbzASeDJvuHMa8HCIcnbtJFu",
+      "video": "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"
+    },
+    {
+      "title": "DRIFT KINGS",
+      "genre": "Racing",
+      "price": "Free",
+      "icon": "speed",
+      "accent": "primary-container",
+      "image": "https://lh3.googleusercontent.com/aida/AP1WRLtQUafxttQDq6d-QIVnxrxVnmNYSTvBMx4smoxTFm83JMba1jnv1ozdU3FnZA0V7fX35yRpwkJslkY2kkn80K9DQHQumXnWPLBVI_jADKvmBlHWpRExwgV1OekhFKeaViPg71VDgXU1CvhI95YN0FwCm0REWMhXwhwvIn32sEVQugvruL82EbQk-iL-tnhoI9SzeelAhbGsqYf6LcscBrRcYrSmSGp23BgyGN1YFjms3PJcVviHnc4T7GgS",
+      "video": "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4"
+    },
+    {
+      "title": "MYTHIC BRAWL",
+      "genre": "Fighting",
+      "price": "Free",
+      "icon": "sports_martial_arts",
+      "accent": "secondary",
+      "image": "https://lh3.googleusercontent.com/aida/AP1WRLt9tDpg8odwtMYZeeNKMHkKZCz5ziJ2B8KWPj59ZVrvOZKUW3ufPiJhoCB90psQotUSWtA8TZqEtizLTyvqOlp3OxvoHhIXSj05Vgi6cOzslPYo7k7GEn2aSWOaKSISrQJLdZuG9MUoloxuO1NJYQ5WdxxhPsm66diVWKz1p9HkTi5bygky3fdEmvKyECXGoy_WZeQ4s9srJ9WjoO0Rx5qjD9VeZfZi1F4mOiJEbSC10wOI6XQ8_Wo8WpxU",
+      "video": "https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+    },
+    {
+      "title": "CYPHER PUNKS",
+      "genre": "Cyberpunk Stealth",
+      "price": "Free",
+      "icon": "fingerprint",
+      "accent": "primary",
+      "image": "https://lh3.googleusercontent.com/aida/AP1WRLvDt7ZZ5aKGWmvLlf4qJbvr_MkkG54Q_bBBE6GIiKBReuQstpQoYnYyH7dq7ihJcEClUeDRdss55GqI2e_2YrhlYXIYIZspiB2_Kl9GiqUXqUFWvwEuWbIdblM41tQcXv_neqxAO2pYqFXkfoDYjEA3wek8xOw_wEZskRcOiDqALxnSP9_k-ax8k74ciKL4OKQrthNP4pBPzCViEeeOdgm9kjgRZvhs0ps8Fmq17VdjvNRxMjJr9RhvkKk",
+      "video": "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+    },
+    {
+      "title": "FROST BITE",
+      "genre": "Survival",
+      "price": "Free",
+      "icon": "ac_unit",
+      "accent": "tertiary",
+      "image": "https://lh3.googleusercontent.com/aida/AP1WRLsYNsUm_UaNYUNCuOCJLuDcxqHCcfX7tPOBn94_CmN5yue7GXKllE1e6jibw1LcevHMAnSWeXNufIsQ-FUZJmLGEyxD5f8vuKIDyYEarSXnZRW2CTi1SqMPdruGW7lI0EgJ3vSEqSWx3pRWWVXC48Bbcl7o2fs7FxtKMqMadDNNz1qoUhEtis9ASxgidwYhUKDQEHi84BERfupBpYDps_FOYbX-Wo92jlQb044tbRmQ4xfqcVByo4hPO9LP",
+      "video": "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
+    },
+    {
+      "title": "VOID RUNNER",
+      "genre": "Endless Runner",
+      "price": "Free",
+      "icon": "directions_run",
+      "accent": "primary-container",
+      "image": "https://lh3.googleusercontent.com/aida/AP1WRLu2ALk2uUChbQYF2H8UCFMBKOb2unXFNQ5mgXUtXgG0JDNxAPuCtbC-lozdjaknbmo9pXclD9tqlLExEO-V_aC2cgZBBujMD6r9Wdrf5xIEJ2Yn_P1ydn3FBRvpgqr_t6L94dQGMh8b_AV1lrSW9OyVpSFEX-4aBmpP-wH0rdfqHnONkO-VXHDOW59MYq9dTPJaGsJv_REJ5ScCii-eJNFs8xB-MAf-uibzoXmLD2YRIoOFi8dSXfZxH4Y",
+      "video": "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+    },
+    {
+      "title": "CHESS MASTERS",
+      "genre": "Strategy",
+      "price": "Free",
+      "icon": "extension",
+      "accent": "secondary",
+      "image": "https://lh3.googleusercontent.com/aida/AP1WRLuegF-Hs08dve-yyp_nUAdvqcUXDzlV4OER69qBX1i3lSMI8my-MxzGY9JUqQXrn5kC11283cJF49rQD2hPek09lakE3unhD0F5COdkVWPQzEMsbgR3wVERePERozP7A7QROHcyw0J405CJNuOe2mhH80KXFKPbniXJ0qu7MI3wB1vhpXeJeH4YigOaVHhLzcA3QaGRvyrp2TqbihXghZYCr__oheaICmGKfsHRSXaKe-p7pES4Ps2ZvxhE",
+      "video": "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+    }
+  ]
+}
