@@ -20,11 +20,11 @@
     },
     {
       "price": "Free",
-      "accent": "primary",
+      "accent": "tertiary",
       "title": "CROWNHOLD",
       "genre": "Strategy",
       "image": "/images/uploads/crownhold_background.png",
-      "icon": "Sword"
+      "icon": "swords"
     }
   ]
 }
