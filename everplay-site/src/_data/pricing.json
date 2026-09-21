@@ -1,12 +1,16 @@
 {
   "tiers": [
     {
-      "badge": "Free Tier",
+      "badge": "Free Tier Test",
       "name": "Integrated Ad Network",
       "priceLabel": "",
       "price": "Free",
       "priceSuffix": "",
-      "features": ["High-Quality Gameplay", "Contextual Game Ads", "Basic Profile Socials"],
+      "features": [
+        "High-Quality Gameplay",
+        "Contextual Game Ads",
+        "Basic Profile Socials"
+      ],
       "cta": "Start Playing",
       "featured": false
     },
@@ -16,7 +20,12 @@
       "priceLabel": "",
       "price": "$5",
       "priceSuffix": "/mo",
-      "features": ["Ad-Free Experience", "Exclusive Game Assets", "Early Access Titles", "Priority Matchmaking"],
+      "features": [
+        "Ad-Free Experience",
+        "Exclusive Game Assets",
+        "Early Access Titles",
+        "Priority Matchmaking"
+      ],
       "cta": "Join Membership",
       "featured": true
     },
@@ -26,7 +35,11 @@
       "priceLabel": "From",
       "price": "$0.99",
       "priceSuffix": "",
-      "features": ["Single Game Unlock", "Permanent Asset Ownership", "Custom Item Packs"],
+      "features": [
+        "Single Game Unlock",
+        "Permanent Asset Ownership",
+        "Custom Item Packs"
+      ],
       "cta": "Browse Store",
       "featured": false
     }
