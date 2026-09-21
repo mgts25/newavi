@@ -73,4 +73,59 @@ collections:
     files:
       - name: "pricing"
         label: "Pricing Tiers & FAQ"
-        file:
+        file: "src/_data/pricing.json"
+        fields:
+          - label: "Tiers"
+            name: "tiers"
+            widget: "list"
+            summary: "{{name}} — {{price}}"
+            fields:
+              - { label: "Badge", name: "badge", widget: "string", hint: "e.g. Free Tier, Premium, On-Demand" }
+              - { label: "Tier Name", name: "name", widget: "string" }
+              - { label: "Price Prefix (optional)", name: "priceLabel", widget: "string", required: false, hint: "e.g. \"From\"" }
+              - { label: "Price", name: "price", widget: "string" }
+              - { label: "Price Suffix (optional)", name: "priceSuffix", widget: "string", required: false, hint: "e.g. \"/mo\"" }
+              - label: "Features"
+                name: "features"
+                widget: "list"
+                field: { label: "Feature", name: "feature", widget: "string" }
+              - { label: "Button Text", name: "cta", widget: "string" }
+              - { label: "Highlight as \"Most Popular\"", name: "featured", widget: "boolean", default: false }
+          - { label: "FAQ Heading", name: "faqHeading", widget: "string" }
+          - { label: "FAQ Subtext", name: "faqSubtext", widget: "text" }
+
+  - name: "about"
+    label: "About Page"
+    files:
+      - name: "team"
+        label: "About Content & Team"
+        file: "src/_data/team.json"
+        fields:
+          - { label: "Hero Tag", name: "heroTag", widget: "string" }
+          - { label: "Hero Heading", name: "heroHeading", widget: "string" }
+          - { label: "Hero Body", name: "heroBody", widget: "text" }
+          - { label: "Hero Image", name: "heroImage", widget: "image" }
+          - { label: "Hero Image Alt Text", name: "heroImageAlt", widget: "string" }
+          - { label: "Team Section Heading", name: "teamHeading", widget: "string" }
+          - { label: "Team Section Subtext", name: "teamSubtext", widget: "text" }
+          - label: "Team Members"
+            name: "members"
+            widget: "list"
+            summary: "{{name}} — {{role}}"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Role", name: "role", widget: "string" }
+              - { label: "Bio", name: "bio", widget: "text" }
+              - { label: "Photo", name: "photo", widget: "image" }
+          - { label: "CTA Heading", name: "ctaHeading", widget: "string" }
+          - { label: "CTA Body", name: "ctaBody", widget: "text" }
+
+  - name: "home"
+    label: "Homepage"
+    files:
+      - name: "home"
+        label: "Homepage Settings"
+        file: "src/_data/home.json"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Subtext", name: "subtext", widget: "text" }
