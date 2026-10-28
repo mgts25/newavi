@@ -1,0 +1,50 @@
+{
+  "intro": "VERSE is the single currency behind every MULTIVERSE game — buy it once, spend it anywhere in the catalog.",
+  "packages": [
+    {
+      "amount": 100,
+      "bonusPercent": 0,
+      "bonusAmount": 0,
+      "totalVerse": 100,
+      "price": "$1.00",
+      "badge": "",
+      "buyLink": "#"
+    },
+    {
+      "amount": 250,
+      "bonusPercent": 10,
+      "bonusAmount": 25,
+      "totalVerse": 275,
+      "price": "$4.99",
+      "badge": "",
+      "buyLink": "#"
+    },
+    {
+      "amount": 500,
+      "bonusPercent": 15,
+      "bonusAmount": 75,
+      "totalVerse": 575,
+      "price": "$9.99",
+      "badge": "POPULAR",
+      "buyLink": "#"
+    },
+    {
+      "amount": 750,
+      "bonusPercent": 20,
+      "bonusAmount": 150,
+      "totalVerse": 900,
+      "price": "$19.99",
+      "badge": "",
+      "buyLink": "#"
+    },
+    {
+      "amount": 999,
+      "bonusPercent": 30,
+      "bonusAmount": 301,
+      "totalVerse": 1300,
+      "price": "$29.99",
+      "badge": "BEST VALUE",
+      "buyLink": "#"
+    }
+  ]
+}
