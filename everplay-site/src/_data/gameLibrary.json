@@ -25,6 +25,62 @@
       "genre": "Strategy",
       "image": "/images/uploads/crownhold_background.png",
       "icon": "swords"
+    },
+    {
+      "title": "THREE KINGDOMS",
+      "genre": "Strategy",
+      "price": "Coming Soon",
+      "icon": "castle",
+      "accent": "tertiary-container",
+      "comingSoon": true
+    },
+    {
+      "title": "DRIFTARMOR",
+      "genre": "Racing",
+      "price": "Coming Soon",
+      "icon": "sports_motorsports",
+      "accent": "primary",
+      "comingSoon": true
+    },
+    {
+      "title": "NEMEXIA",
+      "genre": "Adventure",
+      "price": "Coming Soon",
+      "icon": "auto_awesome",
+      "accent": "primary-container",
+      "comingSoon": true
+    },
+    {
+      "title": "TANKDUEL",
+      "genre": "Action",
+      "price": "Coming Soon",
+      "icon": "military_tech",
+      "accent": "secondary",
+      "comingSoon": true
+    },
+    {
+      "title": "EDGE SURVIVAL",
+      "genre": "Survival",
+      "price": "Coming Soon",
+      "icon": "terrain",
+      "accent": "tertiary",
+      "comingSoon": true
+    },
+    {
+      "title": "SNOW SQUAD",
+      "genre": "Multiplayer",
+      "price": "Coming Soon",
+      "icon": "ac_unit",
+      "accent": "tertiary-container",
+      "comingSoon": true
+    },
+    {
+      "title": "SOCCER FEVER",
+      "genre": "Sports",
+      "price": "Coming Soon",
+      "icon": "sports_soccer",
+      "accent": "primary",
+      "comingSoon": true
     }
   ]
 }
