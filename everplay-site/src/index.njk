@@ -4,25 +4,34 @@ title: MULTIVERSE | Game Library
 activeNav: home
 permalink: /
 ---
-<main class="pt-32 pb-section_padding">
+<main class="pt-24 pb-section_padding">
 <div class="mx-auto px-gutter max-w-container_max_width">
-<div class="mb-12">
+<div class="mb-8">
 <h1 class="font-display-lg text-display-lg text-on-surface mb-3">{{ home.heading }}</h1>
 <p class="font-body-lg text-body-lg text-secondary max-w-2xl">{{ home.subtext }}</p>
 </div>
 <div class="game-grid">
 {% for game in games %}
 <div class="group flex flex-col gap-2">
-<div class="relative w-full aspect-[4/5] rounded-lg overflow-hidden bg-surface-container-high game-card-shadow transition-all duration-300">
+<div class="relative w-full aspect-[4/5] rounded-lg overflow-hidden bg-surface-container-high game-card-shadow game-card-frame transition-all duration-300" style="border-top: 3px solid {{ game.accent | accentHex }};">
+{% if game.comingSoon or not game.image %}
+<div class="coming-soon-tile w-full h-full flex flex-col items-center justify-center gap-3" style="background: linear-gradient(145deg, {{ game.accent | accentHex }}22, {{ game.accent | accentHex }}0a);">
+<span class="material-symbols-outlined text-[36px]" style="color: {{ game.accent | accentHex }}; font-variation-settings: 'FILL' 1;">{{ game.icon }}</span>
+<span class="font-label-md text-[10px] tracking-widest uppercase" style="color: {{ game.accent | accentHex }};">Coming Soon</span>
+</div>
+{% else %}
 <div class="static-thumb w-full h-full bg-cover bg-center" style="background-image: url('{{ game.image }}');"></div>
+{% if game.video %}
 <div class="video-container absolute inset-0">
 <video class="w-full h-full object-cover" loop muted playsinline>
 <source src="{{ game.video }}" type="video/mp4">
 </video>
 </div>
+{% endif %}
 <div class="absolute bottom-2 left-2 w-6 h-6 rounded {{ game.accent | accentBadge }} flex items-center justify-center shadow-sm">
 <span class="material-symbols-outlined {{ game.accent | accentText }} text-[14px]">{{ game.icon }}</span>
 </div>
+{% endif %}
 </div>
 <div class="flex flex-col leading-tight">
 <h4 class="font-bold text-on-surface text-[13px] truncate">{{ game.title }}</h4>

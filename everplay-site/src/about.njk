@@ -7,7 +7,7 @@ permalink: /about/
 <main class="pt-20 pb-section_padding mx-auto px-gutter max-w-container_max_width">
 <section class="py-section_padding">
 <div class="max-w-container_max_width mx-auto px-gutter">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
 <div>
 <span class="inline-block py-1 px-3 rounded-full bg-primary-container/10 text-primary font-label-md text-label-md mb-6">{{ team.heroTag }}</span>
 <h2 class="font-display-lg text-display-lg text-on-surface mb-8">{{ team.heroHeading }}</h2>
@@ -31,8 +31,9 @@ permalink: /about/
 <p class="text-secondary max-w-2xl mx-auto font-body-md">{{ team.teamSubtext }}</p>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+{% set memberAccents = ["primary", "tertiary", "secondary", "primary-container"] %}
 {% for member in team.members %}
-<div class="bg-surface p-6 rounded-xl shadow-sm border border-outline-variant/30 text-center group hover:shadow-md transition-all">
+<div class="bg-surface p-6 rounded-xl shadow-sm border border-outline-variant/30 text-center group hover:shadow-md transition-all" style="border-top: 3px solid {{ memberAccents[loop.index0 % 4] | accentHex }};">
 <div class="w-24 h-24 bg-surface-container-highest rounded-full mx-auto mb-6 overflow-hidden">
 <img alt="{{ member.name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" src="{{ member.photo }}">
 </div>
