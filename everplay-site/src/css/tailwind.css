@@ -75,7 +75,7 @@ body {
 .game-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  gap: 14px;
 }
 @media (min-width: 640px) { .game-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 768px) { .game-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
@@ -87,7 +87,7 @@ body {
   position: absolute;
   top: calc(100% + 12px);
   right: 0;
-  width: 320px;
+  width: min(320px, calc(100vw - 32px));
   opacity: 0;
   visibility: hidden;
   transform: translateY(-12px) scale(0.95);
@@ -102,6 +102,32 @@ body {
   visibility: visible;
   transform: translateY(0) scale(1);
   pointer-events: auto;
+}
+
+/* ===== Mobile nav menu ===== */
+.mobile-menu {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  z-index: 49;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.08);
+  transition: max-height 0.3s ease, opacity 0.25s ease;
+}
+.mobile-menu.open {
+  max-height: 320px;
+  opacity: 1;
+}
+
+/* ===== Game card frame / Coming Soon placeholder ===== */
+.game-card-frame { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.game-card-frame:hover { transform: translateY(-3px); }
+.coming-soon-tile {
+  background-image: repeating-linear-gradient(135deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 10px, transparent 10px, transparent 20px);
 }
 
 /* ===== Modals (Contact / Newsletter) ===== */
