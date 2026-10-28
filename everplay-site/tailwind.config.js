@@ -22,7 +22,7 @@ module.exports = {
         "secondary-container": "#e2e2e5", "primary-container": "#2eb84b", "error-container": "#ffdad6"
       },
       borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
-      spacing: { "gutter": "24px", "section_padding": "80px", "margin_desktop": "48px", "container_max_width": "1280px", "margin_mobile": "16px", "base_unit": "8px" },
+      spacing: { "gutter": "24px", "section_padding": "56px", "margin_desktop": "48px", "container_max_width": "1280px", "margin_mobile": "16px", "base_unit": "8px" },
       fontFamily: {
         "headline-lg": ["Manrope"], "body-md": ["Inter"], "headline-md": ["Manrope"], "body-lg": ["Inter"],
         "display-lg": ["Manrope"], "label-md": ["Geist"], "headline-lg-mobile": ["Manrope"]
