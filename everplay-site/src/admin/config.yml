@@ -134,3 +134,24 @@ collections:
         fields:
           - { label: "Heading", name: "heading", widget: "string" }
           - { label: "Subtext", name: "subtext", widget: "text" }
+
+  - name: "shop"
+    label: "Verse Shop"
+    files:
+      - name: "verseShop"
+        label: "Verse Packages"
+        file: "everplay-site/src/_data/verseShop.json"
+        fields:
+          - { label: "Intro Text", name: "intro", widget: "text" }
+          - label: "Packages"
+            name: "packages"
+            widget: "list"
+            summary: "{{amount}} Verse — {{price}}"
+            fields:
+              - { label: "Verse Amount", name: "amount", widget: "number", value_type: "int", hint: "Base Verse you get before any bonus" }
+              - { label: "Bonus %", name: "bonusPercent", widget: "number", value_type: "int", default: 0, hint: "e.g. 15 for a +15% bonus" }
+              - { label: "Bonus Amount", name: "bonusAmount", widget: "number", value_type: "int", default: 0, hint: "The extra Verse the bonus % works out to — keep this in sync with Bonus %" }
+              - { label: "Total Verse (amount + bonus)", name: "totalVerse", widget: "number", value_type: "int", hint: "What's shown as the headline number on the card" }
+              - { label: "Price", name: "price", widget: "string", hint: "e.g. $4.99" }
+              - { label: "Badge (optional)", name: "badge", widget: "string", required: false, hint: "e.g. POPULAR or BEST VALUE — leave blank for none" }
+              - { label: "Buy Now Link", name: "buyLink", widget: "string", default: "#", hint: "Paste a Stripe Payment Link (or other checkout URL) here once you've set one up — see note in chat" }
