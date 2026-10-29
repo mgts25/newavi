@@ -7,7 +7,7 @@
       "icon": "rocket_launch",
       "accent": "secondary",
       "image": "/images/uploads/pixeldash_background.png",
-      "video": "https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+      "logo": "/images/uploads/PixelDash_logo.png"
     },
     {
       "title": "KILLBOX",
@@ -16,7 +16,7 @@
       "icon": "target",
       "accent": "secondary",
       "image": "/images/uploads/killbox_background.png",
-      "video": "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
+      "logo": "/images/uploads/Killbox_logo.png"
     },
     {
       "price": "Free",
@@ -24,7 +24,8 @@
       "title": "CROWNHOLD",
       "genre": "Strategy",
       "image": "/images/uploads/crownhold_background.png",
-      "icon": "swords"
+      "icon": "swords",
+      "logo": "/images/uploads/Crownhold_logo.png"
     },
     {
       "title": "THREE KINGDOMS",
@@ -64,7 +65,9 @@
       "price": "Coming Soon",
       "icon": "terrain",
       "accent": "tertiary",
-      "comingSoon": true
+      "comingSoon": false,
+      "image": "/images/uploads/Edge_background.png",
+      "logo": "/images/uploads/Edge_logo.png"
     },
     {
       "title": "SNOW SQUAD",
