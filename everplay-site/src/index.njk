@@ -28,9 +28,15 @@ permalink: /
 </video>
 </div>
 {% endif %}
+{% if game.logo %}
+<div class="absolute inset-x-0 bottom-0 pt-8 pb-2 px-2 flex items-end justify-center pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);">
+<img src="{{ game.logo }}" alt="" class="max-w-[82%] max-h-[34%] object-contain">
+</div>
+{% else %}
 <div class="absolute bottom-2 left-2 w-6 h-6 rounded {{ game.accent | accentBadge }} flex items-center justify-center shadow-sm">
 <span class="material-symbols-outlined {{ game.accent | accentText }} text-[14px]">{{ game.icon }}</span>
 </div>
+{% endif %}
 {% endif %}
 </div>
 <div class="flex flex-col leading-tight">
