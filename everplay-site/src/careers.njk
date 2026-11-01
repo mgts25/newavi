@@ -4,24 +4,124 @@ title: Careers | MULTIVERSE
 activeNav: careers
 permalink: /careers/
 ---
-<main class="pt-32 pb-section_padding">
+<main class="pt-24 pb-section_padding">
 <div class="mx-auto px-gutter max-w-container_max_width">
-<div class="mb-12 max-w-2xl">
-<h1 class="font-display-lg text-display-lg text-on-surface mb-4">Careers at MULTIVERSE</h1>
-<p class="font-body-lg text-body-lg text-secondary">We're a small, fast-moving team building games people love. If you're looking to make an impact, check out our open roles below.</p>
-</div>
-
-<div class="space-y-6 max-w-2xl">
-<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-8 shadow-sm">
-<div class="flex flex-wrap items-center justify-between gap-3 mb-3">
-<h2 class="font-headline-md text-headline-md text-on-surface">AI Video Editor</h2>
-<span class="px-3 py-1 bg-primary-container/20 text-primary rounded-full font-label-md text-[12px] tracking-wider uppercase">Open Position</span>
-</div>
-<p class="text-on-surface-variant font-body-md text-body-md mb-6">We're looking for a creative AI Video Editor to produce trailers, gameplay highlights, and social content for our growing game library. You'll blend traditional editing skills with AI-assisted tools to move fast without sacrificing quality — turning raw gameplay footage into scroll-stopping content.</p>
-<a href="mailto:support@crosspathgames.com?subject=Application: AI Video Editor" class="inline-block bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-lg hover:shadow-lg transition-all">Apply via Email</a>
+<div class="game-grid">
+{% set positionAccents = ["primary", "tertiary", "secondary", "primary-container", "tertiary-container", "primary"] %}
+{% for position in careers.positions %}
+<div class="group flex flex-col gap-2">
+<div class="relative w-full aspect-[4/5] rounded-lg overflow-hidden position-tile game-card-shadow cursor-pointer" style="border-top: 3px solid {{ positionAccents[loop.index0 % 6] | accentHex }}; background: linear-gradient(145deg, {{ positionAccents[loop.index0 % 6] | accentHex }}22, {{ positionAccents[loop.index0 % 6] | accentHex }}0a);" data-open-position="{{ loop.index0 }}">
+<div class="w-full h-full flex flex-col items-center justify-center gap-3 px-2 text-center">
+<span class="text-[36px] leading-none">{{ position.emoji }}</span>
+<span class="font-bold text-on-surface text-[13px] leading-tight">{{ position.title }}</span>
 </div>
 </div>
-
-<p class="text-secondary text-[13px] mt-10">Don't see a fit but think you'd be a great addition to the team? Send us a note at <a class="text-primary hover:underline" href="mailto:support@crosspathgames.com">support@crosspathgames.com</a>.</p>
+<button type="button" class="w-full py-2 rounded-full text-center font-label-md text-[11px] font-bold uppercase tracking-wide border border-primary text-primary hover:bg-primary/5 transition-all" data-open-position="{{ loop.index0 }}">Apply</button>
+</div>
+{% endfor %}
+</div>
+<p class="text-secondary text-[13px] mt-10 text-center">Don't see a fit but think you'd be a great addition to the team? Send us a note at <a class="text-primary hover:underline" href="mailto:support@crosspathgames.com">support@crosspathgames.com</a>.</p>
 </div>
 </main>
+
+<div id="position-modal" class="modal-backdrop" onclick="if(event.target===this) closeModal('position-modal')">
+<div class="modal-panel bg-surface-container-lowest rounded-2xl shadow-2xl w-full max-w-lg mx-4 p-8 relative max-h-[85vh] overflow-y-auto" onclick="event.stopPropagation()">
+<button type="button" onclick="closeModal('position-modal')" aria-label="Close" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+<div id="position-form-wrap">
+<span id="pd-emoji" class="text-[32px] leading-none"></span>
+<h3 id="pd-title" class="font-headline-md text-headline-md text-on-surface mt-2 mb-1"></h3>
+<span id="pd-status" class="inline-block px-3 py-1 bg-primary-container/20 text-primary rounded-full font-label-md text-[11px] uppercase tracking-wider mb-5"></span>
+<div class="space-y-4 mb-8">
+<div>
+<h4 class="font-bold text-on-surface text-[12px] uppercase tracking-wide mb-1">Focus</h4>
+<p id="pd-focus" class="text-secondary font-body-md text-[14px]"></p>
+</div>
+<div>
+<h4 class="font-bold text-on-surface text-[12px] uppercase tracking-wide mb-1">Responsibilities</h4>
+<p id="pd-responsibilities" class="text-secondary font-body-md text-[14px]"></p>
+</div>
+<div>
+<h4 class="font-bold text-on-surface text-[12px] uppercase tracking-wide mb-1">Requirements</h4>
+<p id="pd-requirements" class="text-secondary font-body-md text-[14px]"></p>
+</div>
+</div>
+<form name="careers-application" method="POST" data-netlify="true" netlify-honeypot="career-bot-field" enctype="multipart/form-data" id="careers-form" class="space-y-4">
+<input type="hidden" name="form-name" value="careers-application">
+<input type="hidden" name="position" id="pd-position-field">
+<p class="hidden"><label>Don't fill this out: <input name="career-bot-field"></label></p>
+<input type="text" name="name" required placeholder="Full Name" class="w-full px-4 py-3 rounded-lg border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-surface-bright transition-all outline-none font-body-md text-[14px]">
+<input type="email" name="email" required placeholder="Email Address" class="w-full px-4 py-3 rounded-lg border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-surface-bright transition-all outline-none font-body-md text-[14px]">
+<input type="url" name="linkedin" placeholder="LinkedIn Profile (optional)" class="w-full px-4 py-3 rounded-lg border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-surface-bright transition-all outline-none font-body-md text-[14px]">
+<input type="url" name="portfolio" placeholder="Portfolio or Resume URL" class="w-full px-4 py-3 rounded-lg border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-surface-bright transition-all outline-none font-body-md text-[14px]">
+<textarea name="message" placeholder="Short Introduction / Cover Letter" rows="3" class="w-full px-4 py-3 rounded-lg border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-surface-bright transition-all outline-none font-body-md text-[14px] resize-none"></textarea>
+<div>
+<label class="block font-label-md text-[12px] text-on-surface-variant mb-1.5">Resume (optional)</label>
+<input type="file" name="resume" accept=".pdf,.doc,.docx" class="w-full text-[13px] text-secondary file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-primary-container/20 file:text-primary file:font-label-md file:text-[12px] file:cursor-pointer">
+</div>
+<button type="submit" class="w-full py-3 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors">Submit Application</button>
+<p id="careers-error" class="hidden text-center text-[12px] text-error">Something went wrong — please try again or email us directly.</p>
+</form>
+</div>
+<div id="careers-success" class="hidden text-center py-6">
+<span class="material-symbols-outlined success-pop text-primary text-[56px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mt-4 mb-2">Application Sent</h3>
+<p class="text-secondary text-[13px]">Thanks for applying — we'll be in touch soon.</p>
+</div>
+</div>
+</div>
+
+<script>
+var POSITIONS = [
+{% for position in careers.positions %}
+{
+  title: {{ position.title | dump | safe }},
+  emoji: {{ position.emoji | dump | safe }},
+  status: {{ position.status | dump | safe }},
+  focus: {{ position.focus | dump | safe }},
+  responsibilities: {{ position.responsibilities | dump | safe }},
+  requirements: {{ position.requirements | dump | safe }}
+}{% if not loop.last %},{% endif %}
+{% endfor %}
+];
+
+function openPosition(index) {
+    var p = POSITIONS[index];
+    document.getElementById('pd-emoji').textContent = p.emoji;
+    document.getElementById('pd-title').textContent = p.title;
+    document.getElementById('pd-status').textContent = p.status;
+    document.getElementById('pd-focus').textContent = p.focus;
+    document.getElementById('pd-responsibilities').textContent = p.responsibilities;
+    document.getElementById('pd-requirements').textContent = p.requirements;
+    document.getElementById('pd-position-field').value = p.title;
+    document.getElementById('position-form-wrap').classList.remove('hidden');
+    document.getElementById('careers-success').classList.add('hidden');
+    document.getElementById('careers-form').reset();
+    document.getElementById('pd-position-field').value = p.title;
+    document.getElementById('careers-error').classList.add('hidden');
+    window.openModal('position-modal');
+}
+
+document.querySelectorAll('[data-open-position]').forEach(function (el) {
+    el.addEventListener('click', function () {
+        openPosition(parseInt(el.getAttribute('data-open-position'), 10));
+    });
+});
+
+var careersForm = document.getElementById('careers-form');
+careersForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(careersForm);
+    document.getElementById('careers-error').classList.add('hidden');
+    fetch('/', { method: 'POST', body: formData })
+        .then(function (res) {
+            if (!res.ok) throw new Error('bad status');
+            document.getElementById('position-form-wrap').classList.add('hidden');
+            document.getElementById('careers-success').classList.remove('hidden');
+        })
+        .catch(function () {
+            document.getElementById('careers-error').classList.remove('hidden');
+        });
+});
+</script>

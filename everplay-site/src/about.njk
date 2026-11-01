@@ -4,49 +4,56 @@ title: About Us | MULTIVERSE
 activeNav: about
 permalink: /about/
 ---
-<main class="pt-20 pb-section_padding mx-auto px-gutter max-w-container_max_width">
-<section class="py-section_padding">
-<div class="max-w-container_max_width mx-auto px-gutter">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-<div>
-<span class="inline-block py-1 px-3 rounded-full bg-primary-container/10 text-primary font-label-md text-label-md mb-6">{{ team.heroTag }}</span>
-<h2 class="font-display-lg text-display-lg text-on-surface mb-8">{{ team.heroHeading }}</h2>
-<p class="font-body-lg text-body-lg text-secondary mb-8">{{ team.heroBody }}</p>
-<div class="flex flex-wrap gap-4">
-<button type="button" data-open-newsletter class="bg-primary text-on-primary font-label-md text-label-md px-8 py-4 rounded-lg hover:shadow-lg transition-all">Register to Newsletter</button>
-<button type="button" data-open-contact class="border-2 border-primary text-primary font-label-md text-label-md px-8 py-4 rounded-lg hover:bg-primary/5 transition-all">Contact Us</button>
-</div>
-</div>
+<main class="pt-24 pb-section_padding">
+
+<section class="mx-auto px-gutter max-w-container_max_width">
 <div class="relative">
-<div class="absolute -inset-4 bg-primary/5 rounded-[24px] blur-3xl -z-10"></div>
-<img alt="{{ team.heroImageAlt }}" class="w-full rounded-[24px] shadow-xl object-cover aspect-video" src="{{ team.heroImage }}">
+<div class="absolute left-5 md:left-0 top-0 bottom-0 md:bottom-auto md:top-5 md:right-0 w-0.5 md:w-auto md:h-0.5 bg-outline-variant/30"></div>
+<div class="flex flex-col md:flex-row md:justify-between gap-8 relative" id="timeline-nav">
+{% for item in team.timeline %}
+<button type="button" class="timeline-year-btn group flex md:flex-col items-center gap-4 md:gap-3 text-left md:text-center relative z-10 {% if loop.first %}active{% endif %}" data-index="{{ loop.index0 }}">
+<span class="timeline-dot flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center font-bold text-[13px] border-2 bg-surface {% if loop.first %}border-primary bg-primary text-on-primary{% else %}border-outline-variant text-on-surface-variant{% endif %}">{{ loop.index }}</span>
+<span class="font-headline-md text-headline-md {% if loop.first %}text-primary{% else %}text-on-surface-variant{% endif %} transition-colors duration-300">{{ item.year }}</span>
+</button>
+{% endfor %}
 </div>
 </div>
+<div class="mt-10 max-w-xl mx-auto text-center min-h-[140px]" id="timeline-panel">
+{% for item in team.timeline %}
+<div class="timeline-panel-item {% if not loop.first %}hidden{% endif %}" data-index="{{ loop.index0 }}">
+<h2 class="font-headline-lg text-headline-lg mb-3 text-on-surface">{{ item.title }}</h2>
+<p class="text-secondary font-body-md">{{ item.description }}</p>
+</div>
+{% endfor %}
 </div>
 </section>
-<section class="py-section_padding bg-surface-container-low">
-<div class="max-w-container_max_width mx-auto px-gutter">
-<div class="text-center mb-16">
-<h2 class="font-headline-lg text-headline-lg mb-4">{{ team.teamHeading }}</h2>
-<p class="text-secondary max-w-2xl mx-auto font-body-md">{{ team.teamSubtext }}</p>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
-{% set memberAccents = ["primary", "tertiary", "secondary", "primary-container"] %}
+
+<section class="py-section_padding">
+<div class="mx-auto px-gutter max-w-container_max_width">
+<div class="game-grid">
+{% set memberAccents = ["primary", "tertiary", "secondary", "primary-container", "tertiary-container"] %}
 {% for member in team.members %}
-<div class="bg-surface p-6 rounded-xl shadow-sm border border-outline-variant/30 text-center group hover:shadow-md transition-all" style="border-top: 3px solid {{ memberAccents[loop.index0 % 4] | accentHex }};">
-<div class="w-24 h-24 bg-surface-container-highest rounded-full mx-auto mb-6 overflow-hidden">
-<img alt="{{ member.name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" src="{{ member.photo }}">
+<div class="group flex flex-col gap-2 cursor-pointer" data-open-member="{{ loop.index0 }}">
+<div class="relative w-full aspect-[4/5] rounded-lg overflow-hidden bg-surface-container-high game-card-shadow game-card-frame transition-all duration-300" style="border-top: 3px solid {{ memberAccents[loop.index0 % 5] | accentHex }};">
+<img alt="{{ member.name }}" class="w-full h-full object-cover" src="{{ member.photo }}">
+{% if member.linkedin %}
+<a href="{{ member.linkedin }}" target="_blank" rel="noopener" onclick="event.stopPropagation()" class="absolute bottom-2 left-2 w-6 h-6 rounded bg-surface/90 flex items-center justify-center shadow-sm">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+</a>
+{% endif %}
 </div>
-<h3 class="font-headline-md text-headline-md mb-1">{{ member.name }}</h3>
-<p class="text-primary font-label-md mb-4">{{ member.role }}</p>
-<p class="text-on-surface-variant text-sm font-body-md">{{ member.bio }}</p>
+<div class="flex flex-col leading-tight">
+<h4 class="font-bold text-on-surface text-[13px] truncate">{{ member.name }}</h4>
+<p class="text-secondary text-[11px]">{{ member.role }}</p>
+</div>
 </div>
 {% endfor %}
 </div>
 </div>
 </section>
+
 <section class="py-section_padding">
-<div class="max-w-container_max_width mx-auto px-gutter text-center">
+<div class="mx-auto px-gutter max-w-container_max_width text-center">
 <div class="bg-primary/5 rounded-[32px] p-12 md:p-20">
 <h2 class="font-headline-lg text-headline-lg mb-6">{{ team.ctaHeading }}</h2>
 <p class="text-secondary max-w-xl mx-auto font-body-lg mb-10">{{ team.ctaBody }}</p>
@@ -57,4 +64,70 @@ permalink: /about/
 </div>
 </div>
 </section>
+
 </main>
+
+<div id="member-modal" class="modal-backdrop" onclick="if(event.target===this) closeModal('member-modal')">
+<div class="modal-panel bg-surface-container-lowest rounded-2xl shadow-2xl w-full max-w-md mx-4 p-8 relative text-center" onclick="event.stopPropagation()">
+<button type="button" onclick="closeModal('member-modal')" aria-label="Close" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+<div class="w-24 h-24 rounded-full mx-auto mb-5 overflow-hidden bg-surface-container-highest">
+<img id="md-photo" class="w-full h-full object-cover" src="" alt="">
+</div>
+<h3 id="md-name" class="font-headline-md text-headline-md text-on-surface mb-1"></h3>
+<p id="md-role" class="text-primary font-label-md mb-4"></p>
+<p id="md-bio" class="text-on-surface-variant text-sm font-body-md"></p>
+</div>
+</div>
+
+<script>
+(function () {
+    var panelItems = document.querySelectorAll('.timeline-panel-item');
+    var yearBtns = document.querySelectorAll('.timeline-year-btn');
+    yearBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var index = btn.getAttribute('data-index');
+            yearBtns.forEach(function (b) {
+                var dot = b.querySelector('.timeline-dot');
+                var yr = b.querySelector('span:last-child');
+                var active = b === btn;
+                b.classList.toggle('active', active);
+                dot.classList.toggle('border-primary', active);
+                dot.classList.toggle('bg-primary', active);
+                dot.classList.toggle('text-on-primary', active);
+                dot.classList.toggle('border-outline-variant', !active);
+                dot.classList.toggle('text-on-surface-variant', !active);
+                yr.classList.toggle('text-primary', active);
+                yr.classList.toggle('text-on-surface-variant', !active);
+            });
+            panelItems.forEach(function (p) {
+                p.classList.toggle('hidden', p.getAttribute('data-index') !== index);
+            });
+        });
+    });
+
+    var MEMBERS = [
+    {% for member in team.members %}
+    {
+        name: {{ member.name | dump | safe }},
+        role: {{ member.role | dump | safe }},
+        bio: {{ member.bio | dump | safe }},
+        photo: {{ member.photo | dump | safe }}
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+    ];
+
+    document.querySelectorAll('[data-open-member]').forEach(function (el) {
+        el.addEventListener('click', function () {
+            var m = MEMBERS[parseInt(el.getAttribute('data-open-member'), 10)];
+            document.getElementById('md-photo').src = m.photo;
+            document.getElementById('md-photo').alt = m.name;
+            document.getElementById('md-name').textContent = m.name;
+            document.getElementById('md-role').textContent = m.role;
+            document.getElementById('md-bio').textContent = m.bio;
+            window.openModal('member-modal');
+        });
+    });
+})();
+</script>

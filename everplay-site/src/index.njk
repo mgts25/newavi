@@ -14,12 +14,13 @@ permalink: /
 {% for game in games %}
 <div class="group flex flex-col gap-2">
 <div class="relative w-full aspect-[4/5] rounded-lg overflow-hidden bg-surface-container-high game-card-shadow game-card-frame transition-all duration-300" style="border-top: 3px solid {{ game.accent | accentHex }};">
-{% if game.comingSoon or not game.image %}
+{% if game.comingSoon or (not game.image and not game.video) %}
 <div class="coming-soon-tile w-full h-full flex flex-col items-center justify-center gap-3" style="background: linear-gradient(145deg, {{ game.accent | accentHex }}22, {{ game.accent | accentHex }}0a);">
 <span class="material-symbols-outlined text-[36px]" style="color: {{ game.accent | accentHex }}; font-variation-settings: 'FILL' 1;">{{ game.icon }}</span>
 <span class="font-label-md text-[10px] tracking-widest uppercase" style="color: {{ game.accent | accentHex }};">Coming Soon</span>
 </div>
 {% else %}
+{% if game.image %}
 <div class="static-thumb w-full h-full bg-cover bg-center" style="background-image: url('{{ game.image }}');"></div>
 {% if game.video %}
 <div class="video-container absolute inset-0">
@@ -27,6 +28,11 @@ permalink: /
 <source src="{{ game.video }}" type="video/mp4">
 </video>
 </div>
+{% endif %}
+{% else %}
+<video class="w-full h-full object-cover" autoplay loop muted playsinline>
+<source src="{{ game.video }}" type="video/mp4">
+</video>
 {% endif %}
 {% if game.logo %}
 <div class="absolute inset-x-0 bottom-0 pt-8 pb-2 px-2 flex items-end justify-center pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);">
@@ -51,7 +57,7 @@ permalink: /
 </main>
 <script>
     document.querySelectorAll('.group').forEach(card => {
-        const video = card.querySelector('video');
+        const video = card.querySelector('.video-container video');
         if (video) {
             card.addEventListener('mouseenter', () => {
                 video.currentTime = 0;
