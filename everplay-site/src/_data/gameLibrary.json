@@ -1,23 +1,26 @@
 {
   "games": [
     {
-      "title": "PIXEL DASH",
       "genre": "Battle Royale",
       "price": "Free",
-      "icon": "rocket_launch",
       "accent": "secondary",
+      "logo": "/images/uploads/PixelDash_logo.png",
+      "title": "PIXEL DASH",
+      "icon": "rocket_launch",
+      "video": "/images/uploads/pixeldash_trailer-trim.mp4",
       "image": "/images/uploads/pixeldash_background.png",
-      "logo": "/images/uploads/PixelDash_logo.png"
+      "comingSoon": true
     },
     {
-      "title": "KILLBOX",
       "genre": "First Person",
       "price": "Free",
-      "icon": "target",
       "accent": "secondary",
-      "image": "/images/uploads/killbox_background.png",
       "logo": "/images/uploads/Killbox_logo.png",
-      "video": "/images/uploads/Killbox_preview.mp4"
+      "title": "KILLBOX",
+      "icon": "target",
+      "video": "/images/uploads/Killbox_preview.mp4",
+      "image": "/images/uploads/killbox_background.png",
+      "comingSoon": true
     },
     {
       "price": "Free",
@@ -27,7 +30,7 @@
       "image": "/images/uploads/crownhold_background.png",
       "icon": "swords",
       "logo": "/images/uploads/Crownhold_logo.png",
-      "video": "/images/uploads/crownhold_trailer_v2_compressed.mp4"
+      "comingSoon": true
     },
     {
       "title": "THREE KINGDOMS",
@@ -35,7 +38,8 @@
       "price": "Coming Soon",
       "icon": "castle",
       "accent": "tertiary-container",
-      "comingSoon": true
+      "comingSoon": true,
+      "video": "/images/uploads/threekings_video-trim.mp4"
     },
     {
       "title": "DRIFTARMOR",
@@ -63,15 +67,15 @@
       "comingSoon": true
     },
     {
-      "title": "EDGE SURVIVAL",
       "genre": "Survival",
       "price": "Coming Soon",
-      "icon": "terrain",
       "accent": "tertiary",
-      "comingSoon": false,
-      "image": "/images/uploads/Edge_background.png",
       "logo": "/images/uploads/Edge_logo.png",
-      "video": "/images/uploads/edge_trailer_compressed.mp4"
+      "title": "EDGE SURVIVAL",
+      "icon": "terrain",
+      "video": "/images/uploads/edge_trailer.mp4",
+      "image": "/images/uploads/Edge_background.png",
+      "comingSoon": false
     },
     {
       "title": "SNOW SQUAD",
@@ -87,8 +91,7 @@
       "price": "Coming Soon",
       "icon": "sports_soccer",
       "accent": "primary",
-      "comingSoon": false,
-      "video": "/images/uploads/soccer_fever_preview.mp4"
+      "comingSoon": true
     }
   ]
 }
