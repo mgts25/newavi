@@ -26,7 +26,8 @@
       "genre": "Strategy",
       "image": "/images/uploads/crownhold_background.png",
       "icon": "swords",
-      "logo": "/images/uploads/Crownhold_logo.png"
+      "logo": "/images/uploads/Crownhold_logo.png",
+      "video": "/images/uploads/crownhold_trailer_v2_compressed.mp4"
     },
     {
       "title": "THREE KINGDOMS",
@@ -85,7 +86,8 @@
       "price": "Coming Soon",
       "icon": "sports_soccer",
       "accent": "primary",
-      "comingSoon": true
+      "comingSoon": false,
+      "video": "/images/uploads/soccer_fever_preview.mp4"
     }
   ]
 }
