@@ -9,7 +9,7 @@
       "icon": "rocket_launch",
       "video": "/images/uploads/pixeldash_trailer-trim.mp4",
       "image": "/images/uploads/pixeldash_background.png",
-      "comingSoon": true
+      "comingSoon": false
     },
     {
       "genre": "First Person",
@@ -30,7 +30,7 @@
       "image": "/images/uploads/crownhold_background.png",
       "icon": "swords",
       "logo": "/images/uploads/Crownhold_logo.png",
-      "comingSoon": true
+      "comingSoon": false
     },
     {
       "title": "THREE KINGDOMS",
@@ -38,7 +38,7 @@
       "price": "Coming Soon",
       "icon": "castle",
       "accent": "tertiary-container",
-      "comingSoon": true,
+      "comingSoon": false,
       "video": "/images/uploads/threekings_video-trim.mp4"
     },
     {
@@ -91,7 +91,7 @@
       "price": "Coming Soon",
       "icon": "sports_soccer",
       "accent": "primary",
-      "comingSoon": true
+      "comingSoon": false
     }
   ]
 }
