@@ -72,7 +72,7 @@ collections:
                   - { label: "Blue", value: "tertiary" }
                   - { label: "Light Blue", value: "tertiary-container" }
                   - { label: "Gray", value: "secondary" }
-              - { label: "Hover Preview Video (optional)", name: "video", widget: "file", required: false, hint: "Upload a short .mp4 (a few seconds, ideally under ~8MB) — it plays when a visitor hovers the tile" }
+              - { label: "Preview Video (optional)", name: "video", widget: "file", required: false, hint: "Upload a short .mp4 (a few seconds, ideally under ~8MB). If a Cover Image is also set, this plays on hover. If there's no Cover Image, this plays on a continuous loop as the tile itself — use that for a game that only has footage so far." }
 
   - name: "pricing"
     label: "Pricing Page"
@@ -107,13 +107,15 @@ collections:
         label: "About Content & Team"
         file: "everplay-site/src/_data/team.json"
         fields:
-          - { label: "Hero Tag", name: "heroTag", widget: "string" }
-          - { label: "Hero Heading", name: "heroHeading", widget: "string" }
-          - { label: "Hero Body", name: "heroBody", widget: "text" }
-          - { label: "Hero Image", name: "heroImage", widget: "image" }
-          - { label: "Hero Image Alt Text", name: "heroImageAlt", widget: "string" }
-          - { label: "Team Section Heading", name: "teamHeading", widget: "string" }
-          - { label: "Team Section Subtext", name: "teamSubtext", widget: "text" }
+          - label: "Company Timeline"
+            name: "timeline"
+            widget: "list"
+            summary: "{{year}} — {{title}}"
+            hint: "Shown as an interactive timeline on the About page. Add new milestones here any time — no redesign needed."
+            fields:
+              - { label: "Year", name: "year", widget: "string" }
+              - { label: "Milestone Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
           - label: "Team Members"
             name: "members"
             widget: "list"
@@ -121,8 +123,9 @@ collections:
             fields:
               - { label: "Name", name: "name", widget: "string" }
               - { label: "Role", name: "role", widget: "string" }
-              - { label: "Bio", name: "bio", widget: "text" }
+              - { label: "Bio", name: "bio", widget: "text", hint: "Only shown when a visitor clicks the team member's card" }
               - { label: "Photo", name: "photo", widget: "image" }
+              - { label: "LinkedIn URL (optional)", name: "linkedin", widget: "string", required: false, hint: "Leave blank to hide the icon on this member's card" }
           - { label: "CTA Heading", name: "ctaHeading", widget: "string" }
           - { label: "CTA Body", name: "ctaBody", widget: "text" }
 
@@ -135,6 +138,32 @@ collections:
         fields:
           - { label: "Heading", name: "heading", widget: "string" }
           - { label: "Subtext", name: "subtext", widget: "text" }
+
+  - name: "careers"
+    label: "Careers"
+    files:
+      - name: "careers"
+        label: "Open Positions"
+        file: "everplay-site/src/_data/careers.json"
+        fields:
+          - label: "Positions"
+            name: "positions"
+            widget: "list"
+            summary: "{{title}} — {{status}}"
+            fields:
+              - { label: "Position Title", name: "title", widget: "string" }
+              - { label: "Emoji", name: "emoji", widget: "string", hint: "A single emoji shown on the card, e.g. 🎮" }
+              - label: "Status"
+                name: "status"
+                widget: "select"
+                default: "Open Position"
+                options:
+                  - { label: "Open Position", value: "Open Position" }
+                  - { label: "Opportunity Being Considered", value: "Opportunity Being Considered" }
+                hint: "Only use \"Open Position\" if MULTIVERSE is actually accepting applications for this role right now."
+              - { label: "Focus", name: "focus", widget: "text", hint: "One-line summary of what this role focuses on" }
+              - { label: "Responsibilities", name: "responsibilities", widget: "text" }
+              - { label: "Requirements", name: "requirements", widget: "text" }
 
   - name: "shop"
     label: "Verse Shop"
