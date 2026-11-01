@@ -1,0 +1,52 @@
+{
+  "positions": [
+    {
+      "title": "Game Developer",
+      "emoji": "🎮",
+      "status": "Open Position",
+      "focus": "Game programming, gameplay mechanics, and implementation.",
+      "responsibilities": "Develop and maintain game features; optimize performance; fix bugs; collaborate with design.",
+      "requirements": "Experience with Unity or Unreal Engine, C# or C++, and game-development fundamentals."
+    },
+    {
+      "title": "Game Designer",
+      "emoji": "🕹️",
+      "status": "Open Position",
+      "focus": "Gameplay systems, mechanics, and player experience.",
+      "responsibilities": "Design mechanics, progression systems, levels, balancing, and engaging player experiences.",
+      "requirements": "Understanding of game-design principles, documentation, balancing, and player behavior."
+    },
+    {
+      "title": "2D/3D Artist",
+      "emoji": "🎨",
+      "status": "Open Position",
+      "focus": "Game art, characters, environments, and visual assets.",
+      "responsibilities": "Create characters, environments, objects, textures, animations, and other game assets.",
+      "requirements": "Experience with Blender, Photoshop, Illustrator, or similar creative tools."
+    },
+    {
+      "title": "Game UI/UX Designer",
+      "emoji": "🖥️",
+      "status": "Open Position",
+      "focus": "User interface and player experience.",
+      "responsibilities": "Design menus, HUDs, interfaces, navigation, icons, and user flows for mobile and PC games.",
+      "requirements": "Experience with Figma or similar design software and an understanding of usability and game interfaces."
+    },
+    {
+      "title": "Game QA Tester",
+      "emoji": "🔍",
+      "status": "Open Position",
+      "focus": "Game testing, quality assurance, and bug identification.",
+      "responsibilities": "Test gameplay; identify and document bugs; verify fixes; help ensure stable releases.",
+      "requirements": "Strong attention to detail, testing skills, and an understanding of gaming platforms."
+    },
+    {
+      "title": "Game Marketing & Community Manager",
+      "emoji": "🚀",
+      "status": "Open Position",
+      "focus": "Game promotion, player acquisition, and community growth.",
+      "responsibilities": "Manage social media, Discord communities, marketing campaigns, influencers, events, and player engagement.",
+      "requirements": "Experience with digital marketing, social media, community management, or the gaming industry."
+    }
+  ]
+}
