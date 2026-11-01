@@ -16,7 +16,8 @@
       "icon": "target",
       "accent": "secondary",
       "image": "/images/uploads/killbox_background.png",
-      "logo": "/images/uploads/Killbox_logo.png"
+      "logo": "/images/uploads/Killbox_logo.png",
+      "video": "/images/uploads/Killbox_preview.mp4"
     },
     {
       "price": "Free",
@@ -41,7 +42,8 @@
       "price": "Coming Soon",
       "icon": "sports_motorsports",
       "accent": "primary",
-      "comingSoon": true
+      "comingSoon": false,
+      "video": "/images/uploads/DriftArmor_video.mp4"
     },
     {
       "title": "NEMEXIA",

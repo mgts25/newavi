@@ -43,6 +43,15 @@
       "bonusAmount": 301,
       "totalVerse": 1300,
       "price": "$29.99",
+      "badge": "",
+      "buyLink": "#"
+    },
+    {
+      "amount": 2000,
+      "bonusPercent": 35,
+      "bonusAmount": 700,
+      "totalVerse": 2700,
+      "price": "$44.99",
       "badge": "BEST VALUE",
       "buyLink": "#"
     }

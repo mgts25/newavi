@@ -1,10 +1,21 @@
 {
-  "heroTag": "About MULTIVERSE",
-  "heroImage": "/images/uploads/chatgpt-image-may-22-2026-07_45_48-pm.png",
-  "teamHeading": "Meet the Team",
-  "heroImageAlt": "A high-quality 3D hero game art composition set in a vibrant, futuristic neon city featuring a stylized character, a sports car, and an ogre boss.",
-  "heroHeading": "Who We Are",
-  "teamSubtext": "Building on our work with 2Axion and Crosspath, MULTIVERSE brings together our experience in games and digital entertainment with a fresh approach and new projects ahead.",
+  "timeline": [
+    {
+      "year": "2015",
+      "title": "Company Founded",
+      "description": "Multiverse Games was founded. This marks the beginning of the company's journey in the gaming industry."
+    },
+    {
+      "year": "2017",
+      "title": "True Action",
+      "description": "Creation of True Action, a milestone in the company's development."
+    },
+    {
+      "year": "2022",
+      "title": "CrossPath Games",
+      "description": "Creation of CrossPath Games, expanding the company's game-development and publishing activities."
+    }
+  ],
   "ctaHeading": "Stay Connected",
   "ctaBody": "Join our community of innovators and receive the latest updates on the MULTIVERSE ecosystem directly in your inbox.",
   "members": [
@@ -12,14 +23,15 @@
       "name": "Ghassan Gholmieh",
       "role": "Founder & CEO",
       "bio": "Investor and visionary",
-      "photo": "https://lh3.googleusercontent.com/aida-public/AB6AXuAvauuk3eZaAJpXWTQeKugI95KdFKuXP4yajtGhmsJGmOg389ZE7nP3DgEL6JICaKd9Nfn7IUtqg6Li3UEpWLSh-xbqv-9ojmYcI8PyDtKxOrajwDv40QZBQRMJVVMYK0VL7euSYlV-Quns65dQhyB0K9_Uj0fOfqe9AwqsRqdsiSR9ydxrnhHY_zwlt6hM8zfhmDfZOGH28VGhqxcgdiJP-BnMN6RLNMuAQ_zpoZpuk8Km7jMXA3csuA"
+      "photo": "https://lh3.googleusercontent.com/aida-public/AB6AXuAvauuk3eZaAJpXWTQeKugI95KdFKuXP4yajtGhmsJGmOg389ZE7nP3DgEL6JICaKd9Nfn7IUtqg6Li3UEpWLSh-xbqv-9ojmYcI8PyDtKxOrajwDv40QZBQRMJVVMYK0VL7euSYlV-Quns65dQhyB0K9_Uj0fOfqe9AwqsRqdsiSR9ydxrnhHY_zwlt6hM8zfhmDfZOGH28VGhqxcgdiJP-BnMN6RLNMuAQ_zpoZpuk8Km7jMXA3csuA",
+      "linkedin": ""
     },
     {
       "name": "Mario Silveira",
       "role": "Head of Product",
       "bio": "Live Operations",
-      "photo": "/images/uploads/chatgpt-image-may-23-2026-02_18_24-am.png"
+      "photo": "/images/uploads/chatgpt-image-may-23-2026-02_18_24-am.png",
+      "linkedin": ""
     }
-  ],
-  "heroBody": "We develop and publish games across a variety of genres, bringing fun and diverse experiences to players without the pressure of excessive microtransactions or intrusive advertising."
+  ]
 }
