@@ -46,7 +46,8 @@
       "price": "Coming Soon",
       "icon": "sports_motorsports",
       "accent": "primary",
-      "comingSoon": false
+      "comingSoon": false,
+      "video": "/images/uploads/DriftArmor_video_compressed.mp4"
     },
     {
       "title": "NEMEXIA",
