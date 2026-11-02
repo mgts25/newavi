@@ -1,19 +1,74 @@
 {
+  "heroHeading": "The Studio Behind MULTIVERSE",
+  "heroSubtext": "From a small team in Brazil to a multi-title publishing platform — this is our story, and the people building it.",
+  "stats": [
+    { "value": "10+", "label": "Years Making Games" },
+    { "value": "7", "label": "Titles Shipped" },
+    { "value": "2", "label": "Studios, One Team" }
+  ],
   "timeline": [
     {
       "year": "2015",
-      "title": "Company Founded",
-      "description": "Multiverse Games was founded. This marks the beginning of the company's journey in the gaming industry."
+      "title": "Founded Axion Games in Brazil",
+      "description": "Axion Games was founded in Brazil, where the studio's game-development journey began.",
+      "icon": "flag",
+      "accent": "primary"
     },
     {
       "year": "2017",
-      "title": "True Action",
-      "description": "Creation of True Action, a milestone in the company's development."
+      "title": "Founded 2Axion Games in California",
+      "description": "The studio expanded into the US market with the founding of 2Axion Games in California.",
+      "icon": "public",
+      "accent": "tertiary"
     },
     {
-      "year": "2022",
-      "title": "CrossPath Games",
-      "description": "Creation of CrossPath Games, expanding the company's game-development and publishing activities."
+      "year": "2018",
+      "title": "Launched Triggerun",
+      "description": "Triggerun shipped to players — one of the studio's earliest released titles.",
+      "icon": "sports_esports",
+      "accent": "secondary"
+    },
+    {
+      "year": "2018",
+      "title": "Launched The Killbox",
+      "description": "The Killbox launched, growing the studio's catalog of fast-paced action titles.",
+      "icon": "target",
+      "accent": "primary-container"
+    },
+    {
+      "year": "2019",
+      "title": "Developed Project Suponic",
+      "description": "Work began on Project Suponic, pushing the studio's development capabilities further.",
+      "icon": "science",
+      "accent": "tertiary-container"
+    },
+    {
+      "year": "2020",
+      "title": "Launched Rage Wars",
+      "description": "Rage Wars launched, expanding the studio's competitive multiplayer lineup.",
+      "icon": "swords",
+      "accent": "primary"
+    },
+    {
+      "year": "2020",
+      "title": "Technical Service for Steven Universe: Tap Tap",
+      "description": "The studio provided technical services for Steven Universe: Tap Tap, partnering on a major licensed IP.",
+      "icon": "handshake",
+      "accent": "tertiary"
+    },
+    {
+      "year": "2021",
+      "title": "Developed Edge Survival",
+      "description": "Edge Survival entered development — now featured in the MULTIVERSE game library.",
+      "icon": "terrain",
+      "accent": "secondary"
+    },
+    {
+      "year": "2025",
+      "title": "MULTIVERSE is Born",
+      "description": "MULTIVERSE launched, bringing the studio's full catalog together under one publishing platform.",
+      "icon": "auto_awesome",
+      "accent": "primary-container"
     }
   ],
   "ctaHeading": "Stay Connected",
