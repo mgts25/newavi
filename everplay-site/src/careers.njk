@@ -9,7 +9,7 @@ permalink: /careers/
 <div class="game-grid">
 {% set positionAccents = ["primary", "tertiary", "secondary", "primary-container", "tertiary-container", "primary"] %}
 {% for position in careers.positions %}
-<div class="group flex flex-col gap-2">
+<div class="group flex flex-col gap-2 card-in" style="animation-delay: {{ loop.index0 * 80 }}ms;">
 <div class="relative w-full aspect-[4/5] rounded-lg overflow-hidden position-tile game-card-shadow cursor-pointer" style="border-top: 3px solid {{ positionAccents[loop.index0 % 6] | accentHex }}; background: linear-gradient(145deg, {{ positionAccents[loop.index0 % 6] | accentHex }}22, {{ positionAccents[loop.index0 % 6] | accentHex }}0a);" data-open-position="{{ loop.index0 }}">
 <div class="w-full h-full flex flex-col items-center justify-center gap-3 px-2 text-center">
 <span class="text-[36px] leading-none">{{ position.emoji }}</span>
