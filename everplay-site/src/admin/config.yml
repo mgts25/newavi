@@ -176,12 +176,14 @@ collections:
           - label: "Packages"
             name: "packages"
             widget: "list"
-            summary: "{{amount}} Verse — {{price}}"
+            summary: "{{totalVerse}} Verse — {{price}}"
             fields:
+              - { label: "Package ID", name: "id", widget: "string", hint: "Must stay unique and must never change once set — the cart and checkout use this to identify the package. Example: verse-500" }
               - { label: "Verse Amount", name: "amount", widget: "number", value_type: "int", hint: "Base Verse you get before any bonus" }
               - { label: "Bonus %", name: "bonusPercent", widget: "number", value_type: "int", default: 0, hint: "e.g. 15 for a +15% bonus" }
               - { label: "Bonus Amount", name: "bonusAmount", widget: "number", value_type: "int", default: 0, hint: "The extra Verse the bonus % works out to — keep this in sync with Bonus %" }
               - { label: "Total Verse (amount + bonus)", name: "totalVerse", widget: "number", value_type: "int", hint: "What's shown as the headline number on the card" }
-              - { label: "Price", name: "price", widget: "string", hint: "e.g. $4.99" }
+              - { label: "Price (display)", name: "price", widget: "string", hint: "e.g. $4.99 — just for display" }
+              - { label: "Price in cents (for payment)", name: "priceCents", widget: "number", value_type: "int", hint: "The REAL amount charged, in cents. $4.99 = 499. Must stay in sync with Price above — this is the number Stripe actually charges." }
               - { label: "Badge (optional)", name: "badge", widget: "string", required: false, hint: "e.g. POPULAR or BEST VALUE — leave blank for none" }
-              - { label: "Buy Now Link", name: "buyLink", widget: "string", default: "#", hint: "Paste a Stripe Payment Link (or other checkout URL) here once you've set one up — see note in chat" }
+              - { label: "Package Artwork", name: "icon", widget: "image", hint: "The package icon/artwork shown on its card" }
