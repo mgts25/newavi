@@ -6,10 +6,14 @@ permalink: /
 ---
 <main class="pt-24 pb-section_padding">
 <div class="mx-auto px-gutter max-w-container_max_width">
+{% if home.heading and (home.heading | trim) %}
 <div class="mb-8">
 <h1 class="font-display-lg text-display-lg text-on-surface mb-3">{{ home.heading }}</h1>
+{% if home.subtext and (home.subtext | trim) %}
 <p class="font-body-lg text-body-lg text-secondary max-w-2xl">{{ home.subtext }}</p>
+{% endif %}
 </div>
+{% endif %}
 <div class="game-grid">
 {% for game in games %}
 <div class="group flex flex-col gap-2">
@@ -35,11 +39,11 @@ permalink: /
 </video>
 {% endif %}
 {% if game.logo %}
-<div class="absolute inset-x-0 bottom-0 pt-8 pb-2 px-2 flex items-end justify-center pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);">
-<img src="{{ game.logo }}" alt="" class="max-w-[82%] max-h-[34%] object-contain">
+<div class="game-logo-overlay absolute inset-x-0 bottom-0 pt-8 pb-2 px-2 flex items-end justify-center pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);">
+<img src="{{ game.logo }}" alt="">
 </div>
 {% else %}
-<div class="absolute bottom-2 left-2 w-6 h-6 rounded {{ game.accent | accentBadge }} flex items-center justify-center shadow-sm">
+<div class="game-logo-overlay absolute bottom-2 left-2 w-6 h-6 rounded {{ game.accent | accentBadge }} flex items-center justify-center shadow-sm">
 <span class="material-symbols-outlined {{ game.accent | accentText }} text-[14px]">{{ game.icon }}</span>
 </div>
 {% endif %}
