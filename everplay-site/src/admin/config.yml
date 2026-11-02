@@ -107,15 +107,41 @@ collections:
         label: "About Content & Team"
         file: "everplay-site/src/_data/team.json"
         fields:
+          - { label: "Hero Heading", name: "heroHeading", widget: "string", hint: "Shown at the top of the About page. Leave blank to hide." }
+          - { label: "Hero Subtext", name: "heroSubtext", widget: "text", required: false }
+          - label: "Stat Tiles"
+            name: "stats"
+            widget: "list"
+            summary: "{{value}} — {{label}}"
+            hint: "Small highlight numbers shown under the hero, e.g. \"10+\" / \"Years Making Games\". Leave empty to hide this row."
+            required: false
+            fields:
+              - { label: "Value", name: "value", widget: "string", hint: "e.g. 10+, 7, 2" }
+              - { label: "Label", name: "label", widget: "string", hint: "e.g. Years Making Games" }
           - label: "Company Timeline"
             name: "timeline"
             widget: "list"
             summary: "{{year}} — {{title}}"
-            hint: "Shown as an interactive timeline on the About page. Add new milestones here any time — no redesign needed."
+            hint: "Shown as a vertical timeline on the About page. Add new milestones here any time — no redesign needed."
             fields:
               - { label: "Year", name: "year", widget: "string" }
               - { label: "Milestone Title", name: "title", widget: "string" }
               - { label: "Description", name: "description", widget: "text" }
+              - label: "Icon"
+                name: "icon"
+                widget: "string"
+                default: "flag"
+                hint: "A Material Symbols icon name, e.g. flag, rocket_launch, swords, handshake. Browse names at fonts.google.com/icons"
+              - label: "Accent Color"
+                name: "accent"
+                widget: "select"
+                default: "primary"
+                options:
+                  - { label: "Green", value: "primary" }
+                  - { label: "Light Green", value: "primary-container" }
+                  - { label: "Blue", value: "tertiary" }
+                  - { label: "Light Blue", value: "tertiary-container" }
+                  - { label: "Gray", value: "secondary" }
           - label: "Team Members"
             name: "members"
             widget: "list"
