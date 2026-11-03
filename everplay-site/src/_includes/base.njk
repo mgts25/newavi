@@ -79,11 +79,16 @@ MULTIVERSE
 </footer>
 
 <div id="contact-modal" class="modal-backdrop" onclick="if(event.target===this) closeModal('contact-modal')">
-<div class="modal-panel bg-surface-container-lowest rounded-2xl shadow-2xl w-full max-w-md mx-4 p-8 relative" onclick="event.stopPropagation()">
+<div class="modal-panel bg-surface-container-lowest rounded-2xl shadow-2xl w-full max-w-md mx-4 relative overflow-hidden" onclick="event.stopPropagation()">
+<div class="h-1.5 bg-tertiary"></div>
 <button type="button" onclick="closeModal('contact-modal')" aria-label="Close" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary transition-colors">
 <span class="material-symbols-outlined">close</span>
 </button>
+<div class="p-8">
 <div id="contact-form-wrap">
+<div class="w-14 h-14 rounded-full bg-tertiary/10 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-tertiary text-[26px]" style="font-variation-settings: 'FILL' 1;">forum</span>
+</div>
 <h3 class="font-headline-md text-headline-md text-on-surface mb-1">Contact Us</h3>
 <p class="text-secondary text-[13px] mb-6">We'll get back to you as soon as we can.</p>
 <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contact-form" class="space-y-4">
@@ -103,14 +108,19 @@ MULTIVERSE
 </div>
 </div>
 </div>
+</div>
 
 <div id="newsletter-modal" class="modal-backdrop" onclick="if(event.target===this) closeModal('newsletter-modal')">
-<div class="modal-panel bg-surface-container-lowest rounded-2xl shadow-2xl w-full max-w-md mx-4 p-8 relative overflow-hidden" onclick="event.stopPropagation()" id="newsletter-confetti-zone">
+<div class="modal-panel bg-surface-container-lowest rounded-2xl shadow-2xl w-full max-w-md mx-4 relative overflow-hidden" onclick="event.stopPropagation()" id="newsletter-confetti-zone">
+<div class="h-1.5 bg-primary"></div>
 <button type="button" onclick="closeModal('newsletter-modal')" aria-label="Close" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary transition-colors">
 <span class="material-symbols-outlined">close</span>
 </button>
+<div class="p-8">
 <div id="newsletter-form-wrap" class="text-center">
-<span class="material-symbols-outlined text-primary text-[40px] mb-2" style="font-variation-settings: 'FILL' 1;">mail</span>
+<div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
+<span class="material-symbols-outlined text-primary text-[26px]" style="font-variation-settings: 'FILL' 1;">mail</span>
+</div>
 <h3 class="font-headline-md text-headline-md text-on-surface mb-1">Stay in the Loop</h3>
 <p class="text-secondary text-[13px] mb-6">Get the latest MULTIVERSE news straight to your inbox.</p>
 <form name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="newsletter-form" class="space-y-3">
@@ -125,6 +135,7 @@ MULTIVERSE
 <span class="material-symbols-outlined success-pop text-primary text-[56px]" style="font-variation-settings: 'FILL' 1;">celebration</span>
 <h3 class="font-headline-md text-headline-md text-on-surface mt-4 mb-2">You're In!</h3>
 <p class="text-secondary text-[13px]">Thanks for subscribing — watch your inbox.</p>
+</div>
 </div>
 </div>
 </div>
