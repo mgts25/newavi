@@ -107,26 +107,39 @@ collections:
         label: "About Content & Team"
         file: "everplay-site/src/_data/team.json"
         fields:
-          - { label: "Hero Heading", name: "heroHeading", widget: "string", hint: "Shown at the top of the About page. Leave blank to hide." }
-          - { label: "Hero Subtext", name: "heroSubtext", widget: "text", required: false }
-          - label: "Stat Tiles"
-            name: "stats"
+          - label: "Identity Badges"
+            name: "badges"
             widget: "list"
-            summary: "{{value}} — {{label}}"
-            hint: "Small highlight numbers shown under the hero, e.g. \"10+\" / \"Years Making Games\". Leave empty to hide this row."
-            required: false
+            summary: "{{label}}"
+            hint: "Short cards shown at the top of the About page, e.g. \"10+ Years\" / \"Free-to-Play\". Keep the label short — these are meant to be scanned at a glance."
             fields:
-              - { label: "Value", name: "value", widget: "string", hint: "e.g. 10+, 7, 2" }
-              - { label: "Label", name: "label", widget: "string", hint: "e.g. Years Making Games" }
+              - { label: "Label", name: "label", widget: "string" }
+              - label: "Icon"
+                name: "icon"
+                widget: "string"
+                default: "military_tech"
+                hint: "A Material Symbols icon name, e.g. schedule, apartment, public. Browse names at fonts.google.com/icons"
+              - label: "Accent Color"
+                name: "accent"
+                widget: "select"
+                default: "primary"
+                options:
+                  - { label: "Green", value: "primary" }
+                  - { label: "Light Green", value: "primary-container" }
+                  - { label: "Blue", value: "tertiary" }
+                  - { label: "Light Blue", value: "tertiary-container" }
+                  - { label: "Gray", value: "secondary" }
           - label: "Company Timeline"
             name: "timeline"
             widget: "list"
             summary: "{{year}} — {{title}}"
-            hint: "Shown as a vertical timeline on the About page. Add new milestones here any time — no redesign needed."
+            hint: "Shown as a horizontal timeline on the About page — visitors click a milestone to see its details. Add new milestones here any time, no redesign needed."
             fields:
               - { label: "Year", name: "year", widget: "string" }
               - { label: "Milestone Title", name: "title", widget: "string" }
+              - { label: "Genre / Category", name: "genre", widget: "string", hint: "Shown as a small badge when this milestone is clicked, e.g. Game Launch, Studio Founded, Survival" }
               - { label: "Description", name: "description", widget: "text" }
+              - { label: "Video (optional)", name: "video", widget: "file", required: false, hint: "Shown when this milestone is clicked. Leave blank to show just the icon." }
               - label: "Icon"
                 name: "icon"
                 widget: "string"
