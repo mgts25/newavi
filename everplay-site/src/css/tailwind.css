@@ -271,9 +271,23 @@ body {
 .position-tile { transition: transform 0.25s ease, box-shadow 0.25s ease; }
 .position-tile:hover { transform: translateY(-3px); }
 
-/* ===== About ===== */
-.about-stat-tile { transition: transform 0.25s ease, box-shadow 0.25s ease; }
-.about-stat-tile:hover { transform: translateY(-2px); box-shadow: 0px 8px 20px rgba(0,0,0,0.06); }
-.about-timeline-dot { transition: transform 0.25s ease; }
-.about-timeline-dot:hover { transform: scale(1.08); }
+/* ===== About: horizontal timeline ===== */
+.about-timeline-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: x proximity;
+}
+.about-timeline-scroll::-webkit-scrollbar { display: none; }
+.about-timeline-node {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  scroll-snap-align: start;
+}
+.about-timeline-dot { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.about-timeline-node:hover .about-timeline-dot {
+  transform: scale(1.12);
+  box-shadow: 0px 6px 16px rgba(0,0,0,0.18);
+}
 
