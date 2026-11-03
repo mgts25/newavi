@@ -1,78 +1,97 @@
 {
-  "heroHeading": "The Studio Behind MULTIVERSE",
-  "heroSubtext": "From a small team in Brazil to a multi-title publishing platform — this is our story, and the people building it.",
-  "stats": [
-    { "value": "10+", "label": "Years Making Games" },
-    { "value": "7", "label": "Titles Shipped" },
-    { "value": "2", "label": "Studios, One Team" }
+  "badges": [
+    { "label": "10+ Years", "icon": "schedule", "accent": "primary" },
+    { "label": "15+ Titles Shipped", "icon": "inventory_2", "accent": "tertiary" },
+    { "label": "Service Fortune 500 Company", "icon": "apartment", "accent": "secondary" },
+    { "label": "Eastern Studio", "icon": "public", "accent": "primary-container" },
+    { "label": "Live Operations", "icon": "cloud_sync", "accent": "tertiary-container" },
+    { "label": "Free-to-Play", "icon": "sports_esports", "accent": "primary" }
   ],
   "timeline": [
     {
       "year": "2015",
       "title": "Founded Axion Games in Brazil",
+      "genre": "Studio Founded",
       "description": "Axion Games was founded in Brazil, where the studio's game-development journey began.",
       "icon": "flag",
-      "accent": "primary"
+      "accent": "primary",
+      "video": ""
     },
     {
       "year": "2017",
       "title": "Founded 2Axion Games in California",
+      "genre": "Studio Expansion",
       "description": "The studio expanded into the US market with the founding of 2Axion Games in California.",
       "icon": "public",
-      "accent": "tertiary"
+      "accent": "tertiary",
+      "video": ""
     },
     {
       "year": "2018",
       "title": "Launched Triggerun",
+      "genre": "Game Launch",
       "description": "Triggerun shipped to players — one of the studio's earliest released titles.",
       "icon": "sports_esports",
-      "accent": "secondary"
+      "accent": "secondary",
+      "video": ""
     },
     {
       "year": "2018",
       "title": "Launched The Killbox",
+      "genre": "First Person",
       "description": "The Killbox launched, growing the studio's catalog of fast-paced action titles.",
       "icon": "target",
-      "accent": "primary-container"
+      "accent": "primary-container",
+      "video": "/images/uploads/killbox_video.mp4"
     },
     {
       "year": "2019",
       "title": "Developed Project Suponic",
+      "genre": "In Development",
       "description": "Work began on Project Suponic, pushing the studio's development capabilities further.",
       "icon": "science",
-      "accent": "tertiary-container"
+      "accent": "tertiary-container",
+      "video": ""
     },
     {
       "year": "2020",
       "title": "Launched Rage Wars",
+      "genre": "Game Launch",
       "description": "Rage Wars launched, expanding the studio's competitive multiplayer lineup.",
       "icon": "swords",
-      "accent": "primary"
+      "accent": "primary",
+      "video": ""
     },
     {
       "year": "2020",
       "title": "Technical Service for Steven Universe: Tap Tap",
+      "genre": "Technical Partnership",
       "description": "The studio provided technical services for Steven Universe: Tap Tap, partnering on a major licensed IP.",
       "icon": "handshake",
-      "accent": "tertiary"
+      "accent": "tertiary",
+      "video": ""
     },
     {
       "year": "2021",
       "title": "Developed Edge Survival",
+      "genre": "Survival",
       "description": "Edge Survival entered development — now featured in the MULTIVERSE game library.",
       "icon": "terrain",
-      "accent": "secondary"
+      "accent": "secondary",
+      "video": "/images/uploads/Edge_video.mp4"
     },
     {
       "year": "2025",
       "title": "MULTIVERSE is Born",
+      "genre": "Company Milestone",
       "description": "MULTIVERSE launched, bringing the studio's full catalog together under one publishing platform.",
       "icon": "auto_awesome",
-      "accent": "primary-container"
+      "accent": "primary-container",
+      "video": ""
     }
   ],
   "ctaHeading": "Stay Connected",
-  "ctaBody": "Join our community of innovators and receive the latest updates on the MULTIVERSE ecosystem directly in your inbox.",
+  "ctaBody": "Get MULTIVERSE news straight to your inbox.",
   "members": [
     {
       "name": "Ghassan Gholmieh",
