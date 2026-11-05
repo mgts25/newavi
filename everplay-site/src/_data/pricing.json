@@ -1,15 +1,17 @@
 {
   "tiers": [
     {
-      "badge": "Free Tier Test",
+      "badge": "Free Tier",
       "name": "Integrated Ad Network",
       "priceLabel": "",
       "price": "Free",
       "priceSuffix": "",
+      "accent": "secondary",
+      "image": "/images/uploads/pricing_free.svg",
       "features": [
         "High-Quality Gameplay",
         "Contextual Game Ads",
-        "Basic Profile Socials"
+        "Basic Profile & Socials"
       ],
       "cta": "Start Playing",
       "featured": false
@@ -20,6 +22,8 @@
       "priceLabel": "",
       "price": "$5",
       "priceSuffix": "/mo",
+      "accent": "primary",
+      "image": "/images/uploads/pricing_premium.svg",
       "features": [
         "Ad-Free Experience",
         "Exclusive Game Assets",
@@ -35,6 +39,8 @@
       "priceLabel": "From",
       "price": "$0.99",
       "priceSuffix": "",
+      "accent": "tertiary",
+      "image": "/images/uploads/pricing_iap.svg",
       "features": [
         "Single Game Unlock",
         "Permanent Asset Ownership",
@@ -42,8 +48,39 @@
       ],
       "cta": "Browse Store",
       "featured": false
+    },
+    {
+      "badge": "Seasonal",
+      "name": "Battle Pass",
+      "priceLabel": "",
+      "price": "$9.99",
+      "priceSuffix": "/season",
+      "accent": "primary-container",
+      "image": "/images/uploads/pricing_battlepass.svg",
+      "features": [
+        "Exclusive Seasonal Rewards",
+        "Bonus XP Across All Games",
+        "Unlockable Cosmetic Tiers",
+        "Early Access to New Content"
+      ],
+      "cta": "Get Battle Pass",
+      "featured": false
+    },
+    {
+      "badge": "Boost",
+      "name": "Level Account",
+      "priceLabel": "From",
+      "price": "$4.99",
+      "priceSuffix": "",
+      "accent": "tertiary-container",
+      "image": "/images/uploads/pricing_levelaccount.svg",
+      "features": [
+        "Instant Level Boost",
+        "Unlocked Starter Gear",
+        "Priority Matchmaking Queue"
+      ],
+      "cta": "Boost My Account",
+      "featured": false
     }
-  ],
-  "faqHeading": "Still have questions?",
-  "faqSubtext": "Our strategic partnerships ensure transparency in every transaction."
+  ]
 }
