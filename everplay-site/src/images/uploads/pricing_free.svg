@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 800" width="640" height="800">
+<defs>
+<linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#2a4f33" stop-opacity="1"/>
+<stop offset="100%" stop-color="#5d5e61" stop-opacity="1"/>
+</linearGradient>
+<radialGradient id="g1-glow" cx="50%" cy="35%" r="65%">
+<stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+<stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="640" height="800" fill="url(#g1)"/>
+<rect width="640" height="800" fill="url(#g1-glow)"/>
+
+<circle cx="480" cy="160" r="260" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.14"/>
+<circle cx="480" cy="160" r="190" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.14"/>
+
+<circle cx="320" cy="430" r="150" fill="#ffffff" opacity="0.14"/>
+<circle cx="320" cy="430" r="110" fill="#ffffff" opacity="0.9"/>
+<path d="M290 375 L370 430 L290 485 Z" fill="#3a6b4a"/>
+<rect x="110" y="190" width="128" height="56" rx="16" fill="#ffffff" opacity="0.92"/>
+<text x="174" y="226" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#3a6b4a" text-anchor="middle">AD</text>
+<rect x="400" y="560" width="150" height="56" rx="16" fill="#ffffff" opacity="0.92"/>
+<text x="475" y="596" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#3a6b4a" text-anchor="middle">FREE</text>
+<circle cx="470" cy="260" r="14" fill="#ffffff" opacity="0.6"/>
+<circle cx="150" cy="580" r="10" fill="#ffffff" opacity="0.5"/>
+
+</svg>
