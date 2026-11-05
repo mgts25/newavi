@@ -6,10 +6,10 @@ permalink: /pricing/
 ---
 <main class="pt-36 pb-section_padding">
 <div class="mx-auto px-gutter max-w-container_max_width">
-<div class="pricing-grid">
+<div class="game-grid pricing-align-top">
 {% for tier in pricing.tiers %}
 <div class="card-in" style="animation-delay: {{ loop.index0 * 80 }}ms;">
-<div class="group flex flex-col gap-2 cursor-pointer" data-toggle-pricing="{{ loop.index0 }}">
+<div class="flex flex-col gap-2">
 <div class="relative w-full aspect-[4/5] rounded-lg overflow-hidden bg-surface-container-high game-card-shadow game-card-frame transition-all duration-300" style="border-top: 3px solid {{ tier.accent | accentHex }};">
 {% if tier.featured %}
 <div class="absolute top-2 right-2 z-10 bg-primary text-on-primary px-2.5 py-1 rounded-full font-label-md text-[9px] uppercase font-bold tracking-widest shadow-sm">Most Popular</div>
@@ -21,10 +21,27 @@ permalink: /pricing/
 <p class="text-secondary text-[11px]">{{ tier.badge }}</p>
 <p class="text-on-surface-variant font-medium text-[11px]">{% if tier.priceLabel %}{{ tier.priceLabel }} {% endif %}{{ tier.price }}{{ tier.priceSuffix }}</p>
 </div>
+<button type="button" class="features-toggle-btn w-full py-2 rounded-full flex items-center justify-center gap-1 font-label-md text-[10px] font-bold uppercase tracking-wide border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-toggle-pricing="{{ loop.index0 }}" aria-expanded="false">
+<span class="material-symbols-outlined text-[14px] pricing-chevron">expand_more</span>
+Features
+</button>
+{% if tier.priceCents %}
+<button type="button"
+    class="add-to-cart-btn w-full py-2.5 rounded-full text-center font-label-md text-[11px] font-bold uppercase tracking-wide transition-all {% if tier.featured %}bg-primary text-on-primary hover:bg-primary-container shadow-sm{% else %}border border-primary text-primary hover:bg-primary/5{% endif %}"
+    data-id="{{ tier.id }}"
+    data-name="{{ tier.name }}"
+    data-price-cents="{{ tier.priceCents }}"
+    data-price-label="{% if tier.priceLabel %}{{ tier.priceLabel }} {% endif %}{{ tier.price }}{{ tier.priceSuffix }}"
+    data-icon="{{ tier.image }}">
+Add to Cart — {{ tier.price }}{{ tier.priceSuffix }}
+</button>
+{% else %}
+<a href="/" class="w-full py-2.5 rounded-full text-center font-label-md text-[11px] font-bold uppercase tracking-wide transition-all block {% if tier.featured %}bg-primary text-on-primary hover:bg-primary-container shadow-sm{% else %}border border-primary text-primary hover:bg-primary/5{% endif %}">{{ tier.cta }}</a>
+{% endif %}
 </div>
 <div class="pricing-expand" id="pricing-expand-{{ loop.index0 }}">
 <div class="pricing-expand-inner bg-surface-container-high rounded-lg p-5 mt-2" style="border-top: 3px solid {{ tier.accent | accentHex }};">
-<ul class="space-y-3 mb-5">
+<ul class="space-y-3">
 {% for feature in tier.features %}
 <li class="flex items-start gap-2 min-w-0">
 <span class="material-symbols-outlined text-primary text-[16px] flex-shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span>
@@ -32,7 +49,6 @@ permalink: /pricing/
 </li>
 {% endfor %}
 </ul>
-<button type="button" class="w-full py-2.5 rounded-full text-center font-label-md text-[11px] font-bold uppercase tracking-wide transition-all {% if tier.featured %}bg-primary text-on-primary hover:bg-primary-container{% else %}border border-primary text-primary hover:bg-primary/5{% endif %}">{{ tier.cta }}</button>
 </div>
 </div>
 </div>
@@ -42,16 +58,22 @@ permalink: /pricing/
 </main>
 <script>
 (function () {
-    document.querySelectorAll('[data-toggle-pricing]').forEach(function (card) {
-        card.addEventListener('click', function () {
-            var idx = card.getAttribute('data-toggle-pricing');
+    document.querySelectorAll('[data-toggle-pricing]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var idx = btn.getAttribute('data-toggle-pricing');
             var panel = document.getElementById('pricing-expand-' + idx);
             if (!panel) return;
             var wasOpen = panel.classList.contains('open');
-            document.querySelectorAll('.pricing-expand.open').forEach(function (p) {
-                p.classList.remove('open');
+            document.querySelectorAll('.pricing-expand.open').forEach(function (p) { p.classList.remove('open'); });
+            document.querySelectorAll('.features-toggle-btn.open').forEach(function (b) {
+                b.classList.remove('open');
+                b.setAttribute('aria-expanded', 'false');
             });
-            if (!wasOpen) panel.classList.add('open');
+            if (!wasOpen) {
+                panel.classList.add('open');
+                btn.classList.add('open');
+                btn.setAttribute('aria-expanded', 'true');
+            }
         });
     });
 })();
