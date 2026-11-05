@@ -104,19 +104,12 @@ body {
 @media (min-width: 1024px) { .game-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
 @media (min-width: 1280px) { .game-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); } }
 
-/* Same grid as .game-grid, but items align to the top of their row instead
-   of stretching — needed on Pricing so an expanded card's feature list
-   doesn't visually stretch the other cards sharing its row. */
-.pricing-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-  align-items: start;
-}
-@media (min-width: 480px) { .pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 640px) { .pricing-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (min-width: 768px) { .pricing-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-@media (min-width: 1024px) { .pricing-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+/* Pricing now reuses .game-grid directly (same breakpoints/column counts
+   as Index) for true size parity. This modifier just keeps cards aligned
+   to the top of their row instead of stretching, so an expanded card's
+   taller feature list doesn't visually stretch the other cards sharing
+   its row. */
+.pricing-align-top { align-items: start; }
 
 /* ===== Pricing: expandable feature panel ===== */
 .pricing-expand {
@@ -126,6 +119,9 @@ body {
   transition: max-height 0.35s ease, opacity 0.3s ease;
 }
 .pricing-expand.open { max-height: 420px; opacity: 1; }
+
+.features-toggle-btn .pricing-chevron { transition: transform 0.25s ease; }
+.features-toggle-btn.open .pricing-chevron { transform: rotate(180deg); }
 
 /* ===== Login dropdown ===== */
 .login-dropdown {
