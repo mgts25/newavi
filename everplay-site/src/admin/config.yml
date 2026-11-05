@@ -86,6 +86,7 @@ collections:
             widget: "list"
             summary: "{{name}} — {{price}}"
             fields:
+              - { label: "Tier ID", name: "id", widget: "string", hint: "Must stay unique and must never change once set — the cart and checkout use this to identify the tier. Example: battle-pass" }
               - { label: "Badge", name: "badge", widget: "string", hint: "e.g. Free Tier, Premium, On-Demand, Seasonal, Boost" }
               - { label: "Tier Name", name: "name", widget: "string" }
               - { label: "Card Artwork", name: "image", widget: "image", hint: "The illustration shown at the top of this tier's card." }
@@ -102,13 +103,14 @@ collections:
               - { label: "Price Prefix (optional)", name: "priceLabel", widget: "string", required: false, hint: "e.g. \"From\"" }
               - { label: "Price", name: "price", widget: "string" }
               - { label: "Price Suffix (optional)", name: "priceSuffix", widget: "string", required: false, hint: "e.g. \"/mo\", \"/season\"" }
+              - { label: "Price in cents (for payment)", name: "priceCents", widget: "number", value_type: "int", default: 0, hint: "The REAL amount charged, in cents, when someone adds this tier to their cart. $4.99 = 499. Must stay in sync with Price above. Leave as 0 for a tier with no purchase action (e.g. the Free Tier) — its card will show the Button Text below as a link instead of \"Add to Cart\"." }
               - label: "Features"
                 name: "features"
                 widget: "list"
                 summary: "{{feature}}"
                 field: { label: "Feature", name: "feature", widget: "string" }
-                hint: "Shown when a visitor clicks this card to expand it."
-              - { label: "Button Text", name: "cta", widget: "string" }
+                hint: "Shown when a visitor clicks the Features button on this card."
+              - { label: "Button Text", name: "cta", widget: "string", hint: "Used as the card's link label when Price in cents is 0 (no real purchase action)." }
               - { label: "Highlight as \"Most Popular\"", name: "featured", widget: "boolean", default: false }
 
   - name: "about"
