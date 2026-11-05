@@ -104,6 +104,29 @@ body {
 @media (min-width: 1024px) { .game-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
 @media (min-width: 1280px) { .game-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); } }
 
+/* Same grid as .game-grid, but items align to the top of their row instead
+   of stretching — needed on Pricing so an expanded card's feature list
+   doesn't visually stretch the other cards sharing its row. */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  align-items: start;
+}
+@media (min-width: 480px) { .pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 640px) { .pricing-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 768px) { .pricing-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .pricing-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+
+/* ===== Pricing: expandable feature panel ===== */
+.pricing-expand {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.3s ease;
+}
+.pricing-expand.open { max-height: 420px; opacity: 1; }
+
 /* ===== Login dropdown ===== */
 .login-dropdown {
   position: absolute;
