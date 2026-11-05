@@ -1,11 +1,13 @@
 {
   "tiers": [
     {
+      "id": "ad-network",
       "badge": "Free Tier",
       "name": "Integrated Ad Network",
       "priceLabel": "",
       "price": "Free",
       "priceSuffix": "",
+      "priceCents": 0,
       "accent": "secondary",
       "image": "/images/uploads/pricing_free.svg",
       "features": [
@@ -17,11 +19,13 @@
       "featured": false
     },
     {
+      "id": "p2p-membership",
       "badge": "Premium",
       "name": "P2P Membership",
       "priceLabel": "",
       "price": "$5",
       "priceSuffix": "/mo",
+      "priceCents": 500,
       "accent": "primary",
       "image": "/images/uploads/pricing_premium.svg",
       "features": [
@@ -34,11 +38,13 @@
       "featured": true
     },
     {
+      "id": "iap-individual",
       "badge": "On-Demand",
       "name": "Individual IAP",
       "priceLabel": "From",
       "price": "$0.99",
       "priceSuffix": "",
+      "priceCents": 99,
       "accent": "tertiary",
       "image": "/images/uploads/pricing_iap.svg",
       "features": [
@@ -50,11 +56,13 @@
       "featured": false
     },
     {
+      "id": "battle-pass",
       "badge": "Seasonal",
       "name": "Battle Pass",
       "priceLabel": "",
       "price": "$9.99",
       "priceSuffix": "/season",
+      "priceCents": 999,
       "accent": "primary-container",
       "image": "/images/uploads/pricing_battlepass.svg",
       "features": [
@@ -67,11 +75,13 @@
       "featured": false
     },
     {
+      "id": "level-account",
       "badge": "Boost",
       "name": "Level Account",
       "priceLabel": "From",
       "price": "$4.99",
       "priceSuffix": "",
+      "priceCents": 499,
       "accent": "tertiary-container",
       "image": "/images/uploads/pricing_levelaccount.svg",
       "features": [
