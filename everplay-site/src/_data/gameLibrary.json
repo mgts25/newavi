@@ -1,37 +1,37 @@
 {
   "games": [
     {
-      "title": "PIXEL DASH",
       "genre": "Battle Royale",
       "price": "Free",
-      "icon": "rocket_launch",
       "accent": "secondary",
-      "comingSoon": false,
-      "image": "/images/uploads/pixeldash_background.png",
       "logo": "/images/uploads/PixelDash_logo_trim.png",
-      "video": "/images/uploads/PixelDash_video_compressed.mp4"
+      "title": "PIXEL DASH",
+      "icon": "rocket_launch",
+      "video": "/images/uploads/PixelDash_video_compressed.mp4",
+      "image": "/images/uploads/pixeldash_background.png",
+      "comingSoon": false
     },
     {
-      "title": "KILLBOX",
       "genre": "First Person",
       "price": "Free",
-      "icon": "target",
       "accent": "secondary",
-      "comingSoon": false,
-      "image": "/images/uploads/killbox_background.png",
       "logo": "/images/uploads/Killbox_logo_trim.png",
-      "video": "/images/uploads/killbox_video.mp4"
+      "title": "KILLBOX",
+      "icon": "target",
+      "video": "/images/uploads/killbox_video.mp4",
+      "image": "/images/uploads/killbox_background.png",
+      "comingSoon": false
     },
     {
-      "title": "CROWNHOLD",
       "genre": "Strategy",
       "price": "Free",
-      "icon": "swords",
       "accent": "tertiary",
-      "comingSoon": false,
-      "image": "/images/uploads/crownhold_background.png",
       "logo": "/images/uploads/Crownhold_logo_trim.png",
-      "video": "/images/uploads/Crownhold_video_compressed.mp4"
+      "title": "CROWNHOLD",
+      "icon": "swords",
+      "video": "/images/uploads/Crownhold_video_compressed.mp4",
+      "image": "/images/uploads/crownhold_background.png",
+      "comingSoon": false
     },
     {
       "title": "THREE KINGDOMS",
@@ -52,11 +52,14 @@
       "video": "/images/uploads/DriftArmor_video_compressed.mp4"
     },
     {
-      "title": "NEMEXIA",
       "genre": "Adventure",
       "price": "Coming Soon",
-      "icon": "auto_awesome",
       "accent": "primary-container",
+      "logo": "/images/uploads/nmxlogo.png",
+      "title": "NEMEXIA",
+      "icon": "auto_awesome",
+      "video": "/images/uploads/nemexiatrailer-trim.mp4",
+      "image": "/images/uploads/neon-galaxy-horizon-with-cosmic-duo.png",
       "comingSoon": true
     },
     {
@@ -68,15 +71,15 @@
       "comingSoon": true
     },
     {
-      "title": "EDGE SURVIVAL",
       "genre": "Survival",
       "price": "Coming Soon",
-      "icon": "terrain",
       "accent": "tertiary",
-      "comingSoon": false,
-      "image": "/images/uploads/Edge_background.png",
       "logo": "/images/uploads/Edge_logo_trim.png",
-      "video": "/images/uploads/Edge_video.mp4"
+      "title": "EDGE SURVIVAL",
+      "icon": "terrain",
+      "video": "/images/uploads/Edge_video.mp4",
+      "image": "/images/uploads/Edge_background.png",
+      "comingSoon": false
     },
     {
       "title": "SNOW SQUAD",
