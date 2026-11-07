@@ -19,17 +19,17 @@
 <button type="button" id="mobile-menu-btn" onclick="toggleMobileMenu(event)" aria-label="Menu" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container-low transition-colors">
 <span class="material-symbols-outlined" id="mobile-menu-icon">menu</span>
 </button>
-<div class="relative flex items-center">
+<div class="relative flex items-center" id="login-menu-wrap">
 <button type="button" id="login-toggle-btn" onclick="toggleLoginDropdown(event)" class="inline-flex items-center gap-1 font-label-md text-label-md text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 px-4 py-2 rounded-full">
 Login
 <span class="material-symbols-outlined text-[18px] transition-transform duration-300" id="login-chevron">expand_more</span>
 </button>
 <div id="login-dropdown" class="login-dropdown absolute bg-surface-container-lowest rounded-xl shadow-[0px_16px_40px_rgba(0,0,0,0.14)] border border-outline-variant/30 p-6">
 <div class="text-center mb-5">
-<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Welcome Back</h3>
-<p class="text-secondary text-[12px]">Sign in to your account</p>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1" id="auth-modal-title">Welcome Back</h3>
+<p class="text-secondary text-[12px]" id="auth-modal-subtitle">Sign in to your account</p>
 </div>
-<button type="button" class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary font-label-md text-label-md py-3 rounded-lg shadow-sm hover:bg-primary-container hover:text-on-primary-container transition-all duration-300 mb-4">
+<button type="button" id="google-signin-btn" class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary font-label-md text-label-md py-3 rounded-lg shadow-sm hover:bg-primary-container hover:text-on-primary-container transition-all duration-300 mb-4">
 <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"></path>
 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"></path>
@@ -43,12 +43,30 @@ Login with Google
 <span class="flex-shrink mx-3 font-label-md text-[11px] text-on-surface-variant/50">or</span>
 <div class="flex-grow border-t border-outline-variant"></div>
 </div>
-<form onsubmit="return false;" class="space-y-3">
-<input class="w-full px-4 py-2.5 rounded-lg border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-surface-bright transition-all outline-none font-body-md text-[13px]" placeholder="Email" type="email">
-<input class="w-full px-4 py-2.5 rounded-lg border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-surface-bright transition-all outline-none font-body-md text-[13px]" placeholder="Password" type="password">
-<button type="submit" class="w-full py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors">Sign In</button>
+<form id="auth-form" class="space-y-3">
+<input id="auth-email" class="w-full px-4 py-2.5 rounded-lg border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-surface-bright transition-all outline-none font-body-md text-[13px]" placeholder="Email" type="email" required>
+<input id="auth-password" class="w-full px-4 py-2.5 rounded-lg border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-surface-bright transition-all outline-none font-body-md text-[13px]" placeholder="Password" type="password" required minlength="6">
+<button type="submit" id="auth-submit-btn" class="w-full py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors">Sign In</button>
+<p id="auth-error" class="hidden text-center text-[12px] text-error"></p>
 </form>
-<p class="text-center text-[11px] text-on-surface-variant/60 mt-4">Account login coming soon</p>
+<p class="text-center text-[11px] text-on-surface-variant/60 mt-4" id="auth-mode-prompt"><span id="auth-mode-prompt-text">Don't have an account? </span><button type="button" id="auth-mode-switch" class="text-primary hover:underline font-bold">Sign up</button></p>
+</div>
+</div>
+<div class="relative flex items-center hidden" id="user-menu-wrap">
+<button type="button" id="user-toggle-btn" onclick="toggleUserDropdown(event)" class="inline-flex items-center gap-2 font-label-md text-label-md text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 pl-2 pr-3 py-1.5 rounded-full">
+<span id="user-avatar-circle" class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-[12px] overflow-hidden flex-shrink-0">
+<img id="user-avatar-img" src="" alt="" class="w-full h-full object-cover hidden">
+<span id="user-avatar-initial"></span>
+</span>
+<span id="user-display-name" class="max-w-[100px] truncate"></span>
+<span class="material-symbols-outlined text-[18px] transition-transform duration-300" id="user-chevron">expand_more</span>
+</button>
+<div id="user-dropdown" class="login-dropdown absolute bg-surface-container-lowest rounded-xl shadow-[0px_16px_40px_rgba(0,0,0,0.14)] border border-outline-variant/30 p-4">
+<p class="text-center text-[11px] text-on-surface-variant/60 mb-3 truncate px-2" id="user-email-display"></p>
+<button type="button" id="logout-btn" class="w-full flex items-center justify-center gap-2 border border-outline-variant text-on-surface font-label-md text-label-md py-2.5 rounded-lg hover:bg-surface-container-low transition-all duration-300">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+Log Out
+</button>
 </div>
 </div>
 </div>
@@ -243,6 +261,10 @@ Proceed to Payment
         if (e.key === 'Escape') {
             if (loginDropdown) loginDropdown.classList.remove('open');
             if (loginChevron) loginChevron.style.transform = 'rotate(0deg)';
+            var userDropdownEl = document.getElementById('user-dropdown');
+            var userChevronEl = document.getElementById('user-chevron');
+            if (userDropdownEl) userDropdownEl.classList.remove('open');
+            if (userChevronEl) userChevronEl.style.transform = 'rotate(0deg)';
             if (mobileMenu) mobileMenu.classList.remove('open');
             if (mobileMenuIcon) mobileMenuIcon.textContent = 'menu';
             document.querySelectorAll('.modal-backdrop.open').forEach(closeModalEl);
@@ -500,6 +522,173 @@ Proceed to Payment
     });
 
     render();
+})();
+</script>
+
+<!-- ===== Account login / sign-up (Firebase Authentication) ===== -->
+<script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-auth-compat.js"></script>
+<script>
+(function () {
+    // If the Firebase SDK failed to load (blocked network, ad blocker, etc.),
+    // bail out of auth setup quietly rather than throwing and breaking every
+    // other script on the page (cart, modals, mobile nav all load separately
+    // and should keep working either way).
+    if (typeof firebase === 'undefined') {
+        console.warn('Firebase SDK did not load — account login is unavailable right now.');
+        return;
+    }
+
+    var firebaseConfig = {
+        apiKey: "AIzaSyCovpxKjvK2SRLxdl3gOUjYxfxauB8lNdI",
+        authDomain: "multiverse-games-b275f.firebaseapp.com",
+        projectId: "multiverse-games-b275f",
+        storageBucket: "multiverse-games-b275f.firebasestorage.app",
+        messagingSenderId: "546833600839",
+        appId: "1:546833600839:web:01df1805030c1ec5a1fc62",
+        measurementId: "G-1S4LJJWGMT"
+    };
+    firebase.initializeApp(firebaseConfig);
+    var auth = firebase.auth();
+    var googleProvider = new firebase.auth.GoogleAuthProvider();
+
+    var loginMenuWrap = document.getElementById('login-menu-wrap');
+    var userMenuWrap = document.getElementById('user-menu-wrap');
+    var userDropdown = document.getElementById('user-dropdown');
+    var userChevron = document.getElementById('user-chevron');
+    var userToggleBtn = document.getElementById('user-toggle-btn');
+    var loginDropdownEl = document.getElementById('login-dropdown');
+    var loginChevronEl = document.getElementById('login-chevron');
+
+    function closeLoginDropdown() {
+        if (loginDropdownEl) loginDropdownEl.classList.remove('open');
+        if (loginChevronEl) loginChevronEl.style.transform = 'rotate(0deg)';
+    }
+
+    // ----- User account dropdown (shown once signed in) -----
+    window.toggleUserDropdown = function (e) {
+        e.stopPropagation();
+        var isOpen = userDropdown.classList.toggle('open');
+        if (userChevron) userChevron.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+    };
+
+    document.addEventListener('click', function (e) {
+        if (userDropdown && userDropdown.classList.contains('open') &&
+            !userDropdown.contains(e.target) && !userToggleBtn.contains(e.target)) {
+            userDropdown.classList.remove('open');
+            if (userChevron) userChevron.style.transform = 'rotate(0deg)';
+        }
+    });
+
+    // ----- Reflect signed-in / signed-out state in the nav -----
+    auth.onAuthStateChanged(function (user) {
+        if (user) {
+            loginMenuWrap.classList.add('hidden');
+            userMenuWrap.classList.remove('hidden');
+
+            var displayName = user.displayName || (user.email ? user.email.split('@')[0] : 'Account');
+            document.getElementById('user-display-name').textContent = displayName;
+            document.getElementById('user-email-display').textContent = user.email || '';
+
+            var avatarImg = document.getElementById('user-avatar-img');
+            var avatarInitial = document.getElementById('user-avatar-initial');
+            if (user.photoURL) {
+                avatarImg.src = user.photoURL;
+                avatarImg.classList.remove('hidden');
+                avatarInitial.classList.add('hidden');
+            } else {
+                avatarImg.classList.add('hidden');
+                avatarInitial.classList.remove('hidden');
+                avatarInitial.textContent = displayName.charAt(0).toUpperCase();
+            }
+        } else {
+            loginMenuWrap.classList.remove('hidden');
+            userMenuWrap.classList.add('hidden');
+        }
+    });
+
+    document.getElementById('logout-btn').addEventListener('click', function () {
+        auth.signOut();
+        userDropdown.classList.remove('open');
+        if (userChevron) userChevron.style.transform = 'rotate(0deg)';
+    });
+
+    // ----- Friendly error messages -----
+    function authErrorMessage(err) {
+        switch (err.code) {
+            case 'auth/email-already-in-use': return 'An account with this email already exists — try signing in instead.';
+            case 'auth/invalid-email': return "That email address doesn't look right.";
+            case 'auth/weak-password': return 'Password should be at least 6 characters.';
+            case 'auth/user-not-found':
+            case 'auth/wrong-password':
+            case 'auth/invalid-credential': return 'Incorrect email or password.';
+            case 'auth/popup-closed-by-user':
+            case 'auth/cancelled-popup-request': return '';
+            default: return 'Something went wrong — please try again.';
+        }
+    }
+    function showAuthError(err) {
+        var msg = authErrorMessage(err);
+        var errorEl = document.getElementById('auth-error');
+        if (!msg) { errorEl.classList.add('hidden'); return; }
+        errorEl.textContent = msg;
+        errorEl.classList.remove('hidden');
+    }
+
+    // ----- Google sign-in -----
+    document.getElementById('google-signin-btn').addEventListener('click', function () {
+        document.getElementById('auth-error').classList.add('hidden');
+        auth.signInWithPopup(googleProvider).then(function () {
+            closeLoginDropdown();
+        }).catch(showAuthError);
+    });
+
+    // ----- Email/password sign in and sign up (one form, toggled mode) -----
+    var isSignUpMode = false;
+    var authTitle = document.getElementById('auth-modal-title');
+    var authSubtitle = document.getElementById('auth-modal-subtitle');
+    var authSubmitBtn = document.getElementById('auth-submit-btn');
+    var authModeSwitch = document.getElementById('auth-mode-switch');
+    var authModePromptText = document.getElementById('auth-mode-prompt-text');
+    var authForm = document.getElementById('auth-form');
+
+    function setAuthMode(signUp) {
+        isSignUpMode = signUp;
+        document.getElementById('auth-error').classList.add('hidden');
+        if (signUp) {
+            authTitle.textContent = 'Create Account';
+            authSubtitle.textContent = 'Sign up to get started';
+            authSubmitBtn.textContent = 'Sign Up';
+            authModePromptText.textContent = 'Already have an account? ';
+            authModeSwitch.textContent = 'Sign in';
+        } else {
+            authTitle.textContent = 'Welcome Back';
+            authSubtitle.textContent = 'Sign in to your account';
+            authSubmitBtn.textContent = 'Sign In';
+            authModePromptText.textContent = "Don't have an account? ";
+            authModeSwitch.textContent = 'Sign up';
+        }
+    }
+    // The button itself is never recreated, so this listener only needs
+    // attaching once — fixes a bug where rebuilding it via innerHTML on
+    // every toggle detached the just-clicked element mid-click, which made
+    // the document-level "click outside closes the dropdown" handler treat
+    // the click as outside and immediately close the dropdown again.
+    authModeSwitch.addEventListener('click', function () { setAuthMode(!isSignUpMode); });
+
+    authForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        document.getElementById('auth-error').classList.add('hidden');
+        var email = document.getElementById('auth-email').value;
+        var password = document.getElementById('auth-password').value;
+        var action = isSignUpMode
+            ? auth.createUserWithEmailAndPassword(email, password)
+            : auth.signInWithEmailAndPassword(email, password);
+        action.then(function () {
+            authForm.reset();
+            closeLoginDropdown();
+        }).catch(showAuthError);
+    });
 })();
 </script>
 </body></html>
