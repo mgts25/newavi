@@ -9,7 +9,8 @@
       "icon": "rocket_launch",
       "video": "/images/uploads/PixelDash_video_compressed.mp4",
       "image": "/images/uploads/pixeldash_background.png",
-      "comingSoon": false
+      "comingSoon": false,
+      "appIcon": "/images/uploads/PixelDash_appicon.png"
     },
     {
       "genre": "First Person",
