@@ -197,6 +197,7 @@ collections:
         file: "everplay-site/src/_data/siteSettings.json"
         fields:
           - { label: "Support Email", name: "supportEmail", widget: "string", hint: "Shown as the contact address on the Terms, Privacy, and Careers pages." }
+          - { label: "Browser Tab Icon (Favicon)", name: "favicon", widget: "image", required: false, hint: "The little icon shown in the browser tab, bookmarks, and search results — upload a plain square image (ideally 512x512px or similar, PNG with a transparent or solid background). Leave blank to use the browser's default icon." }
 
   - name: "home"
     label: "Homepage"
