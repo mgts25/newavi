@@ -58,11 +58,18 @@ collections:
               - { label: "Coming Soon", name: "comingSoon", widget: "boolean", default: false, hint: "Show a placeholder tile instead of a cover image — use this for games you haven't uploaded art for yet" }
               - { label: "Hide This Game", name: "hidden", widget: "boolean", default: false, required: false, hint: "Completely removes this game from the website — it won't show up at all, not even as a Coming Soon tile. Use this instead of deleting when you need to temporarily take down a live game: everything you've filled in here (art, video, logo) stays saved, so un-checking this box brings it right back." }
               - { label: "Cover Image", name: "image", widget: "image", required: false, hint: "Not needed while Coming Soon is checked" }
-              - { label: "Game Logo (optional)", name: "logo", widget: "image", required: false, hint: "A wide, transparent-background logo/wordmark — it overlays the bottom of the cover image. Leave blank to show a plain icon badge instead." }
+              - { label: "App Icon", name: "appIcon", widget: "image", required: false, hint: "A square icon, like a Google Play or App Store icon — upload it as a plain full-bleed square (no rounded corners or padding baked in); the site rounds the corners automatically. Shown next to the title below the cover art. Leave blank to show a plain icon badge instead." }
               - label: "Icon Badge"
                 name: "icon"
                 widget: "string"
-                hint: "A Material Symbols icon name, e.g. rocket_launch, swords, speed. Browse names at fonts.google.com/icons"
+                hint: "A Material Symbols icon name, e.g. rocket_launch, swords, speed. Browse names at fonts.google.com/icons. Only used as a placeholder if no App Icon is uploaded above."
+              - label: "Available On"
+                name: "platforms"
+                widget: "select"
+                multiple: true
+                required: false
+                options: ["Google Play", "Steam"]
+                hint: "Shows a small platform badge next to the app icon. Leave blank if the game isn't listed anywhere yet."
               - label: "Accent Color"
                 name: "accent"
                 widget: "select"
@@ -73,7 +80,7 @@ collections:
                   - { label: "Blue", value: "tertiary" }
                   - { label: "Light Blue", value: "tertiary-container" }
                   - { label: "Gray", value: "secondary" }
-              - { label: "Preview Video (optional)", name: "video", widget: "file", required: false, hint: "Upload a short .mp4 (a few seconds, ideally under ~8MB). If a Cover Image is also set, this plays on hover. If there's no Cover Image, this plays on a continuous loop as the tile itself — use that for a game that only has footage so far." }
+              - { label: "Preview Video (optional)", name: "video", widget: "file", required: false, hint: "Upload a short .mp4 (a few seconds, ideally under ~8MB). If a Cover Image is also set, the cover shows first and this takes over automatically after a few seconds on screen. If there's no Cover Image, this plays on a continuous loop as the tile itself — use that for a game that only has footage so far." }
 
   - name: "pricing"
     label: "Pricing Page"
