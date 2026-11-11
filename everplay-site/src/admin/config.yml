@@ -189,6 +189,15 @@ collections:
           - { label: "CTA Heading", name: "ctaHeading", widget: "string" }
           - { label: "CTA Body", name: "ctaBody", widget: "text" }
 
+  - name: "siteSettings"
+    label: "Site Settings"
+    files:
+      - name: "siteSettings"
+        label: "General Settings"
+        file: "everplay-site/src/_data/siteSettings.json"
+        fields:
+          - { label: "Support Email", name: "supportEmail", widget: "string", hint: "Shown as the contact address on the Terms, Privacy, and Careers pages." }
+
   - name: "home"
     label: "Homepage"
     files:
