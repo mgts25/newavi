@@ -83,10 +83,10 @@ collections:
               - { label: "Preview Video (optional)", name: "video", widget: "file", required: false, hint: "Upload a short .mp4 (a few seconds, ideally under ~8MB). If a Cover Image is also set, the cover shows first and this takes over automatically after a few seconds on screen. If there's no Cover Image, this plays on a continuous loop as the tile itself — use that for a game that only has footage so far." }
 
   - name: "pricing"
-    label: "Pricing Page"
+    label: "Packs Page"
     files:
       - name: "pricing"
-        label: "Pricing Tiers"
+        label: "Packs"
         file: "everplay-site/src/_data/pricing.json"
         fields:
           - label: "Tiers"
