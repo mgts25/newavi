@@ -34,7 +34,7 @@ permalink: /
 </div>
 {% endif %}
 {% else %}
-<video class="w-full h-full object-cover" autoplay loop muted playsinline>
+<video class="w-full h-full object-cover" loop muted playsinline>
 <source src="{{ game.video }}" type="video/mp4">
 </video>
 {% endif %}
@@ -60,16 +60,22 @@ permalink: /
 </div>
 </main>
 <script>
-    document.querySelectorAll('.group').forEach(card => {
-        const video = card.querySelector('.video-container video');
-        if (video) {
-            card.addEventListener('mouseenter', () => {
-                video.currentTime = 0;
-                video.play();
-            });
-            card.addEventListener('mouseleave', () => {
+    // Game cards with a video now play it automatically, like a looping gameplay
+    // banner, instead of waiting for a hover. To avoid every card on the page
+    // decoding video at once (heavy on battery/data as the library grows), each
+    // one only plays while its card is actually scrolled into view.
+    const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            const video = entry.target;
+            if (entry.isIntersecting) {
+                video.play().catch(() => {});
+            } else {
                 video.pause();
-            });
-        }
+            }
+        });
+    }, { threshold: 0.25 });
+
+    document.querySelectorAll('.group video').forEach((video) => {
+        videoObserver.observe(video);
     });
 </script>
