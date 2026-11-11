@@ -1,6 +1,6 @@
 ---
 layout: base.njk
-title: MULTIVERSE | Pricing - Choose Your Experience
+title: MULTIVERSE | Packs - Choose Your Experience
 activeNav: pricing
 permalink: /pricing/
 ---
@@ -10,34 +10,37 @@ permalink: /pricing/
 {% for tier in pricing.tiers %}
 <div class="card-in" style="animation-delay: {{ loop.index0 * 80 }}ms;">
 <div class="flex flex-col gap-2">
-<div class="relative w-full aspect-[4/5] rounded-lg overflow-hidden bg-surface-container-high game-card-shadow game-card-frame transition-all duration-300" style="border-top: 3px solid {{ tier.accent | accentHex }};">
+<div class="pricing-tile-toggle relative w-full aspect-[4/5] rounded-lg overflow-hidden bg-surface-container-high game-card-shadow game-card-frame transition-all duration-300 cursor-pointer" style="border-top: 3px solid {{ tier.accent | accentHex }};" data-toggle-pricing="{{ loop.index0 }}" role="button" tabindex="0" aria-expanded="false" aria-controls="pricing-expand-{{ loop.index0 }}">
 {% if tier.featured %}
 <div class="absolute top-2 right-2 z-10 bg-primary text-on-primary px-2.5 py-1 rounded-full font-label-md text-[9px] uppercase font-bold tracking-widest shadow-sm">Most Popular</div>
 {% endif %}
-<img src="{{ tier.image }}" alt="" class="w-full h-full object-cover">
+<img src="{{ tier.image }}" alt="" class="w-full h-full object-cover pointer-events-none">
+<div class="absolute bottom-2 left-2 w-8 h-8 rounded-lg bg-black/55 backdrop-blur-sm flex items-center justify-center pointer-events-none">
+<span class="material-symbols-outlined text-white text-[18px] pricing-chevron">expand_more</span>
+</div>
+{% if tier.priceCents %}
+<button type="button"
+    class="add-to-cart-btn absolute bottom-2 right-2 w-8 h-8 rounded-lg flex items-center justify-center shadow-sm transition-all {% if tier.featured %}bg-primary text-on-primary hover:bg-primary-container{% else %}bg-surface text-primary border border-primary hover:bg-primary/10{% endif %}"
+    data-id="{{ tier.id }}"
+    data-name="{{ tier.name }}"
+    data-price-cents="{{ tier.priceCents }}"
+    data-price-label="{% if tier.priceLabel %}{{ tier.priceLabel }} {% endif %}{{ tier.price }}{{ tier.priceSuffix }}"
+    data-icon="{{ tier.image }}"
+    aria-label="Add {{ tier.name }} to cart — {{ tier.price }}{{ tier.priceSuffix }}"
+    onclick="event.stopPropagation()">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+{% else %}
+<a href="/" class="absolute bottom-2 right-2 w-8 h-8 rounded-lg flex items-center justify-center shadow-sm transition-all {% if tier.featured %}bg-primary text-on-primary hover:bg-primary-container{% else %}bg-surface text-primary border border-primary hover:bg-primary/10{% endif %}" aria-label="{{ tier.cta }}" onclick="event.stopPropagation()">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+{% endif %}
 </div>
 <div class="flex flex-col leading-tight">
 <h4 class="font-bold text-on-surface text-[13px] truncate">{{ tier.name }}</h4>
 <p class="text-secondary text-[11px]">{{ tier.badge }}</p>
 <p class="text-on-surface-variant font-medium text-[11px]">{% if tier.priceLabel %}{{ tier.priceLabel }} {% endif %}{{ tier.price }}{{ tier.priceSuffix }}</p>
 </div>
-<button type="button" class="features-toggle-btn w-full py-2 rounded-full flex items-center justify-center gap-1 font-label-md text-[10px] font-bold uppercase tracking-wide border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-toggle-pricing="{{ loop.index0 }}" aria-expanded="false">
-<span class="material-symbols-outlined text-[14px] pricing-chevron">expand_more</span>
-Features
-</button>
-{% if tier.priceCents %}
-<button type="button"
-    class="add-to-cart-btn w-full py-2.5 rounded-full text-center font-label-md text-[11px] font-bold uppercase tracking-wide transition-all {% if tier.featured %}bg-primary text-on-primary hover:bg-primary-container shadow-sm{% else %}border border-primary text-primary hover:bg-primary/5{% endif %}"
-    data-id="{{ tier.id }}"
-    data-name="{{ tier.name }}"
-    data-price-cents="{{ tier.priceCents }}"
-    data-price-label="{% if tier.priceLabel %}{{ tier.priceLabel }} {% endif %}{{ tier.price }}{{ tier.priceSuffix }}"
-    data-icon="{{ tier.image }}">
-Add to Cart — {{ tier.price }}{{ tier.priceSuffix }}
-</button>
-{% else %}
-<a href="/" class="w-full py-2.5 rounded-full text-center font-label-md text-[11px] font-bold uppercase tracking-wide transition-all block {% if tier.featured %}bg-primary text-on-primary hover:bg-primary-container shadow-sm{% else %}border border-primary text-primary hover:bg-primary/5{% endif %}">{{ tier.cta }}</a>
-{% endif %}
 </div>
 <div class="pricing-expand" id="pricing-expand-{{ loop.index0 }}">
 <div class="pricing-expand-inner bg-surface-container-high rounded-lg p-5 mt-2" style="border-top: 3px solid {{ tier.accent | accentHex }};">
@@ -58,21 +61,33 @@ Add to Cart — {{ tier.price }}{{ tier.priceSuffix }}
 </main>
 <script>
 (function () {
-    document.querySelectorAll('[data-toggle-pricing]').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-            var idx = btn.getAttribute('data-toggle-pricing');
+    // Clicking the tile's image/art (anywhere except the Add-to-Cart / CTA
+    // button, which stops its own click from bubbling here) toggles that
+    // tier's feature list open — there's no separate "Features" button
+    // anymore. Keyboard users get the same toggle via Enter/Space since the
+    // tile is a role="button" with tabindex="0".
+    document.querySelectorAll('[data-toggle-pricing]').forEach(function (tile) {
+        var toggle = function () {
+            var idx = tile.getAttribute('data-toggle-pricing');
             var panel = document.getElementById('pricing-expand-' + idx);
             if (!panel) return;
             var wasOpen = panel.classList.contains('open');
             document.querySelectorAll('.pricing-expand.open').forEach(function (p) { p.classList.remove('open'); });
-            document.querySelectorAll('.features-toggle-btn.open').forEach(function (b) {
-                b.classList.remove('open');
-                b.setAttribute('aria-expanded', 'false');
+            document.querySelectorAll('.pricing-tile-toggle.open').forEach(function (t) {
+                t.classList.remove('open');
+                t.setAttribute('aria-expanded', 'false');
             });
             if (!wasOpen) {
                 panel.classList.add('open');
-                btn.classList.add('open');
-                btn.setAttribute('aria-expanded', 'true');
+                tile.classList.add('open');
+                tile.setAttribute('aria-expanded', 'true');
+            }
+        };
+        tile.addEventListener('click', toggle);
+        tile.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggle();
             }
         });
     });
