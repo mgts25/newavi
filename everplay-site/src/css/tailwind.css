@@ -68,12 +68,13 @@ body {
 .game-card-shadow { box-shadow: 0px 4px 12px rgba(0,0,0,0.05); }
 .game-card-shadow:hover { box-shadow: 0px 8px 24px rgba(46, 184, 75, 0.15); }
 
-/* The video plays automatically (as a looping gameplay banner) once the card
-   scrolls into view, via the IntersectionObserver in index.njk — it is no
-   longer gated behind :hover. It sits above .static-thumb, which stays
-   underneath as an instant-paint placeholder until the video has a frame
-   ready (and as a graceful fallback if a browser ever blocks playback). */
-.video-container { z-index: 1; }
+/* The cover image banner shows first; index.njk's IntersectionObserver adds
+   .video-active to the card after a short on-screen delay, which is what
+   actually reveals and plays the gameplay video (no longer gated behind
+   :hover). */
+.video-container { display: none; z-index: 1; }
+.group.video-active .video-container { display: block; }
+.group.video-active .static-thumb { display: none; }
 
 /* Logo / icon badge overlays must always paint above the thumbnail and
    video layers. A <video> element can be promoted to its own compositing
