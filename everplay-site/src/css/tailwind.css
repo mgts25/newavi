@@ -76,20 +76,10 @@ body {
 .group.video-active .video-container { display: block; }
 .group.video-active .static-thumb { display: none; }
 
-/* Logo / icon badge overlays must always paint above the thumbnail and
-   video layers. A <video> element can be promoted to its own compositing
-   layer by the browser, which otherwise ignores normal DOM-order stacking
-   for sibling elements with z-index:auto. */
-.game-logo-overlay { z-index: 5; }
-
-/* Consistent visual footprint for every game logo, regardless of how
-   much internal padding the source artwork file has. */
-.game-logo-overlay img {
-  width: 100%;
-  max-width: 78%;
-  max-height: 40%;
-  object-fit: contain;
-}
+/* The app icon / platform badges shown in the info row below the cover art.
+   flex-shrink:0 (via shrink-0 in the markup) keeps them a fixed square even
+   when the title/genre text next to them is long and wants to grow. */
+.game-app-icon { flex-shrink: 0; }
 
 .game-grid {
   display: grid;
