@@ -69,7 +69,8 @@
       "price": "Coming Soon",
       "icon": "military_tech",
       "accent": "secondary",
-      "comingSoon": true
+      "comingSoon": true,
+      "hidden": true
     },
     {
       "genre": "Survival",
