@@ -15,12 +15,12 @@ permalink: /pricing/
 <div class="absolute top-2 right-2 z-10 bg-primary text-on-primary px-2.5 py-1 rounded-full font-label-md text-[9px] uppercase font-bold tracking-widest shadow-sm">Most Popular</div>
 {% endif %}
 <img src="{{ tier.image }}" alt="" class="w-full h-full object-cover pointer-events-none">
-<div class="absolute bottom-2 left-2 w-8 h-8 rounded-lg bg-black/55 backdrop-blur-sm flex items-center justify-center pointer-events-none">
-<span class="material-symbols-outlined text-white text-[18px] pricing-chevron">expand_more</span>
+<div class="absolute bottom-2 left-2 w-4 h-4 rounded bg-black/55 backdrop-blur-sm flex items-center justify-center pointer-events-none">
+<span class="material-symbols-outlined text-white text-[9px] pricing-chevron">expand_more</span>
 </div>
 {% if tier.priceCents %}
 <button type="button"
-    class="add-to-cart-btn absolute bottom-2 right-2 w-8 h-8 rounded-lg flex items-center justify-center shadow-sm transition-all {% if tier.featured %}bg-primary text-on-primary hover:bg-primary-container{% else %}bg-surface text-primary border border-primary hover:bg-primary/10{% endif %}"
+    class="add-to-cart-btn absolute bottom-2 right-2 w-4 h-4 rounded flex items-center justify-center shadow-sm transition-all {% if tier.featured %}bg-primary text-on-primary hover:bg-primary-container{% else %}bg-surface text-primary border border-primary hover:bg-primary/10{% endif %}"
     data-id="{{ tier.id }}"
     data-name="{{ tier.name }}"
     data-price-cents="{{ tier.priceCents }}"
@@ -28,11 +28,11 @@ permalink: /pricing/
     data-icon="{{ tier.image }}"
     aria-label="Add {{ tier.name }} to cart — {{ tier.price }}{{ tier.priceSuffix }}"
     onclick="event.stopPropagation()">
-<span class="material-symbols-outlined text-[18px]">add</span>
+<span class="material-symbols-outlined text-[9px]">add</span>
 </button>
 {% else %}
-<a href="/" class="absolute bottom-2 right-2 w-8 h-8 rounded-lg flex items-center justify-center shadow-sm transition-all {% if tier.featured %}bg-primary text-on-primary hover:bg-primary-container{% else %}bg-surface text-primary border border-primary hover:bg-primary/10{% endif %}" aria-label="{{ tier.cta }}" onclick="event.stopPropagation()">
-<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+<a href="/" class="absolute bottom-2 right-2 w-4 h-4 rounded flex items-center justify-center shadow-sm transition-all {% if tier.featured %}bg-primary text-on-primary hover:bg-primary-container{% else %}bg-surface text-primary border border-primary hover:bg-primary/10{% endif %}" aria-label="{{ tier.cta }}" onclick="event.stopPropagation()">
+<span class="material-symbols-outlined text-[9px]">arrow_forward</span>
 </a>
 {% endif %}
 </div>

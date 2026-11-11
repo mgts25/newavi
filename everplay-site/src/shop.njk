@@ -42,14 +42,14 @@ permalink: /shop/
 {% endif %}
 </div>
 <button type="button"
-    class="add-to-cart-btn absolute bottom-2 right-2 w-8 h-8 rounded-lg flex items-center justify-center shadow-sm transition-all {% if pkg.badge %}bg-primary text-on-primary hover:bg-primary-container{% else %}bg-surface text-primary border border-primary hover:bg-primary/10{% endif %}"
+    class="add-to-cart-btn absolute bottom-2 right-2 w-4 h-4 rounded flex items-center justify-center shadow-sm transition-all {% if pkg.badge %}bg-primary text-on-primary hover:bg-primary-container{% else %}bg-surface text-primary border border-primary hover:bg-primary/10{% endif %}"
     data-id="{{ pkg.id }}"
     data-name="{{ pkg.totalVerse }} Verse"
     data-price-cents="{{ pkg.priceCents }}"
     data-price-label="{{ pkg.price }}"
     data-icon="{{ pkg.icon }}"
     aria-label="Add {{ pkg.totalVerse }} Verse to cart — {{ pkg.price }}">
-<span class="material-symbols-outlined text-[18px]">add</span>
+<span class="material-symbols-outlined text-[9px]">add</span>
 </button>
 </div>
 <div class="flex flex-col leading-tight">
