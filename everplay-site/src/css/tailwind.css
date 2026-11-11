@@ -68,22 +68,18 @@ body {
 .game-card-shadow { box-shadow: 0px 4px 12px rgba(0,0,0,0.05); }
 .game-card-shadow:hover { box-shadow: 0px 8px 24px rgba(46, 184, 75, 0.15); }
 
-.video-container { display: none; z-index: 1; }
-.group:hover .video-container { display: block; }
-.group:hover .static-thumb { display: none; }
+/* The video plays automatically (as a looping gameplay banner) once the card
+   scrolls into view, via the IntersectionObserver in index.njk — it is no
+   longer gated behind :hover. It sits above .static-thumb, which stays
+   underneath as an instant-paint placeholder until the video has a frame
+   ready (and as a graceful fallback if a browser ever blocks playback). */
+.video-container { z-index: 1; }
 
 /* Logo / icon badge overlays must always paint above the thumbnail and
-   hover-video layers. A <video> element can be promoted to its own
-   compositing layer by the browser, which otherwise ignores normal
-   DOM-order stacking for sibling elements with z-index:auto. */
-.game-logo-overlay { z-index: 5; transition: opacity 0.2s ease; }
-
-/* On cards that have a hover-preview video, fade the logo out while the
-   video is playing so the footage is unobstructed; it fades back in on
-   mouse-leave. Cards with no cover image (continuous-loop video tiles)
-   have no .video-container sibling, so this rule has no effect on them
-   and their badge/logo stays visible the whole time. */
-.group:hover .video-container ~ .game-logo-overlay { opacity: 0; }
+   video layers. A <video> element can be promoted to its own compositing
+   layer by the browser, which otherwise ignores normal DOM-order stacking
+   for sibling elements with z-index:auto. */
+.game-logo-overlay { z-index: 5; }
 
 /* Consistent visual footprint for every game logo, regardless of how
    much internal padding the source artwork file has. */
