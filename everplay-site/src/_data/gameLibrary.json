@@ -89,7 +89,8 @@
       "price": "Coming Soon",
       "icon": "ac_unit",
       "accent": "tertiary-container",
-      "comingSoon": true
+      "comingSoon": true,
+      "hidden": true
     },
     {
       "title": "SOCCER FEVER",
