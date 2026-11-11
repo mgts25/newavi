@@ -107,8 +107,13 @@ body {
 }
 .pricing-expand.open { max-height: 420px; opacity: 1; }
 
-.features-toggle-btn .pricing-chevron { transition: transform 0.25s ease; }
-.features-toggle-btn.open .pricing-chevron { transform: rotate(180deg); }
+.pricing-chevron { transition: transform 0.25s ease; }
+.pricing-tile-toggle.open .pricing-chevron { transform: rotate(180deg); }
+
+/* The "+"/arrow badge sits on top of the clickable image tile; a visible
+   focus ring on the badge itself (not the whole tile) keeps keyboard focus
+   legible without outlining the entire card. */
+.pricing-tile-toggle:focus-visible { outline: 2px solid var(--md-sys-color-primary, #2EB84B); outline-offset: 2px; }
 
 /* ===== Login dropdown ===== */
 .login-dropdown {
