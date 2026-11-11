@@ -55,6 +55,7 @@
       "genre": "Adventure",
       "price": "Coming Soon",
       "accent": "primary-container",
+      "hidden": true,
       "logo": "/images/uploads/nmxlogo.png",
       "title": "NEMEXIA",
       "icon": "auto_awesome",
