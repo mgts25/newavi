@@ -106,6 +106,12 @@ exports.handler = async function (event) {
       // `payment_method_types` was retired by Stripe — which payment
       // methods are offered (card, etc.) is now controlled from the
       // Stripe Dashboard under Settings > Payment methods instead of here.
+      //
+      // Managed Payments (Stripe acting as merchant of record, handling tax
+      // collection across jurisdictions) is on by default on this account,
+      // which requires a tax code on every product. We don't want that for
+      // simple digital-goods checkout, so it's switched off per-session.
+      managed_payments: { enabled: false },
       line_items: lineItems,
       success_url: siteUrl + '/shop/?payment=success',
       cancel_url: siteUrl + '/shop/?payment=cancelled',
