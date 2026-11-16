@@ -104,9 +104,13 @@ exports.handler = async function (event) {
       body: JSON.stringify({ url: session.url }),
     };
   } catch (err) {
+    // Always log the real reason to the function's own logs so it shows up
+    // in Netlify's Observability/Functions view — without this, a failure
+    // here is completely silent and impossible to diagnose from the logs.
+    console.error('Stripe checkout session creation failed:', err && err.message, err && err.type, err);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Could not start checkout' }),
+      body: JSON.stringify({ error: (err && err.message) || 'Could not start checkout' }),
     };
   }
 };
