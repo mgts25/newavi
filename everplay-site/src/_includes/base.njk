@@ -192,7 +192,7 @@ MULTIVERSE
 <button type="button" id="checkout-btn" onclick="startCheckout()" class="w-full py-3.5 rounded-full bg-primary text-on-primary font-label-md text-label-md font-bold hover:bg-primary-container hover:text-on-primary-container transition-all shadow-sm disabled:opacity-60 disabled:cursor-not-allowed">
 Proceed to Payment
 </button>
-<p id="checkout-error" class="hidden text-center text-[12px] text-error">Something went wrong starting checkout — please try again.</p>
+<p id="checkout-error" class="hidden text-center text-[12px] text-error"></p>
 <p class="text-center text-[11px] text-on-surface-variant/60">Secure checkout powered by Stripe.</p>
 </div>
 </div>
@@ -498,15 +498,36 @@ Proceed to Payment
         var btn = document.getElementById('checkout-btn');
         var errorEl = document.getElementById('checkout-error');
         errorEl.classList.add('hidden');
+
+        // Accounts are required to purchase. This isn't just a UI gate —
+        // the checkout function itself verifies the sign-in token server
+        // side and refuses the request without one, so this check is about
+        // guiding a guest to sign in, not the actual security boundary.
+        var user = window.multiverseCurrentUser;
+        if (!user) {
+            errorEl.textContent = 'Please sign in to complete your purchase.';
+            errorEl.classList.remove('hidden');
+            closeCart();
+            if (typeof window.toggleLoginDropdown === 'function') {
+                window.toggleLoginDropdown({ stopPropagation: function () {} });
+            }
+            return;
+        }
+
         btn.disabled = true;
         btn.textContent = 'Redirecting…';
 
-        fetch('/.netlify/functions/create-checkout-session', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                items: cart.map(function (i) { return { name: i.name, priceCents: i.priceCents, qty: i.qty }; })
-            })
+        user.getIdToken().then(function (idToken) {
+            return fetch('/.netlify/functions/create-checkout-session', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + idToken
+                },
+                body: JSON.stringify({
+                    items: cart.map(function (i) { return { name: i.name, priceCents: i.priceCents, qty: i.qty }; })
+                })
+            });
         }).then(function (res) {
             if (!res.ok) throw new Error('checkout failed');
             return res.json();
@@ -516,6 +537,7 @@ Proceed to Payment
         }).catch(function () {
             btn.disabled = false;
             btn.textContent = 'Proceed to Payment';
+            errorEl.textContent = 'Something went wrong starting checkout — please try again.';
             errorEl.classList.remove('hidden');
         });
     };
@@ -585,6 +607,11 @@ Proceed to Payment
 
     // ----- Reflect signed-in / signed-out state in the nav -----
     auth.onAuthStateChanged(function (user) {
+        // Shared with the cart/checkout script (loaded earlier in the page)
+        // via window, so it can tell whether checkout should be allowed to
+        // proceed and, if so, pull a fresh ID token straight off this user.
+        window.multiverseCurrentUser = user || null;
+
         if (user) {
             loginMenuWrap.classList.add('hidden');
             userMenuWrap.classList.remove('hidden');
