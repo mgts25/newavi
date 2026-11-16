@@ -36,7 +36,17 @@ exports.handler = async function (event) {
     };
   }
 
+  // Log (never the real value) whether the key is visible to this function at
+  // all, and a harmless prefix/length so a bad paste is easy to spot — this
+  // is the fast 500 that happens before ever calling Stripe, and it had no
+  // logging at all before, which is why earlier failures showed "No log".
+  var keyPresent = !!process.env.STRIPE_SECRET_KEY;
+  var keyPrefix = keyPresent ? process.env.STRIPE_SECRET_KEY.slice(0, 7) : null;
+  var keyLength = keyPresent ? process.env.STRIPE_SECRET_KEY.length : 0;
+  console.log('STRIPE_SECRET_KEY check — present:', keyPresent, 'prefix:', keyPrefix, 'length:', keyLength);
+
   if (!process.env.STRIPE_SECRET_KEY) {
+    console.error('STRIPE_SECRET_KEY is missing from this function\'s environment.');
     return {
       statusCode: 500,
       body: JSON.stringify({ error: 'Payments are not configured yet. Set STRIPE_SECRET_KEY in Netlify environment variables.' }),
