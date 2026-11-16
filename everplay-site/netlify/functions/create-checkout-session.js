@@ -103,7 +103,9 @@ exports.handler = async function (event) {
   try {
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
-      payment_method_types: ['card'],
+      // `payment_method_types` was retired by Stripe — which payment
+      // methods are offered (card, etc.) is now controlled from the
+      // Stripe Dashboard under Settings > Payment methods instead of here.
       line_items: lineItems,
       success_url: siteUrl + '/shop/?payment=success',
       cancel_url: siteUrl + '/shop/?payment=cancelled',
