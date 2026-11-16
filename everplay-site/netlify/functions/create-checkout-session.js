@@ -5,8 +5,42 @@
 // never change what gets charged.
 
 const Stripe = require('stripe');
+const { jwtVerify, createRemoteJWKSet } = require('jose');
 const verseShop = require('../../src/_data/verseShop.json');
 const pricing = require('../../src/_data/pricing.json');
+
+// ----- Require a real, signed-in account before anyone can start checkout -----
+// This is a server-side check, not just a UI nicety — anyone could otherwise
+// call this endpoint directly (skipping the site entirely) and start a real
+// Stripe charge with no account at all. We verify the Firebase ID token the
+// browser sends ourselves, against Firebase's own public signing keys, so no
+// extra secret or Firebase Admin credential needs to live in Netlify at all.
+const FIREBASE_PROJECT_ID = 'multiverse-games-b275f';
+const FIREBASE_JWKS = createRemoteJWKSet(
+  new URL('https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com')
+);
+
+async function requireSignedInUser(event) {
+  const authHeader = (event.headers && (event.headers.authorization || event.headers.Authorization)) || '';
+  const match = /^Bearer (.+)$/.exec(authHeader);
+  if (!match) {
+    return { error: 'Please sign in to complete your purchase.' };
+  }
+
+  try {
+    const { payload } = await jwtVerify(match[1], FIREBASE_JWKS, {
+      issuer: 'https://securetoken.google.com/' + FIREBASE_PROJECT_ID,
+      audience: FIREBASE_PROJECT_ID,
+    });
+    if (!payload || !payload.sub) {
+      return { error: 'Please sign in to complete your purchase.' };
+    }
+    return { user: payload };
+  } catch (err) {
+    console.error('Checkout blocked — invalid or expired sign-in token:', err && err.message);
+    return { error: 'Your session has expired — please sign in again.' };
+  }
+}
 
 // Build a lookup of "known cart item name" -> "real price in cents",
 // straight from the site's own content files.
@@ -52,6 +86,15 @@ exports.handler = async function (event) {
       body: JSON.stringify({ error: 'Payments are not configured yet. Set STRIPE_SECRET_KEY in Netlify environment variables.' }),
     };
   }
+
+  const authResult = await requireSignedInUser(event);
+  if (authResult.error) {
+    return {
+      statusCode: 401,
+      body: JSON.stringify({ error: authResult.error }),
+    };
+  }
+  const signedInUser = authResult.user;
 
   let payload;
   try {
@@ -113,6 +156,9 @@ exports.handler = async function (event) {
       // simple digital-goods checkout, so it's switched off per-session.
       managed_payments: { enabled: false },
       line_items: lineItems,
+      // Pre-fill with the signed-in account's verified email, now that we
+      // know who's actually checking out.
+      customer_email: signedInUser.email || undefined,
       success_url: siteUrl + '/shop/?payment=success',
       cancel_url: siteUrl + '/shop/?payment=cancelled',
     });
