@@ -5,7 +5,6 @@
 // never change what gets charged.
 
 const Stripe = require('stripe');
-const { jwtVerify, createRemoteJWKSet } = require('jose');
 const verseShop = require('../../src/_data/verseShop.json');
 const pricing = require('../../src/_data/pricing.json');
 
@@ -15,10 +14,33 @@ const pricing = require('../../src/_data/pricing.json');
 // Stripe charge with no account at all. We verify the Firebase ID token the
 // browser sends ourselves, against Firebase's own public signing keys, so no
 // extra secret or Firebase Admin credential needs to live in Netlify at all.
+//
+// `jose` v6 ships as an ES Module only (no CommonJS build), so it can't be
+// loaded with a plain `require('jose')` — Netlify's function runtime throws
+// `ERR_REQUIRE_ESM` the moment this file is loaded, which took down every
+// checkout attempt, signed in or not. Loading it with a dynamic `import()`
+// instead works fine from a CommonJS file like this one, so we fetch it
+// once (cached in this module-level promise) the first time it's needed.
+let _josePromise = null;
+function getJose() {
+  if (!_josePromise) {
+    _josePromise = import('jose');
+  }
+  return _josePromise;
+}
+
 const FIREBASE_PROJECT_ID = 'multiverse-games-b275f';
-const FIREBASE_JWKS = createRemoteJWKSet(
-  new URL('https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com')
-);
+let _firebaseJwksPromise = null;
+function getFirebaseJwks() {
+  if (!_firebaseJwksPromise) {
+    _firebaseJwksPromise = getJose().then(({ createRemoteJWKSet }) =>
+      createRemoteJWKSet(
+        new URL('https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com')
+      )
+    );
+  }
+  return _firebaseJwksPromise;
+}
 
 async function requireSignedInUser(event) {
   const authHeader = (event.headers && (event.headers.authorization || event.headers.Authorization)) || '';
@@ -28,7 +50,9 @@ async function requireSignedInUser(event) {
   }
 
   try {
-    const { payload } = await jwtVerify(match[1], FIREBASE_JWKS, {
+    const { jwtVerify } = await getJose();
+    const jwks = await getFirebaseJwks();
+    const { payload } = await jwtVerify(match[1], jwks, {
       issuer: 'https://securetoken.google.com/' + FIREBASE_PROJECT_ID,
       audience: FIREBASE_PROJECT_ID,
     });
