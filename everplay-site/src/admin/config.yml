@@ -160,22 +160,18 @@ collections:
               - { label: "Milestone Title", name: "title", widget: "string" }
               - { label: "Genre / Category", name: "genre", widget: "string", hint: "Shown as a small badge when this milestone is clicked, e.g. Game Launch, Studio Founded, Survival" }
               - { label: "Description", name: "description", widget: "text" }
-              - { label: "Video (optional)", name: "video", widget: "file", required: false, hint: "Shown when this milestone is clicked. Leave blank to show just the icon." }
+              - { label: "Logo / Art Image (optional)", name: "image", widget: "image", required: false, hint: "Shown inside the glowing sphere on the timeline, and as the preview when a visitor clicks this milestone. Leave blank to fall back to the Icon below instead." }
+              - { label: "Video (optional)", name: "video", widget: "file", required: false, hint: "Takes priority over the Logo/Art Image above — if set, clicking this milestone plays the video instead of showing the image." }
               - label: "Icon"
                 name: "icon"
                 widget: "string"
                 default: "flag"
-                hint: "A Material Symbols icon name, e.g. flag, rocket_launch, swords, handshake. Browse names at fonts.google.com/icons"
+                hint: "A Material Symbols icon name, e.g. flag, rocket_launch, swords, handshake. Browse names at fonts.google.com/icons. Only used when no Logo/Art Image is uploaded above."
               - label: "Accent Color"
                 name: "accent"
-                widget: "select"
-                default: "primary"
-                options:
-                  - { label: "Green", value: "primary" }
-                  - { label: "Light Green", value: "primary-container" }
-                  - { label: "Blue", value: "tertiary" }
-                  - { label: "Light Blue", value: "tertiary-container" }
-                  - { label: "Gray", value: "secondary" }
+                widget: "color"
+                default: "#2EB84B"
+                hint: "Pick any color for this milestone — used for the sphere's glow, its background tint, and the genre badge when clicked."
           - label: "Team Members"
             name: "members"
             widget: "list"
