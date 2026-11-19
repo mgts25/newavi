@@ -302,3 +302,43 @@ body {
   box-shadow: 0px 6px 16px rgba(0,0,0,0.18);
 }
 
+/* Glass-sphere timeline nodes: a colored glow (box-shadow, set inline per
+   node from its accent hex) behind a white/gradient glass disc, with a soft
+   highlight layer on top for a subtle 3D sheen. */
+.about-timeline-sphere {
+  position: relative;
+  border-radius: 50%;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+.about-timeline-node:hover .about-timeline-sphere { transform: scale(1.08); }
+.about-timeline-sphere-inner {
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f1f2f3 100%);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.about-timeline-sphere-inner.icon-fill {
+  /* background set inline per-node via the item's accent color */
+}
+.about-timeline-sphere-inner img {
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+}
+.about-timeline-sphere-shine {
+  position: absolute;
+  top: 6%;
+  left: 14%;
+  width: 55%;
+  height: 40%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 35% 30%, rgba(255,255,255,0.85), rgba(255,255,255,0) 70%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
