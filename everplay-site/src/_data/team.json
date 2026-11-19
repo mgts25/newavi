@@ -55,7 +55,7 @@
       "description": "Work began on Project Suponic, pushing the studio's development capabilities further.",
       "icon": "ac_unit",
       "accent": "#6B4FBB",
-      "image": "",
+      "image": "/images/uploads/timeline_suponic_logo.png",
       "video": ""
     },
     {
@@ -69,17 +69,17 @@
       "video": ""
     },
     {
-      "year": "2020",
+      "year": "2021",
       "title": "Technical Service for Steven Universe: Tap Tap",
       "genre": "Technical Partnership",
       "description": "The studio provided technical services for Steven Universe: Tap Tap, partnering on a major licensed IP.",
       "icon": "handshake",
       "accent": "#5D5E61",
-      "image": "",
+      "image": "/images/uploads/timeline_taptap_logo.png",
       "video": ""
     },
     {
-      "year": "2021",
+      "year": "2022",
       "title": "Developed Edge Survival",
       "genre": "Survival",
       "description": "Edge Survival entered development — now featured in the MULTIVERSE game library.",
