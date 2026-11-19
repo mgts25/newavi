@@ -48,12 +48,19 @@ permalink: /about/
 <section class="py-section_padding">
 <div class="mx-auto px-gutter max-w-container_max_width">
 <div class="relative">
-<div class="about-timeline-rail absolute left-0 right-0 top-6 h-0.5 bg-outline-variant/30 hidden md:block"></div>
+<div class="about-timeline-rail absolute left-0 right-0 top-8 md:top-10 h-0.5 bg-outline-variant/30 hidden md:block"></div>
 <div class="about-timeline-scroll flex md:justify-between items-start gap-7 md:gap-2 overflow-x-auto md:overflow-visible pb-3 md:pb-0 -mx-gutter px-gutter md:mx-0 md:px-0">
 {% for item in team.timeline %}
-<button type="button" class="about-timeline-node flex-shrink-0 flex flex-col items-center gap-2 relative z-10 card-in" style="animation-delay: {{ loop.index0 * 60 }}ms;" data-open-timeline="{{ loop.index0 }}" aria-label="{{ item.title }}">
-<span class="about-timeline-dot w-12 h-12 rounded-full flex items-center justify-center shadow-sm" style="background: {{ item.accent | accentHex }};">
-<span class="material-symbols-outlined {{ item.accent | accentText }} text-[20px]" style="font-variation-settings: 'FILL' 1;">{{ item.icon }}</span>
+<button type="button" class="about-timeline-node flex-shrink-0 flex flex-col items-center gap-2.5 relative z-10 card-in" style="animation-delay: {{ loop.index0 * 60 }}ms;" data-open-timeline="{{ loop.index0 }}" aria-label="{{ item.title }}">
+<span class="about-timeline-sphere w-16 h-16 md:w-20 md:h-20" style="box-shadow: 0 4px 10px rgba(0,0,0,0.14), 0 0 22px -4px {{ item.accent }}99;">
+<span class="about-timeline-sphere-inner{% if not item.image %} icon-fill{% endif %}" style="{% if not item.image %}background: linear-gradient(145deg, {{ item.accent }}, {{ item.accent }}cc);{% endif %}">
+{% if item.image %}
+<img src="{{ item.image }}" alt="{{ item.title }}" loading="lazy">
+{% else %}
+<span class="material-symbols-outlined text-white text-[26px] md:text-[30px]" style="font-variation-settings: 'FILL' 1;">{{ item.icon }}</span>
+{% endif %}
+</span>
+<span class="about-timeline-sphere-shine" aria-hidden="true"></span>
 </span>
 <span class="font-label-md text-[11px] font-bold text-on-surface-variant">{{ item.year }}</span>
 </button>
@@ -99,6 +106,9 @@ permalink: /about/
 </button>
 <div id="tm-video-wrap" class="w-full aspect-video bg-black hidden">
 <video id="tm-video" class="w-full h-full object-contain bg-black" controls playsinline></video>
+</div>
+<div id="tm-image-wrap" class="w-full aspect-video flex items-center justify-center hidden p-10">
+<img id="tm-image" class="max-w-full max-h-full object-contain" src="" alt="">
 </div>
 <div id="tm-placeholder-wrap" class="w-full aspect-video flex items-center justify-center hidden">
 <span id="tm-placeholder-icon" class="material-symbols-outlined text-[56px]" style="font-variation-settings: 'FILL' 1;"></span>
@@ -147,7 +157,8 @@ permalink: /about/
         genre: {{ item.genre | dump | safe }},
         description: {{ item.description | dump | safe }},
         icon: {{ item.icon | dump | safe }},
-        accentHex: {{ item.accent | accentHex | dump | safe }},
+        image: {{ item.image | dump | safe }},
+        accentHex: {{ item.accent | dump | safe }},
         video: {{ item.video | dump | safe }}
     }{% if not loop.last %},{% endif %}
     {% endfor %}
@@ -155,6 +166,8 @@ permalink: /about/
 
     var tmVideoWrap = document.getElementById('tm-video-wrap');
     var tmVideo = document.getElementById('tm-video');
+    var tmImageWrap = document.getElementById('tm-image-wrap');
+    var tmImage = document.getElementById('tm-image');
     var tmPlaceholderWrap = document.getElementById('tm-placeholder-wrap');
     var tmPlaceholderIcon = document.getElementById('tm-placeholder-icon');
     var tmYear = document.getElementById('tm-year');
@@ -165,26 +178,47 @@ permalink: /about/
     document.querySelectorAll('[data-open-timeline]').forEach(function (el) {
         el.addEventListener('click', function () {
             var t = TIMELINE[parseInt(el.getAttribute('data-open-timeline'), 10)];
-            tmYear.textContent = t.year;
-            tmGenre.textContent = t.genre;
-            tmGenre.style.background = t.accentHex + '1f';
-            tmGenre.style.color = t.accentHex;
-            tmTitle.textContent = t.title;
-            tmDescription.textContent = t.description;
 
-            if (t.video) {
-                tmVideo.src = t.video;
-                tmVideoWrap.classList.remove('hidden');
-                tmPlaceholderWrap.classList.add('hidden');
-            } else {
-                tmVideo.removeAttribute('src');
-                tmVideoWrap.classList.add('hidden');
-                tmPlaceholderWrap.classList.remove('hidden');
-                tmPlaceholderWrap.style.background = 'linear-gradient(145deg, ' + t.accentHex + '22, ' + t.accentHex + '0a)';
-                tmPlaceholderIcon.textContent = t.icon;
-                tmPlaceholderIcon.style.color = t.accentHex;
+            // Little glass-sphere spin for delight before the modal pops in.
+            var sphereInner = el.querySelector('.about-timeline-sphere-inner');
+            if (sphereInner) {
+                var deg = (parseInt(sphereInner.getAttribute('data-rot') || '0', 10)) + 360;
+                sphereInner.setAttribute('data-rot', deg);
+                sphereInner.style.transform = 'rotateY(' + deg + 'deg)';
             }
-            window.openModal('timeline-modal');
+
+            setTimeout(function () {
+                tmYear.textContent = t.year;
+                tmGenre.textContent = t.genre;
+                tmGenre.style.background = t.accentHex + '1f';
+                tmGenre.style.color = t.accentHex;
+                tmTitle.textContent = t.title;
+                tmDescription.textContent = t.description;
+
+                if (t.video) {
+                    tmVideo.src = t.video;
+                    tmVideoWrap.classList.remove('hidden');
+                    tmImageWrap.classList.add('hidden');
+                    tmPlaceholderWrap.classList.add('hidden');
+                } else if (t.image) {
+                    tmVideo.removeAttribute('src');
+                    tmVideoWrap.classList.add('hidden');
+                    tmImageWrap.classList.remove('hidden');
+                    tmImageWrap.style.background = 'linear-gradient(145deg, ' + t.accentHex + '22, ' + t.accentHex + '0a)';
+                    tmImage.src = t.image;
+                    tmImage.alt = t.title;
+                    tmPlaceholderWrap.classList.add('hidden');
+                } else {
+                    tmVideo.removeAttribute('src');
+                    tmVideoWrap.classList.add('hidden');
+                    tmImageWrap.classList.add('hidden');
+                    tmPlaceholderWrap.classList.remove('hidden');
+                    tmPlaceholderWrap.style.background = 'linear-gradient(145deg, ' + t.accentHex + '22, ' + t.accentHex + '0a)';
+                    tmPlaceholderIcon.textContent = t.icon;
+                    tmPlaceholderIcon.style.color = t.accentHex;
+                }
+                window.openModal('timeline-modal');
+            }, 260);
         });
     });
 
