@@ -9,12 +9,13 @@
   ],
   "timeline": [
     {
-      "year": "2015",
+      "year": "2014",
       "title": "Founded Axion Games in Brazil",
       "genre": "Studio Founded",
       "description": "Axion Games was founded in Brazil, where the studio's game-development journey began.",
       "icon": "flag",
-      "accent": "primary",
+      "accent": "#18181A",
+      "image": "/images/uploads/timeline_axion_logo.png",
       "video": ""
     },
     {
@@ -23,16 +24,18 @@
       "genre": "Studio Expansion",
       "description": "The studio expanded into the US market with the founding of 2Axion Games in California.",
       "icon": "public",
-      "accent": "tertiary",
+      "accent": "#E8731E",
+      "image": "/images/uploads/timeline_2axion_logo.png",
       "video": ""
     },
     {
       "year": "2018",
       "title": "Launched Triggerun",
-      "genre": "Game Launch",
+      "genre": "Hero Shooter",
       "description": "Triggerun shipped to players — one of the studio's earliest released titles.",
       "icon": "sports_esports",
-      "accent": "secondary",
+      "accent": "#1C9AD6",
+      "image": "/images/uploads/timeline_triggerun_logo.png",
       "video": ""
     },
     {
@@ -41,25 +44,28 @@
       "genre": "First Person",
       "description": "The Killbox launched, growing the studio's catalog of fast-paced action titles.",
       "icon": "target",
-      "accent": "primary-container",
+      "accent": "#9AA0A6",
+      "image": "/images/uploads/timeline_killbox_logo.png",
       "video": "/images/uploads/killbox_video.mp4"
     },
     {
       "year": "2019",
       "title": "Developed Project Suponic",
-      "genre": "In Development",
+      "genre": "NFT Game",
       "description": "Work began on Project Suponic, pushing the studio's development capabilities further.",
-      "icon": "science",
-      "accent": "tertiary-container",
+      "icon": "ac_unit",
+      "accent": "#6B4FBB",
+      "image": "",
       "video": ""
     },
     {
       "year": "2020",
       "title": "Launched Rage Wars",
-      "genre": "Game Launch",
+      "genre": "Strategy",
       "description": "Rage Wars launched, expanding the studio's competitive multiplayer lineup.",
       "icon": "swords",
-      "accent": "primary",
+      "accent": "#E3B505",
+      "image": "/images/uploads/timeline_ragewars_logo.png",
       "video": ""
     },
     {
@@ -68,7 +74,8 @@
       "genre": "Technical Partnership",
       "description": "The studio provided technical services for Steven Universe: Tap Tap, partnering on a major licensed IP.",
       "icon": "handshake",
-      "accent": "tertiary",
+      "accent": "#5D5E61",
+      "image": "",
       "video": ""
     },
     {
@@ -77,16 +84,18 @@
       "genre": "Survival",
       "description": "Edge Survival entered development — now featured in the MULTIVERSE game library.",
       "icon": "terrain",
-      "accent": "secondary",
+      "accent": "#6E6E73",
+      "image": "/images/uploads/timeline_edgesurvival_art.png",
       "video": "/images/uploads/Edge_video.mp4"
     },
     {
       "year": "2025",
       "title": "MULTIVERSE is Born",
       "genre": "Company Milestone",
-      "description": "MULTIVERSE launched, bringing the studio's full catalog together under one publishing platform.",
+      "description": "MULTIVERSE launched, uniting the studio's full catalog under one publishing platform, with a mission centered on developing educational games.",
       "icon": "auto_awesome",
-      "accent": "primary-container",
+      "accent": "#2EA33D",
+      "image": "/images/uploads/timeline_multiverse_logo.png",
       "video": ""
     }
   ],
