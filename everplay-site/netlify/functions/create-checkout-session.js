@@ -66,20 +66,22 @@ async function requireSignedInUser(event) {
   }
 }
 
-// Build a lookup of "known cart item name" -> "real price in cents",
-// straight from the site's own content files.
+// Build a lookup of "known cart item id" -> "real price in cents + display
+// name", straight from the site's own content files. Keying by id (rather
+// than the display name) is what lets the Stripe webhook later look the
+// item back up unambiguously to know exactly what to fulfill.
 function buildValidItems() {
   const valid = {};
 
   (verseShop.packages || []).forEach(function (pkg) {
-    if (pkg && pkg.priceCents) {
-      valid[pkg.totalVerse + ' Verse'] = pkg.priceCents;
+    if (pkg && pkg.id && pkg.priceCents) {
+      valid[pkg.id] = { priceCents: pkg.priceCents, label: pkg.totalVerse + ' Verse' };
     }
   });
 
   (pricing.tiers || []).forEach(function (tier) {
-    if (tier && tier.priceCents) {
-      valid[tier.name] = tier.priceCents;
+    if (tier && tier.id && tier.priceCents) {
+      valid[tier.id] = { priceCents: tier.priceCents, label: tier.name };
     }
   });
 
@@ -140,15 +142,20 @@ exports.handler = async function (event) {
 
   const validItems = buildValidItems();
   const lineItems = [];
+  // Mirrors lineItems but keeps just {id, qty} — this is what the Stripe
+  // webhook reads back out of the session's metadata after payment to know
+  // exactly what to fulfill (credit Verse, build the receipt email), without
+  // ever having to trust anything the browser sends at that point.
+  const metaCartItems = [];
 
   for (const item of items) {
-    const name = item && item.name;
-    const realPriceCents = name ? validItems[name] : undefined;
+    const id = item && item.id;
+    const entry = id ? validItems[id] : undefined;
 
-    if (!realPriceCents) {
+    if (!entry) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: 'Unknown or unavailable item: ' + name }),
+        body: JSON.stringify({ error: 'Unknown or unavailable item: ' + (id || (item && item.name)) }),
       };
     }
 
@@ -157,11 +164,24 @@ exports.handler = async function (event) {
     lineItems.push({
       price_data: {
         currency: 'usd',
-        product_data: { name: name },
-        unit_amount: realPriceCents,
+        product_data: { name: entry.label },
+        unit_amount: entry.priceCents,
       },
       quantity: qty,
     });
+    metaCartItems.push({ id: id, qty: qty });
+  }
+
+  const cartItemsJson = JSON.stringify(metaCartItems);
+  if (cartItemsJson.length > 490) {
+    // Stripe caps each metadata value at 500 characters. A cart this large
+    // is not a real-world case for this store (a handful of Verse packages
+    // / tiers), so we just ask for a smaller order rather than silently
+    // truncating fulfillment data.
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Cart has too many distinct items — please check out in a smaller order.' }),
+    };
   }
 
   const siteUrl = process.env.URL || 'https://multiversegames.net';
@@ -183,6 +203,13 @@ exports.handler = async function (event) {
       // Pre-fill with the signed-in account's verified email, now that we
       // know who's actually checking out.
       customer_email: signedInUser.email || undefined,
+      // Read back by netlify/functions/stripe-webhook.js once payment
+      // completes — this is how it knows WHO to credit Verse to and WHAT
+      // was bought, without trusting anything from the browser at that point.
+      metadata: {
+        firebaseUid: signedInUser.sub,
+        cartItems: cartItemsJson,
+      },
       success_url: siteUrl + '/shop/?payment=success',
       cancel_url: siteUrl + '/shop/?payment=cancelled',
     });
