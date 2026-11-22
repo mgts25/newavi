@@ -13,6 +13,7 @@
     "tailwindcss": "^3.4.13"
   },
   "dependencies": {
+    "firebase-admin": "^13.0.2",
     "jose": "^6.2.17",
     "stripe": "^23.1.0"
   }
