@@ -525,7 +525,7 @@ Proceed to Payment
                     'Authorization': 'Bearer ' + idToken
                 },
                 body: JSON.stringify({
-                    items: cart.map(function (i) { return { name: i.name, priceCents: i.priceCents, qty: i.qty }; })
+                    items: cart.map(function (i) { return { id: i.id, name: i.name, priceCents: i.priceCents, qty: i.qty }; })
                 })
             });
         }).then(function (res) {
