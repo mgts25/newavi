@@ -1,0 +1,189 @@
+---
+layout: base.njk
+title: MULTIVERSE | My Account
+permalink: /account/
+---
+<main class="pt-36 pb-section_padding">
+<div class="mx-auto px-gutter max-w-container_max_width" style="max-width: 760px;">
+
+<div id="account-signedout-state" class="hidden flex-col items-center text-center gap-4 py-20">
+<span class="material-symbols-outlined text-on-surface-variant/40 text-[48px]">account_circle</span>
+<h1 class="font-headline-md text-headline-md text-on-surface">Sign in to view your account</h1>
+<p class="text-secondary text-[13px] max-w-sm">Your Verse balance and purchase history live here once you're signed in.</p>
+<button type="button" id="account-signin-btn" class="mt-2 px-6 py-3 rounded-full bg-primary text-on-primary font-label-md text-label-md font-bold hover:bg-primary-container hover:text-on-primary-container transition-all shadow-sm">Sign In</button>
+</div>
+
+<div id="account-loading-state" class="flex flex-col items-center gap-3 py-20">
+<span class="material-symbols-outlined text-on-surface-variant/40 text-[32px] animate-spin">progress_activity</span>
+<p class="text-secondary text-[13px]">Loading your account…</p>
+</div>
+
+<div id="account-signedin-state" class="hidden">
+
+<div class="flex items-center justify-between flex-wrap gap-3 mb-8">
+<div>
+<h1 class="font-headline-md text-headline-md text-on-surface">My Account</h1>
+<p class="text-secondary text-[12px]" id="account-email-display"></p>
+</div>
+</div>
+
+<div class="rounded-2xl bg-surface-container-high game-card-shadow p-6 mb-8 flex items-center justify-between flex-wrap gap-4" style="border-top: 3px solid {{ 'primary' | accentHex }};">
+<div>
+<p class="font-label-md text-[11px] tracking-widest uppercase text-secondary mb-1">Verse Balance</p>
+<p class="font-display-lg font-extrabold text-[36px] text-on-surface leading-none" id="account-verse-balance">—</p>
+</div>
+<a href="/shop/" class="px-5 py-2.5 rounded-full bg-primary text-on-primary font-label-md text-label-md font-bold hover:bg-primary-container hover:text-on-primary-container transition-all shadow-sm whitespace-nowrap">Buy More Verse</a>
+</div>
+
+<h2 class="font-headline-md text-headline-md text-on-surface mb-4" style="font-size: 18px;">Purchase History</h2>
+
+<div id="account-purchases-empty" class="hidden flex flex-col items-center gap-2 text-center py-12">
+<span class="material-symbols-outlined text-on-surface-variant/40 text-[40px]">receipt_long</span>
+<p class="text-secondary text-[13px]">No purchases yet.</p>
+<a href="/shop/" class="font-label-md text-label-md text-primary hover:underline">Visit the Shop</a>
+</div>
+
+<div id="account-purchases-list" class="space-y-3"></div>
+
+<div id="account-purchases-error" class="hidden rounded-xl px-5 py-4 bg-error/10 border border-error/30">
+<p class="text-error text-[13px]">Could not load your purchase history right now — please try refreshing.</p>
+</div>
+
+</div>
+
+</div>
+</main>
+
+<template id="purchase-row-template">
+<div class="purchase-row rounded-xl bg-surface-container-high p-4 flex items-start justify-between gap-4 flex-wrap">
+<div class="min-w-0">
+<p class="purchase-row-date font-bold text-on-surface text-[13px]"></p>
+<p class="purchase-row-items text-secondary text-[12px] mt-0.5"></p>
+<p class="purchase-row-promo hidden text-primary text-[11px] mt-1 font-bold"></p>
+</div>
+<div class="text-right flex-shrink-0">
+<p class="purchase-row-total font-bold text-on-surface text-[13px]"></p>
+<p class="purchase-row-verse hidden text-secondary text-[11px] mt-0.5"></p>
+</div>
+</div>
+</template>
+
+<script>
+(function () {
+    function formatDollars(cents) {
+        var sign = cents < 0 ? '-' : '';
+        return sign + '$' + (Math.abs(cents) / 100).toFixed(2);
+    }
+    function formatDate(ts) {
+        try {
+            var d = (ts && typeof ts.toDate === 'function') ? ts.toDate() : new Date(ts);
+            return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+        } catch (e) { return ''; }
+    }
+
+    var signedOutEl = document.getElementById('account-signedout-state');
+    var loadingEl = document.getElementById('account-loading-state');
+    var signedInEl = document.getElementById('account-signedin-state');
+
+    function showSignedOut() {
+        loadingEl.classList.add('hidden');
+        signedInEl.classList.add('hidden');
+        signedOutEl.classList.remove('hidden');
+        signedOutEl.classList.add('flex');
+    }
+
+    function showSignedIn(user) {
+        signedOutEl.classList.add('hidden');
+        loadingEl.classList.add('hidden');
+        signedInEl.classList.remove('hidden');
+        document.getElementById('account-email-display').textContent = user.email || '';
+
+        var db = window.multiverseDb;
+        if (!db) {
+            document.getElementById('account-purchases-error').classList.remove('hidden');
+            return;
+        }
+
+        // Real-time, so a Verse purchase (even from a moment ago, or
+        // completed on another device) shows up here without a refresh.
+        db.collection('users').doc(user.uid).onSnapshot(function (doc) {
+            var balance = (doc.exists && doc.data().verseBalance) || 0;
+            document.getElementById('account-verse-balance').textContent = balance + ' Verse';
+        }, function (err) {
+            console.error('Could not read Verse balance:', err && err.message);
+            document.getElementById('account-verse-balance').textContent = '—';
+        });
+
+        db.collection('users').doc(user.uid).collection('purchases')
+            .orderBy('createdAt', 'desc')
+            .limit(50)
+            .get()
+            .then(function (snapshot) {
+                var listEl = document.getElementById('account-purchases-list');
+                var emptyEl = document.getElementById('account-purchases-empty');
+                var template = document.getElementById('purchase-row-template');
+                listEl.innerHTML = '';
+
+                if (snapshot.empty) {
+                    emptyEl.classList.remove('hidden');
+                    return;
+                }
+
+                snapshot.forEach(function (doc) {
+                    var p = doc.data();
+                    var row = template.content.cloneNode(true);
+                    row.querySelector('.purchase-row-date').textContent = formatDate(p.createdAt);
+
+                    var itemLines = (p.items || [])
+                        .filter(function (l) { return l.priceCents >= 0; }) // skip the promo discount line here, shown separately below
+                        .map(function (l) { return l.qty + ' × ' + l.label; });
+                    row.querySelector('.purchase-row-items').textContent = itemLines.join(', ') || 'Order ' + doc.id.slice(0, 8);
+
+                    row.querySelector('.purchase-row-total').textContent = formatDollars(p.totalCents || 0);
+
+                    if (p.verseCredited > 0) {
+                        var verseEl = row.querySelector('.purchase-row-verse');
+                        verseEl.textContent = '+' + p.verseCredited + ' Verse';
+                        verseEl.classList.remove('hidden');
+                    }
+                    if (p.promoCode) {
+                        var promoEl = row.querySelector('.purchase-row-promo');
+                        promoEl.textContent = 'Promo: ' + p.promoCode;
+                        promoEl.classList.remove('hidden');
+                    }
+
+                    listEl.appendChild(row);
+                });
+            })
+            .catch(function (err) {
+                console.error('Could not load purchase history:', err && err.message);
+                document.getElementById('account-purchases-error').classList.remove('hidden');
+            });
+    }
+
+    function onAuthState(user) {
+        if (user) {
+            showSignedIn(user);
+        } else {
+            showSignedOut();
+        }
+    }
+
+    document.getElementById('account-signin-btn').addEventListener('click', function () {
+        if (typeof window.toggleLoginDropdown === 'function') {
+            window.toggleLoginDropdown({ stopPropagation: function () {} });
+        }
+    });
+
+    // base.njk's Firebase script block (which resolves auth state and sets
+    // window.multiverseCurrentUser) loads AFTER this page's own content, so
+    // we listen for its "auth state is known" event rather than racing it.
+    window.addEventListener('multiverse:authstate', function (e) { onAuthState(e.detail.user); });
+
+    // Covers the rare case this script somehow runs after auth already
+    // resolved (e.g. this page's script was re-run / injected unusually).
+    if (typeof window.multiverseCurrentUser !== 'undefined') {
+        onAuthState(window.multiverseCurrentUser);
+    }
+})();
+</script>
