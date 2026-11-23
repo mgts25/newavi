@@ -66,6 +66,10 @@ Login with Google
 </button>
 <div id="user-dropdown" class="login-dropdown absolute bg-surface-container-lowest rounded-xl shadow-[0px_16px_40px_rgba(0,0,0,0.14)] border border-outline-variant/30 p-4">
 <p class="text-center text-[11px] text-on-surface-variant/60 mb-3 truncate px-2" id="user-email-display"></p>
+<a href="/account/" class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary font-label-md text-label-md py-2.5 rounded-lg hover:bg-primary-container hover:text-on-primary-container transition-all duration-300 mb-2">
+<span class="material-symbols-outlined text-[18px]">account_circle</span>
+My Account
+</a>
 <button type="button" id="logout-btn" class="w-full flex items-center justify-center gap-2 border border-outline-variant text-on-surface font-label-md text-label-md py-2.5 rounded-lg hover:bg-surface-container-low transition-all duration-300">
 <span class="material-symbols-outlined text-[18px]">logout</span>
 Log Out
@@ -185,6 +189,22 @@ MULTIVERSE
 </div>
 
 <div id="cart-footer" class="px-6 py-5 border-t border-outline-variant/30 flex-shrink-0 space-y-4">
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<input type="text" id="promo-code-input" placeholder="Promo code" class="flex-1 px-3 py-2 rounded-lg border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 bg-surface-bright transition-all outline-none font-body-md text-[13px] uppercase placeholder:normal-case">
+<button type="button" id="promo-apply-btn" onclick="applyPromoCode()" class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface font-label-md text-label-md text-[13px] hover:bg-surface-container-low transition-all whitespace-nowrap flex-shrink-0">Apply</button>
+</div>
+<p id="promo-message" class="hidden text-[12px]"></p>
+</div>
+<div id="promo-discount-row" class="hidden flex items-center justify-between">
+<span class="font-label-md text-label-md text-primary flex items-center gap-1">
+Promo <span id="promo-applied-code" class="font-mono"></span>
+<button type="button" onclick="removePromoCode()" aria-label="Remove promo code" class="text-on-surface-variant/50 hover:text-error transition-colors inline-flex items-center">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+</span>
+<span id="promo-discount-amount" class="font-label-md text-label-md text-primary"></span>
+</div>
 <div class="flex items-center justify-between">
 <span class="font-label-md text-label-md text-on-surface-variant">Total</span>
 <span id="cart-total" class="font-headline-md text-headline-md text-on-surface">$0.00</span>
@@ -389,16 +409,35 @@ Proceed to Payment
     }
 
     var cart = loadCart();
+    // Not persisted — a promo code is re-validated against whatever's in
+    // the cart right now, so it never survives a page reload or a cart
+    // change stale.
+    var appliedPromo = null;
 
     function formatDollars(cents) {
-        return '$' + (cents / 100).toFixed(2);
+        var sign = cents < 0 ? '-' : '';
+        return sign + '$' + (Math.abs(cents) / 100).toFixed(2);
     }
 
-    function cartTotalCents() {
+    function cartSubtotalCents() {
         return cart.reduce(function (sum, item) { return sum + item.priceCents * item.qty; }, 0);
+    }
+    function cartDiscountCents() {
+        return appliedPromo ? appliedPromo.discountCents : 0;
+    }
+    function cartTotalCents() {
+        return Math.max(0, cartSubtotalCents() - cartDiscountCents());
     }
     function cartCount() {
         return cart.reduce(function (sum, item) { return sum + item.qty; }, 0);
+    }
+
+    function clearAppliedPromo() {
+        appliedPromo = null;
+        var messageEl = document.getElementById('promo-message');
+        var discountRow = document.getElementById('promo-discount-row');
+        if (messageEl) messageEl.classList.add('hidden');
+        if (discountRow) discountRow.classList.add('hidden');
     }
 
     function render() {
@@ -435,6 +474,19 @@ Proceed to Payment
 
         document.getElementById('cart-total').textContent = formatDollars(cartTotalCents());
 
+        var discountRow = document.getElementById('promo-discount-row');
+        if (discountRow) {
+            if (appliedPromo && (appliedPromo.discountCents > 0 || appliedPromo.bonusVerse > 0)) {
+                discountRow.classList.remove('hidden');
+                document.getElementById('promo-applied-code').textContent = appliedPromo.code;
+                document.getElementById('promo-discount-amount').textContent = appliedPromo.discountCents > 0
+                    ? '-' + formatDollars(appliedPromo.discountCents)
+                    : '+' + appliedPromo.bonusVerse + ' Verse';
+            } else {
+                discountRow.classList.add('hidden');
+            }
+        }
+
         var count = cartCount();
         badge.textContent = count;
         badge.classList.toggle('show', count > 0);
@@ -449,6 +501,7 @@ Proceed to Payment
         } else {
             cart.push({ id: data.id, name: data.name, priceCents: data.priceCents, priceLabel: data.priceLabel, icon: data.icon, qty: 1 });
         }
+        clearAppliedPromo(); // cart changed — a promo code needs re-applying against the new contents
         render();
         window.openCart();
     }
@@ -460,13 +513,66 @@ Proceed to Payment
         if (item.qty <= 0) {
             cart = cart.filter(function (i) { return i.id !== id; });
         }
+        clearAppliedPromo();
         render();
     }
 
     function removeItem(id) {
         cart = cart.filter(function (i) { return i.id !== id; });
+        clearAppliedPromo();
         render();
     }
+
+    window.applyPromoCode = function () {
+        var input = document.getElementById('promo-code-input');
+        var messageEl = document.getElementById('promo-message');
+        var applyBtn = document.getElementById('promo-apply-btn');
+        var code = input.value.trim();
+        if (!code) return;
+
+        applyBtn.disabled = true;
+        applyBtn.textContent = '…';
+
+        fetch('/.netlify/functions/apply-promo-code', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                code: code,
+                items: cart.map(function (i) { return { id: i.id, qty: i.qty }; })
+            })
+        }).then(function (res) { return res.json(); }).then(function (data) {
+            applyBtn.disabled = false;
+            applyBtn.textContent = 'Apply';
+            messageEl.classList.remove('hidden');
+            if (data.valid) {
+                appliedPromo = { code: data.code, discountCents: data.discountCents || 0, bonusVerse: data.bonusVerse || 0 };
+                messageEl.textContent = data.discountCents > 0
+                    ? 'Promo applied — ' + formatDollars(data.discountCents) + ' off.'
+                    : '+' + data.bonusVerse + ' bonus Verse will be added to this order.';
+                messageEl.className = 'text-[12px] text-primary';
+            } else {
+                appliedPromo = null;
+                messageEl.textContent = data.error || "That code didn't work.";
+                messageEl.className = 'text-[12px] text-error';
+            }
+            render();
+        }).catch(function () {
+            applyBtn.disabled = false;
+            applyBtn.textContent = 'Apply';
+            appliedPromo = null;
+            messageEl.classList.remove('hidden');
+            messageEl.textContent = 'Could not check that code — please try again.';
+            messageEl.className = 'text-[12px] text-error';
+            render();
+        });
+    };
+
+    window.removePromoCode = function () {
+        var input = document.getElementById('promo-code-input');
+        if (input) input.value = '';
+        clearAppliedPromo();
+        render();
+    };
 
     window.openCart = function () {
         var backdrop = document.getElementById('cart-drawer-backdrop');
@@ -525,7 +631,8 @@ Proceed to Payment
                     'Authorization': 'Bearer ' + idToken
                 },
                 body: JSON.stringify({
-                    items: cart.map(function (i) { return { id: i.id, name: i.name, priceCents: i.priceCents, qty: i.qty }; })
+                    items: cart.map(function (i) { return { id: i.id, name: i.name, priceCents: i.priceCents, qty: i.qty }; }),
+                    promoCode: appliedPromo ? appliedPromo.code : undefined
                 })
             });
         }).then(function (res) {
@@ -553,6 +660,7 @@ Proceed to Payment
 <!-- ===== Account login / sign-up (Firebase Authentication) ===== -->
 <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore-compat.js"></script>
 <script>
 (function () {
     // If the Firebase SDK failed to load (blocked network, ad blocker, etc.),
@@ -576,6 +684,10 @@ Proceed to Payment
     firebase.initializeApp(firebaseConfig);
     var auth = firebase.auth();
     var googleProvider = new firebase.auth.GoogleAuthProvider();
+    // Exposed for any page's own script (e.g. the Account page) to read a
+    // player's balance/purchase history — this runs once, right here, so it
+    // exists well before auth state resolves.
+    window.multiverseDb = firebase.firestore();
 
     var loginMenuWrap = document.getElementById('login-menu-wrap');
     var userMenuWrap = document.getElementById('user-menu-wrap');
@@ -611,6 +723,10 @@ Proceed to Payment
         // via window, so it can tell whether checkout should be allowed to
         // proceed and, if so, pull a fresh ID token straight off this user.
         window.multiverseCurrentUser = user || null;
+        // Lets any page's own script (the page content, injected earlier in
+        // this layout, which runs BEFORE this script block loads) react to
+        // auth state once it's actually known, instead of racing it.
+        window.dispatchEvent(new CustomEvent('multiverse:authstate', { detail: { user: user || null } }));
 
         if (user) {
             loginMenuWrap.classList.add('hidden');
