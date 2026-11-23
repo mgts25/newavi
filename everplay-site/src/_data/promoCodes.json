@@ -1,0 +1,13 @@
+{
+  "codes": [
+    {
+      "code": "WELCOME10",
+      "active": false,
+      "type": "percent_off",
+      "value": 10,
+      "appliesTo": "both",
+      "expiresAt": "",
+      "maxUses": 0
+    }
+  ]
+}
