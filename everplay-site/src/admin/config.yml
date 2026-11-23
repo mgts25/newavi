@@ -231,6 +231,46 @@ collections:
               - { label: "Responsibilities", name: "responsibilities", widget: "text" }
               - { label: "Requirements", name: "requirements", widget: "text" }
 
+  - name: "promoCodes"
+    label: "Promo Codes"
+    files:
+      - name: "promoCodes"
+        label: "Promo Codes"
+        file: "everplay-site/src/_data/promoCodes.json"
+        fields:
+          - label: "Codes"
+            name: "codes"
+            widget: "list"
+            summary: "{{code}} — {{type}}"
+            hint: "Codes a player can type into the cart at checkout. Not case-sensitive — WELCOME10 and welcome10 both work."
+            fields:
+              - { label: "Code", name: "code", widget: "string", hint: "What the player types, e.g. WELCOME10" }
+              - { label: "Active", name: "active", widget: "boolean", default: true, hint: "Turn off to disable a code without deleting it." }
+              - label: "Type"
+                name: "type"
+                widget: "select"
+                default: "percent_off"
+                options:
+                  - { label: "Percent off order", value: "percent_off" }
+                  - { label: "Dollar amount off order", value: "amount_off" }
+                  - { label: "Bonus Verse (no discount)", value: "bonus_verse" }
+                hint: "What this code does when applied."
+              - label: "Value"
+                name: "value"
+                widget: "number"
+                hint: "Percent off: enter 10 for 10%. Dollar amount off: enter the amount in CENTS, e.g. 500 for $5.00 off. Bonus Verse: enter the amount of extra Verse to grant on top of the purchase."
+              - label: "Applies To"
+                name: "appliesTo"
+                widget: "select"
+                default: "both"
+                options:
+                  - { label: "Verse packages only (Shop page)", value: "verse" }
+                  - { label: "Packs only (Packs page)", value: "tiers" }
+                  - { label: "Both", value: "both" }
+                hint: "Which items in the cart this code is allowed to apply to. A code is rejected if the cart has nothing matching this."
+              - { label: "Expires On (optional)", name: "expiresAt", widget: "datetime", required: false, hint: "Leave blank for a code that never expires." }
+              - { label: "Max Uses (optional)", name: "maxUses", widget: "number", required: false, value_type: "int", hint: "Leave blank (or 0) for unlimited uses. Counts successful purchases only." }
+
   - name: "shop"
     label: "Verse Shop"
     files:
