@@ -7,6 +7,27 @@
 const Stripe = require('stripe');
 const verseShop = require('../../src/_data/verseShop.json');
 const pricing = require('../../src/_data/pricing.json');
+const { validatePromo, normalizeCode } = require('./lib/promo');
+const { admin, getFirebaseApp } = require('./lib/firebaseAdmin');
+
+// How many times a promo code has already been redeemed, so a code with a
+// "Max Uses" limit stops working once it's hit — read straight from
+// Firestore (the stripe webhook increments this same counter once a
+// purchase using the code actually completes). If Firestore can't be
+// reached for some reason, we fail OPEN (treat it as unused) rather than
+// blocking every checkout on a Firestore hiccup — the only real-world risk
+// is a limited code getting redeemed slightly more times than intended.
+async function getPromoUsedCount(code) {
+  try {
+    getFirebaseApp();
+    const db = admin.firestore();
+    const doc = await db.collection('promoRedemptions').doc(normalizeCode(code)).get();
+    return (doc.exists && doc.data().count) || 0;
+  } catch (err) {
+    console.warn('Could not read promo redemption count — proceeding without a usage-limit check:', err && err.message);
+    return 0;
+  }
+}
 
 // ----- Require a real, signed-in account before anyone can start checkout -----
 // This is a server-side check, not just a UI nicety — anyone could otherwise
@@ -184,8 +205,48 @@ exports.handler = async function (event) {
     };
   }
 
+  // ----- Promo code (optional) -----
+  // Re-validated here from scratch — never trust the cart preview's result —
+  // since this is the one place a real charge is about to happen.
+  let appliedPromo = null;
+  if (payload.promoCode) {
+    const usedCount = await getPromoUsedCount(payload.promoCode);
+    const validation = validatePromo(payload.promoCode, metaCartItems, usedCount);
+    if (!validation.ok) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: validation.error }),
+      };
+    }
+    appliedPromo = validation;
+  }
+
   const siteUrl = process.env.URL || 'https://multiversegames.net';
   const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
+  // A percent/amount-off promo becomes a one-off Stripe coupon scoped to
+  // exactly this session's discount amount (computed above from only the
+  // cart items the code actually applies to) — this sidesteps Stripe
+  // Checkout's lack of per-line-item discounts while still charging exactly
+  // the right total.
+  let discounts;
+  if (appliedPromo && appliedPromo.discountCents > 0) {
+    try {
+      const coupon = await stripe.coupons.create({
+        amount_off: appliedPromo.discountCents,
+        currency: 'usd',
+        duration: 'once',
+        name: 'Promo ' + appliedPromo.code,
+      });
+      discounts = [{ coupon: coupon.id }];
+    } catch (err) {
+      console.error('Could not create Stripe coupon for promo code', appliedPromo.code, ':', err && err.message);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Could not apply promo code — please try again.' }),
+      };
+    }
+  }
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -200,16 +261,30 @@ exports.handler = async function (event) {
       // simple digital-goods checkout, so it's switched off per-session.
       managed_payments: { enabled: false },
       line_items: lineItems,
+      discounts: discounts,
       // Pre-fill with the signed-in account's verified email, now that we
       // know who's actually checking out.
       customer_email: signedInUser.email || undefined,
       // Read back by netlify/functions/stripe-webhook.js once payment
       // completes — this is how it knows WHO to credit Verse to and WHAT
       // was bought, without trusting anything from the browser at that point.
-      metadata: {
-        firebaseUid: signedInUser.sub,
-        cartItems: cartItemsJson,
-      },
+      // Promo fields carry the ALREADY-RESOLVED discount/bonus amounts (not
+      // just the code), so fulfillment always matches exactly what this
+      // session actually charged, even if the code's definition in the CMS
+      // changes before the webhook fires.
+      metadata: Object.assign(
+        {
+          firebaseUid: signedInUser.sub,
+          cartItems: cartItemsJson,
+        },
+        appliedPromo
+          ? {
+              promoCode: appliedPromo.code,
+              promoDiscountCents: String(appliedPromo.discountCents),
+              promoBonusVerse: String(appliedPromo.bonusVerse),
+            }
+          : {}
+      ),
       success_url: siteUrl + '/shop/?payment=success',
       cancel_url: siteUrl + '/shop/?payment=cancelled',
     });

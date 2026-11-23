@@ -20,65 +20,13 @@
 // the claim already taken and stops immediately.
 
 const Stripe = require('stripe');
-const admin = require('firebase-admin');
-const verseShop = require('../../src/_data/verseShop.json');
-const pricing = require('../../src/_data/pricing.json');
-
-let _app = null;
-function getFirebaseApp() {
-  if (_app) return _app;
-
-  const raw = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
-  if (!raw) {
-    throw new Error('FIREBASE_SERVICE_ACCOUNT_JSON is not set.');
-  }
-
-  // Accept either the service account JSON pasted as-is into Netlify, or a
-  // base64-encoded copy of it (handy if multi-line/quote formatting gets
-  // mangled when pasting a private_key field into Netlify's UI).
-  let jsonText = raw.trim();
-  if (!jsonText.startsWith('{')) {
-    jsonText = Buffer.from(jsonText, 'base64').toString('utf8');
-  }
-
-  const serviceAccount = JSON.parse(jsonText);
-  _app = admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
-  return _app;
-}
-
-// Same trusted data files used by create-checkout-session.js — resolves a
-// cart item id back into what it actually is: how much Verse it's worth (if
-// any) and what to show on the receipt.
-function buildItemLookup() {
-  const lookup = {};
-
-  (verseShop.packages || []).forEach(function (pkg) {
-    if (pkg && pkg.id) {
-      lookup[pkg.id] = {
-        kind: 'verse',
-        label: pkg.totalVerse + ' Verse' + (pkg.bonusAmount > 0 ? ' (incl. +' + pkg.bonusAmount + ' bonus)' : ''),
-        verseAmount: pkg.totalVerse,
-        priceCents: pkg.priceCents,
-      };
-    }
-  });
-
-  (pricing.tiers || []).forEach(function (tier) {
-    if (tier && tier.id) {
-      lookup[tier.id] = {
-        kind: 'tier',
-        label: tier.name,
-        verseAmount: 0,
-        priceCents: tier.priceCents,
-      };
-    }
-  });
-
-  return lookup;
-}
+const { admin, getFirebaseApp } = require('./lib/firebaseAdmin');
+const { buildItemLookup } = require('./lib/shopData');
+const { normalizeCode } = require('./lib/promo');
 
 function formatDollars(cents) {
-  return '$' + (cents / 100).toFixed(2);
+  var sign = cents < 0 ? '-' : '';
+  return sign + '$' + (Math.abs(cents) / 100).toFixed(2);
 }
 
 async function sendReceiptEmail(toEmail, breakdown, totalCents, newVerseBalance, sessionId) {
@@ -224,40 +172,80 @@ exports.handler = async function (event) {
   const lookup = buildItemLookup();
   const breakdown = [];
   let verseCredit = 0;
-  let totalCents = 0;
 
   cartItems.forEach(function (ci) {
     const entry = ci && ci.id ? lookup[ci.id] : undefined;
     if (!entry) return; // unknown/stale id — skip rather than fail the whole webhook
     const qty = Math.max(1, Math.min(99, parseInt(ci.qty, 10) || 1));
     breakdown.push({ label: entry.label, qty: qty, priceCents: entry.priceCents });
-    totalCents += entry.priceCents * qty;
     if (entry.kind === 'verse') {
       verseCredit += entry.verseAmount * qty;
     }
   });
 
+  // Promo code, if one was applied at checkout. These values were already
+  // resolved and locked in at checkout-session-creation time (see
+  // create-checkout-session.js) — re-deriving them here from the promo
+  // code's current CMS definition could disagree with what the buyer was
+  // actually charged if someone edits the code in the meantime, so we trust
+  // the session's own metadata instead.
+  const promoCode = session.metadata && session.metadata.promoCode ? normalizeCode(session.metadata.promoCode) : null;
+  const promoDiscountCents = promoCode ? parseInt(session.metadata.promoDiscountCents, 10) || 0 : 0;
+  const promoBonusVerse = promoCode ? parseInt(session.metadata.promoBonusVerse, 10) || 0 : 0;
+
+  if (promoDiscountCents > 0) {
+    breakdown.push({ label: 'Promo code (' + promoCode + ')', qty: 1, priceCents: -promoDiscountCents });
+  }
+  verseCredit += promoBonusVerse;
+
+  // The actual amount Stripe charged — authoritative over re-summing the
+  // breakdown ourselves, so the receipt always matches the real charge even
+  // with a discount (or any future tax/fee Stripe adds) applied.
+  const totalCents = typeof session.amount_total === 'number' ? session.amount_total : null;
+
+  // Every completed checkout gets a purchase-history record, even one with
+  // no Verse in it (e.g. a Packs-only purchase) — the account page and any
+  // future support lookup should see the full order history either way.
+  const userRef = db.collection('users').doc(uid);
   let newBalance = null;
+
   if (verseCredit > 0) {
-    const userRef = db.collection('users').doc(uid);
     await userRef.set(
       { verseBalance: admin.firestore.FieldValue.increment(verseCredit) },
       { merge: true }
     );
-    await userRef.collection('purchases').doc(session.id).set({
-      verseCredited: verseCredit,
-      totalCents: totalCents,
-      items: breakdown,
-      createdAt: admin.firestore.FieldValue.serverTimestamp(),
-    });
+  }
 
+  await userRef.collection('purchases').doc(session.id).set({
+    verseCredited: verseCredit,
+    totalCents: totalCents !== null ? totalCents : breakdown.reduce(function (s, l) { return s + l.priceCents * l.qty; }, 0),
+    items: breakdown,
+    promoCode: promoCode || null,
+    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+  });
+
+  if (verseCredit > 0) {
     const fresh = await userRef.get();
     newBalance = (fresh.exists && fresh.data().verseBalance) || verseCredit;
   }
 
+  // Track redemptions for any max-use limit on the code — safe to do as a
+  // plain increment (rather than a transaction) because the idempotency
+  // lock claimed above already guarantees this whole handler only runs once
+  // per completed checkout session.
+  if (promoCode) {
+    await db.collection('promoRedemptions').doc(promoCode).set(
+      {
+        count: admin.firestore.FieldValue.increment(1),
+        lastUsedAt: admin.firestore.FieldValue.serverTimestamp(),
+      },
+      { merge: true }
+    );
+  }
+
   const email = (session.customer_details && session.customer_details.email) || session.customer_email;
   try {
-    await sendReceiptEmail(email, breakdown, totalCents, newBalance, session.id);
+    await sendReceiptEmail(email, breakdown, totalCents !== null ? totalCents : 0, newBalance, session.id);
   } catch (err) {
     // Verse is already credited at this point — a failed email shouldn't
     // make Stripe think the whole webhook failed and retry it (which would
