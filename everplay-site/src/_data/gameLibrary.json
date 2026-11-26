@@ -55,7 +55,7 @@
       "accent": "primary",
       "comingSoon": false,
       "video": "/images/uploads/DriftArmor_video_compressed.mp4",
-      "image": "/images/uploads/DriftArmor_background.png",
+      "image": "/images/uploads/DriftArmor_background_1.png",
       "appIcon": "/images/uploads/DRIFTARMOR_AppIcon.png"
     },
     {
@@ -108,7 +108,7 @@
       "accent": "primary",
       "comingSoon": false,
       "video": "/images/uploads/Soccer_video_compressed.mp4",
-      "image": "/images/uploads/Soccer_background.png",
+      "image": "/images/uploads/Soccer_background_1.png",
       "appIcon": "/images/uploads/SOCCER_AppIcon.png"
     }
   ]
