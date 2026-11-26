@@ -68,13 +68,22 @@ body {
 .game-card-shadow { box-shadow: 0px 4px 12px rgba(0,0,0,0.05); }
 .game-card-shadow:hover { box-shadow: 0px 8px 24px rgba(46, 184, 75, 0.15); }
 
-/* The cover image banner shows first; index.njk's IntersectionObserver adds
-   .video-active to the card after a short on-screen delay, which is what
-   actually reveals and plays the gameplay video (no longer gated behind
-   :hover). */
+/* The cover image banner shows first; index.njk's hover/tap handlers add
+   .video-active to the card to reveal and play the gameplay video preview
+   (hover on mouse/trackpad, tap on touch — see the script at the bottom of
+   index.njk). */
 .video-container { display: none; z-index: 1; }
 .group.video-active .video-container { display: block; }
 .group.video-active .static-thumb { display: none; }
+
+/* Small "tap to preview" affordance, since touch devices have no hover.
+   Hidden by default (and whenever a preview is already playing); on
+   touch-primary devices it fades in over the resting cover/video so people
+   know the card responds to a tap. */
+.video-tap-hint { opacity: 0; transition: opacity 0.2s ease; z-index: 2; }
+@media (hover: none) {
+  .group:not(.video-active) .video-tap-hint { opacity: 0.85; }
+}
 
 /* The app icon / platform badges shown in the info row below the cover art.
    flex-shrink:0 (via shrink-0 in the markup) keeps them a fixed square even
