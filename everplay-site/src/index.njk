@@ -28,15 +28,21 @@ permalink: /
 <div class="static-thumb w-full h-full bg-cover bg-center" style="background-image: url('{{ game.image }}');"></div>
 {% if game.video %}
 <div class="video-container absolute inset-0">
-<video class="w-full h-full object-cover" loop muted playsinline>
+<video class="w-full h-full object-cover" loop muted playsinline preload="none">
 <source src="{{ game.video }}" type="video/mp4">
 </video>
 </div>
+<div class="video-tap-hint absolute inset-0 flex items-center justify-center pointer-events-none">
+<span class="material-symbols-outlined text-white text-[40px]" style="font-variation-settings: 'FILL' 1; text-shadow: 0 2px 10px rgba(0,0,0,0.45);">play_circle</span>
+</div>
 {% endif %}
 {% else %}
-<video class="w-full h-full object-cover" loop muted playsinline>
+<video class="w-full h-full object-cover" loop muted playsinline preload="none">
 <source src="{{ game.video }}" type="video/mp4">
 </video>
+<div class="video-tap-hint absolute inset-0 flex items-center justify-center pointer-events-none">
+<span class="material-symbols-outlined text-white text-[40px]" style="font-variation-settings: 'FILL' 1; text-shadow: 0 2px 10px rgba(0,0,0,0.45);">play_circle</span>
+</div>
 {% endif %}
 {% endif %}
 </div>
@@ -76,63 +82,67 @@ permalink: /
 </div>
 </main>
 <script>
-    // Game cards with both a cover image AND a video: show the cover as a
-    // banner first, then swap over to the looping gameplay video after a
-    // short delay, once the card is actually on screen. Cards with no cover
-    // image (continuous-loop tiles) have nothing to show first, so those
-    // just play right away. Either way, scrolling a card out of view pauses
-    // its video (and, for the banner cards, resets back to the cover image)
-    // so the whole sequence replays next time it scrolls back in — and so
-    // the page isn't decoding video for cards no one is looking at.
-    const BANNER_DELAY_MS = 5000;
-    const pendingTimers = new WeakMap();
+    // Game cards with a video now preview it on demand instead of
+    // autoplaying as soon as they scroll into view: on mouse/trackpad
+    // devices the preview plays on hover and stops (back to the cover
+    // image, where there is one) on mouse-out; on touch devices — which
+    // have no hover — the first tap starts the preview and a second tap
+    // stops it, with a small centered play icon (.video-tap-hint, shown
+    // only on touch via the (hover: none) media query in tailwind.css) as
+    // the affordance that the card is tappable. This is what actually
+    // drives Netlify bandwidth down: a video only ever downloads once
+    // someone deliberately asks to see it, rather than every card within
+    // 25% of the viewport decoding its source on every page visit.
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    let currentlyPlaying = null; // the one card (if any) currently previewing
 
-    const bannerCards = [];
-    const plainVideos = [];
+    function playCard(card, video) {
+        if (currentlyPlaying && currentlyPlaying !== card) {
+            stopCard(currentlyPlaying, currentlyPlaying.querySelector('video'));
+        }
+        card.classList.add('video-active');
+        video.currentTime = 0;
+        video.play().catch(() => {});
+        currentlyPlaying = card;
+    }
+
+    function stopCard(card, video) {
+        card.classList.remove('video-active');
+        video.pause();
+        video.currentTime = 0;
+        if (currentlyPlaying === card) currentlyPlaying = null;
+    }
+
+    const videoCards = [];
     document.querySelectorAll('.group').forEach((card) => {
-        const container = card.querySelector('.video-container');
         const video = card.querySelector('video');
         if (!video) return;
-        if (container) {
-            bannerCards.push({ card, container, video });
+        videoCards.push(card);
+
+        if (canHover) {
+            card.addEventListener('mouseenter', () => playCard(card, video));
+            card.addEventListener('mouseleave', () => stopCard(card, video));
         } else {
-            plainVideos.push(video);
+            card.addEventListener('click', () => {
+                if (card.classList.contains('video-active')) {
+                    stopCard(card, video);
+                } else {
+                    playCard(card, video);
+                }
+            });
         }
     });
 
-    const bannerObserver = new IntersectionObserver((entries) => {
+    // Safety net: if a preview is left playing and the card scrolls fully
+    // out of view, stop it — so it doesn't keep playing off-screen, and so
+    // it's back to its resting state next time it scrolls into view.
+    const offscreenObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-            const card = entry.target;
-            const video = card.querySelector('video');
-            if (entry.isIntersecting) {
-                const timer = setTimeout(() => {
-                    card.classList.add('video-active');
-                    video.currentTime = 0;
-                    video.play().catch(() => {});
-                }, BANNER_DELAY_MS);
-                pendingTimers.set(card, timer);
-            } else {
-                clearTimeout(pendingTimers.get(card));
-                pendingTimers.delete(card);
-                card.classList.remove('video-active');
-                video.pause();
-                video.currentTime = 0;
+            if (!entry.isIntersecting && entry.target.classList.contains('video-active')) {
+                stopCard(entry.target, entry.target.querySelector('video'));
             }
         });
-    }, { threshold: 0.25 });
+    }, { threshold: 0 });
 
-    bannerCards.forEach(({ card }) => bannerObserver.observe(card));
-
-    const plainVideoObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            const video = entry.target;
-            if (entry.isIntersecting) {
-                video.play().catch(() => {});
-            } else {
-                video.pause();
-            }
-        });
-    }, { threshold: 0.25 });
-
-    plainVideos.forEach((video) => plainVideoObserver.observe(video));
+    videoCards.forEach((card) => offscreenObserver.observe(card));
 </script>
