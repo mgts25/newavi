@@ -41,7 +41,8 @@
       "icon": "castle",
       "accent": "tertiary-container",
       "comingSoon": false,
-      "video": "/images/uploads/ThreeKingdoms_video_compressed.mp4"
+      "video": "/images/uploads/ThreeKingdoms_video_compressed.mp4",
+      "image": "/images/uploads/ThreeKingdoms_background.png"
     },
     {
       "title": "DRIFTARMOR",
@@ -50,7 +51,8 @@
       "icon": "sports_motorsports",
       "accent": "primary",
       "comingSoon": false,
-      "video": "/images/uploads/DriftArmor_video_compressed.mp4"
+      "video": "/images/uploads/DriftArmor_video_compressed.mp4",
+      "image": "/images/uploads/DriftArmor_background.png"
     },
     {
       "genre": "Adventure",
@@ -100,7 +102,8 @@
       "icon": "sports_soccer",
       "accent": "primary",
       "comingSoon": false,
-      "video": "/images/uploads/Soccer_video_compressed.mp4"
+      "video": "/images/uploads/Soccer_video_compressed.mp4",
+      "image": "/images/uploads/Soccer_background.png"
     }
   ]
 }
