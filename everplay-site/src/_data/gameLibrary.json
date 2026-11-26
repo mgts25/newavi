@@ -19,7 +19,7 @@
       "logo": "/images/uploads/Killbox_logo_trim.png",
       "title": "KILLBOX",
       "icon": "target",
-      "video": "/images/uploads/killbox_video.mp4",
+      "video": "/images/uploads/killbox_video_compressed.mp4",
       "image": "/images/uploads/killbox_background.png",
       "comingSoon": false
     },
@@ -41,7 +41,7 @@
       "icon": "castle",
       "accent": "tertiary-container",
       "comingSoon": false,
-      "video": "/images/uploads/ThreeKingdoms_video.mp4"
+      "video": "/images/uploads/ThreeKingdoms_video_compressed.mp4"
     },
     {
       "title": "DRIFTARMOR",
@@ -80,7 +80,7 @@
       "logo": "/images/uploads/Edge_logo_trim.png",
       "title": "EDGE SURVIVAL",
       "icon": "terrain",
-      "video": "/images/uploads/Edge_video.mp4",
+      "video": "/images/uploads/Edge_video_compressed.mp4",
       "image": "/images/uploads/Edge_background.png",
       "comingSoon": false
     },
@@ -100,7 +100,7 @@
       "icon": "sports_soccer",
       "accent": "primary",
       "comingSoon": false,
-      "video": "/images/uploads/Soccer_video.mp4"
+      "video": "/images/uploads/Soccer_video_compressed.mp4"
     }
   ]
 }
