@@ -7,10 +7,10 @@
       "logo": "/images/uploads/PixelDash_logo_trim.png",
       "title": "PIXEL DASH",
       "icon": "rocket_launch",
+      "appIcon": "/images/uploads/PIXELDASH_AppIcon.png",
       "video": "/images/uploads/PixelDash_video_compressed.mp4",
       "image": "/images/uploads/pixeldash_background.png",
-      "comingSoon": false,
-      "appIcon": "/images/uploads/PIXELDASH_AppIcon.png"
+      "comingSoon": false
     },
     {
       "genre": "First Person",
@@ -19,10 +19,10 @@
       "logo": "/images/uploads/Killbox_logo_trim.png",
       "title": "KILLBOX",
       "icon": "target",
+      "appIcon": "/images/uploads/KILLBOX_AppIcon.png",
       "video": "/images/uploads/killbox_video_compressed.mp4",
       "image": "/images/uploads/killbox_background.png",
-      "comingSoon": false,
-      "appIcon": "/images/uploads/KILLBOX_AppIcon.png"
+      "comingSoon": false
     },
     {
       "genre": "Strategy",
@@ -31,32 +31,32 @@
       "logo": "/images/uploads/Crownhold_logo_trim.png",
       "title": "CROWNHOLD",
       "icon": "swords",
+      "appIcon": "/images/uploads/CROWNHOLD_AppIcon.png",
       "video": "/images/uploads/Crownhold_video_compressed.mp4",
       "image": "/images/uploads/crownhold_background.png",
-      "comingSoon": false,
-      "appIcon": "/images/uploads/CROWNHOLD_AppIcon.png"
+      "comingSoon": false
     },
     {
-      "title": "3 KINGDOMS",
       "genre": "Strategy",
       "price": "Coming Soon",
-      "icon": "castle",
       "accent": "tertiary-container",
-      "comingSoon": false,
+      "title": "3 KINGDOMS",
+      "icon": "castle",
+      "appIcon": "/images/uploads/THREEKINGDOMS_AppIcon.png",
       "video": "/images/uploads/ThreeKingdoms_video_compressed.mp4",
       "image": "/images/uploads/ThreeKingdoms_background.png",
-      "appIcon": "/images/uploads/THREEKINGDOMS_AppIcon.png"
+      "comingSoon": false
     },
     {
-      "title": "DRIFTARMOR",
       "genre": "Racing",
       "price": "Coming Soon",
-      "icon": "sports_motorsports",
       "accent": "primary",
-      "comingSoon": false,
+      "title": "DRIFTARMOR",
+      "icon": "sports_motorsports",
+      "appIcon": "/images/uploads/DRIFTARMOR_AppIcon.png",
       "video": "/images/uploads/DriftArmor_video_compressed.mp4",
       "image": "/images/uploads/DriftArmor_background_1.png",
-      "appIcon": "/images/uploads/DRIFTARMOR_AppIcon.png"
+      "comingSoon": false
     },
     {
       "genre": "Adventure",
@@ -81,15 +81,15 @@
     },
     {
       "genre": "Survival",
-      "price": "Coming Soon",
+      "price": "Free",
       "accent": "tertiary",
       "logo": "/images/uploads/Edge_logo_trim.png",
       "title": "EDGE SURVIVAL",
       "icon": "terrain",
+      "appIcon": "/images/uploads/EDGESURVIVAL_AppIcon.png",
       "video": "/images/uploads/Edge_video_compressed.mp4",
       "image": "/images/uploads/Edge_background.png",
-      "comingSoon": false,
-      "appIcon": "/images/uploads/EDGESURVIVAL_AppIcon.png"
+      "comingSoon": false
     },
     {
       "title": "SNOW SQUAD",
@@ -101,15 +101,15 @@
       "hidden": true
     },
     {
-      "title": "SOCCER FEVER",
       "genre": "Sports",
       "price": "Coming Soon",
-      "icon": "sports_soccer",
       "accent": "primary",
-      "comingSoon": false,
+      "title": "SOCCER FEVER",
+      "icon": "sports_soccer",
+      "appIcon": "/images/uploads/SOCCER_AppIcon.png",
       "video": "/images/uploads/Soccer_video_compressed.mp4",
       "image": "/images/uploads/Soccer_background_1.png",
-      "appIcon": "/images/uploads/SOCCER_AppIcon.png"
+      "comingSoon": false
     }
   ]
 }
